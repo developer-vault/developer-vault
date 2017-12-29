@@ -15,3 +15,6 @@ See [Contributing](https://github.com/LFBVR/developer-vault/blob/master/CONTRIBU
 ## Licensing
 
 [MIT License](https://github.com/LFBVR/developer-vault/blob/master/LICENSE)
+
+## Project guidelines
+We chose to follow [wearehive project guidelines](https://github.com/wearehive/project-guidelines)
