@@ -108,7 +108,7 @@
     "wait-on": "^2.1.0"
   },
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "src/electron/index.js",
   "build": {
     "appId": "org.lfbvr.developer-vault"
   }
