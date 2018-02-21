@@ -4,6 +4,8 @@
 Developer-vault aims to include all services that you use aside from your favorite IDEs. 
 Managing your passwords, notes, SSH sessions, shell commands for each of your projects shall now be a breeze and not that many softwares and files.
 
+[![GitHub license](https://img.shields.io/github/license/developer-vault/developer-vault.svg)](https://github.com/developer-vault/developer-vault/blob/develop/LICENSE)
+
 ## Installing / Getting started
 
 Developer-vault is still in early phases of development and installation instructions should come soon.
