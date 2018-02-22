@@ -111,5 +111,7 @@
   "main": "src/electron/index.js",
   "build": {
     "appId": "org.lfbvr.developer-vault"
-  }
+  },
+  "bugs": "https://github.com/developer-vault/developer-vault/issues",
+  "license": "MIT"
 }

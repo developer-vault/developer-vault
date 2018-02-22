@@ -1,0 +1,17 @@
+platform:
+  - x64
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+environment:
+  GH_TOKEN:
+      secure: w3IDwywIghQC39YKDAB43NqkEJzfju0QTjFGR5d+lY98+u5fxzJPp1iGxBCf/6oN
+  matrix:
+    - nodejs_version: 8
+install:
+  - ps: Install-Product node $env:nodejs_version x64
+  - npm install -g yarn@latest
+  - yarn install
+build_script:
+  - npm run build
