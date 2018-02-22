@@ -1,0 +1,61 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "Last 2 versions",
+                "IE 9"
+              ]
+            }
+          }
+        ],
+        "stage-1",
+        "react"
+      ],
+      "plugins": ["dynamic-import-node"]
+    },
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "Last 2 versions",
+                "IE 9"
+              ]
+            },
+            "modules": false
+          }
+        ],
+        "stage-1",
+        "react"
+      ]
+    },
+    "development": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "Last 2 versions",
+                "IE 9"
+              ]
+            },
+            "modules": false
+          }
+        ],
+        "stage-1",
+        "react"
+      ]
+    }
+  }
+}
