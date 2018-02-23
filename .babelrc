@@ -6,14 +6,18 @@
           "@babel/preset-env",
           {
             "targets": {
-              "electron": "1.7"
+              "browsers": [
+                "> 1%"
+              ]
             }
           }
         ],
         "@babel/preset-stage-1",
         "@babel/preset-react"
       ],
-      "plugins": ["dynamic-import-node"]
+      "plugins": [
+        "dynamic-import-node"
+      ]
     },
     "production": {
       "presets": [
@@ -21,7 +25,9 @@
           "@babel/preset-env",
           {
             "targets": {
-              "electron": "1.7"
+              "browsers": [
+                "> 1%"
+              ]
             },
             "modules": false
           }
@@ -36,7 +42,9 @@
           "@babel/preset-env",
           {
             "targets": {
-              "electron": "1.7"
+              "browsers": [
+                "> 1%"
+              ]
             },
             "modules": false
           }

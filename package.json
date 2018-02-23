@@ -16,7 +16,7 @@
     "wait-and-start": "run-s wait-react start:electron",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
-    "build:electron": "electron-builder --em.main=build/electron.js",
+    "build:electron": "electron-builder --em.main=build/electron.js -p \"onTagOrDraft\"",
     "pack": "run-s build:react pack:electron",
     "pack:electron": "electron-builder --dir  --em.main=build/electron.js",
     "lint": "run-p lint:**",
@@ -66,8 +66,9 @@
     "autoprefixer": "7.1.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "7.2.3",
-    "babel-jest": "20.0.3",
+    "babel-jest": "^22.4.1",
     "babel-loader": "7.1.2",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
     "cross-env": "^5.1.3",
@@ -88,7 +89,7 @@
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
-    "jest": "20.0.4",
+    "jest": "^22.4.2",
     "npm-run-all": "^4.1.2",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -115,5 +116,8 @@
     "directories": {
       "buildResources": "assets"
     }
-  }
+  },
+  "repository": "https://github.com/developer-vault/developer-vault",
+  "bugs": "https://github.com/developer-vault/developer-vault/issues",
+  "license": "MIT"
 }
