@@ -58,14 +58,6 @@
       "node"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
@@ -86,9 +78,7 @@
     "electron-builder": "^19.56.0",
     "eslint": "4.10.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
-    "eslint-plugin-flowtype": "2.39.1",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jest": "^21.12.2",
     "eslint-plugin-jsdoc": "^3.5.0",
