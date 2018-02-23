@@ -54,9 +54,9 @@
     "lint": "exit 0",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
-    "build:electron": "electron-builder -p \"onTagOrDraft\"",
+    "build:electron": "electron-builder --em.main=build/electron.js -p \"onTagOrDraft\"",
     "pack": "run-s build:react pack:electron",
-    "pack:electron": "electron-builder --dir",
+    "pack:electron": "electron-builder --dir  --em.main=build/electron.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
@@ -109,9 +109,16 @@
     "wait-on": "^2.1.0"
   },
   "homepage": "./",
-  "main": "src/electron/index.js",
+  "main": "src/electron.js",
   "build": {
-    "appId": "org.lfbvr.developer-vault"
+    "appId": "org.developer-vault.developer-vault-app",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "repository": "https://github.com/developer-vault/developer-vault",
   "bugs": "https://github.com/developer-vault/developer-vault/issues",
