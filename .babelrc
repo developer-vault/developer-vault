@@ -3,58 +3,46 @@
     "test": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "targets": {
-              "browsers": [
-                "> 1%",
-                "Last 2 versions",
-                "IE 9"
-              ]
+              "electron": "1.7"
             }
           }
         ],
-        "stage-1",
-        "react"
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
       ],
       "plugins": ["dynamic-import-node"]
     },
     "production": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "targets": {
-              "browsers": [
-                "> 1%",
-                "Last 2 versions",
-                "IE 9"
-              ]
+              "electron": "1.7"
             },
             "modules": false
           }
         ],
-        "stage-1",
-        "react"
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
       ]
     },
     "development": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "targets": {
-              "browsers": [
-                "> 1%",
-                "Last 2 versions",
-                "IE 9"
-              ]
+              "electron": "1.7"
             },
             "modules": false
           }
         ],
-        "stage-1",
-        "react"
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
       ]
     }
   }
