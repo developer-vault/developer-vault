@@ -16,9 +16,9 @@
     "wait-and-start": "run-s wait-react start:electron",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
-    "build:electron": "electron-builder",
+    "build:electron": "electron-builder --em.main=build/electron.js",
     "pack": "run-s build:react pack:electron",
-    "pack:electron": "electron-builder --dir",
+    "pack:electron": "electron-builder --dir  --em.main=build/electron.js",
     "lint": "run-p lint:**",
     "lint:js": "eslint ./src --ext=js --ext=jsx --fix",
     "lint:scss": "stylelint \"src/**/*.scss\" --syntax scss --fix",
@@ -115,8 +115,15 @@
     "whatwg-fetch": "2.0.3"
   },
   "homepage": "./",
-  "main": "src/electron/index.js",
+  "main": "src/electron.js",
   "build": {
-    "appId": "org.lfbvr.developer-vault"
+    "appId": "org.developer-vault.developer-vault-app",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }
