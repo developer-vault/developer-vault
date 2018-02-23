@@ -3,6 +3,7 @@ platform:
 cache:
   - node_modules
   - '%APPDATA%\npm-cache'
+  - '%LOCALAPPDATA%/Yarn'
   - '%USERPROFILE%\.electron'
 environment:
   GH_TOKEN:
