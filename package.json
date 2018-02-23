@@ -54,7 +54,7 @@
     "lint": "exit 0",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
-    "build:electron": "electron-builder",
+    "build:electron": "electron-builder -p \"onTagOrDraft\"",
     "pack": "run-s build:react pack:electron",
     "pack:electron": "electron-builder --dir",
     "test": "node scripts/test.js --env=jsdom"
