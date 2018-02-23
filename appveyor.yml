@@ -18,3 +18,7 @@ build_script:
   - npm run lint
   - npm run test
   - npm run build
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: txoGI8lwf7iPBubDacksHK3i51T6a0xuixzRzXlBJGiBEnERi27PiH1NSdO7QDEeyCaRVgpzTYVnrL5hEXkaHXEvlEcsBfwbw8HyGkahBsk=
