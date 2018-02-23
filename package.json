@@ -113,6 +113,7 @@
   "build": {
     "appId": "org.lfbvr.developer-vault"
   },
+  "repository": "https://github.com/developer-vault/developer-vault",
   "bugs": "https://github.com/developer-vault/developer-vault/issues",
   "license": "MIT"
 }
