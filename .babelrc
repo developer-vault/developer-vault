@@ -1,0 +1,49 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "electron": "1.7"
+            }
+          }
+        ],
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
+      ],
+      "plugins": ["dynamic-import-node"]
+    },
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "electron": "1.7"
+            },
+            "modules": false
+          }
+        ],
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
+      ]
+    },
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "electron": "1.7"
+            },
+            "modules": false
+          }
+        ],
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
+      ]
+    }
+  }
+}
