@@ -51,6 +51,7 @@
     "start:electron": "cross-env ELECTRON_START_URL=http://localhost:3000/ electron .",
     "wait-react": "wait-on http://localhost:3000/",
     "wait-and-start": "run-s wait-react start:electron",
+    "lint": "exit 0",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
     "build:electron": "electron-builder",
