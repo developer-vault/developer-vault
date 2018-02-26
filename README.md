@@ -5,6 +5,13 @@ Developer-vault aims to include all services that you use aside from your favori
 Managing your passwords, notes, SSH sessions, shell commands for each of your projects shall now be a breeze and not that many softwares and files.
 
 [![GitHub license](https://img.shields.io/github/license/developer-vault/developer-vault.svg)](https://github.com/developer-vault/developer-vault/blob/develop/LICENSE)
+[![Build status](https://ci.appveyor.com/api/projects/status/w02wxklswxu9iu4x?svg=true)](https://ci.appveyor.com/project/maxence-lefebvre/developer-vault)
+
+**Develop shields** 
+
+[![Build status](https://ci.appveyor.com/api/projects/status/w02wxklswxu9iu4x/branch/develop?svg=true)](https://ci.appveyor.com/project/maxence-lefebvre/developer-vault/branch/develop)
+[![Dependency Status](https://beta.gemnasium.com/badges/github.com/developer-vault/developer-vault.svg)](https://beta.gemnasium.com/projects/github.com/developer-vault/developer-vault)
+
 
 ## Installing / Getting started
 
