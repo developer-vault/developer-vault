@@ -1,0 +1,24 @@
+platform:
+  - x64
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%LOCALAPPDATA%/Yarn'
+  - '%USERPROFILE%\.electron'
+environment:
+  GH_TOKEN:
+      secure: w3IDwywIghQC39YKDAB43NqkEJzfju0QTjFGR5d+lY98+u5fxzJPp1iGxBCf/6oN
+  matrix:
+    - nodejs_version: 8
+install:
+  - ps: Install-Product node $env:nodejs_version x64
+  - npm install -g yarn@latest
+  - yarn install
+build_script:
+  - npm run lint
+  - npm run test
+  - npm run build
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: txoGI8lwf7iPBubDacksHK3i51T6a0xuixzRzXlBJGiBEnERi27PiH1NSdO7QDEeyCaRVgpzTYVnrL5hEXkaHXEvlEcsBfwbw8HyGkahBsk=
