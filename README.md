@@ -10,6 +10,7 @@ Managing your passwords, notes, SSH sessions, shell commands for each of your pr
 **Develop shields** 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/w02wxklswxu9iu4x/branch/develop?svg=true)](https://ci.appveyor.com/project/maxence-lefebvre/developer-vault/branch/develop)
+[![Dependency Status](https://beta.gemnasium.com/badges/github.com/developer-vault/developer-vault.svg)](https://beta.gemnasium.com/projects/github.com/developer-vault/developer-vault)
 
 
 ## Installing / Getting started
