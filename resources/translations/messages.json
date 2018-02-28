@@ -1,0 +1,12 @@
+[
+  {
+    "id": "global.welcome",
+    "defaultMessage": "Welcome !",
+    "filepath": "src/react/App.jsx"
+  },
+  {
+    "id": "global.intro",
+    "defaultMessage": "To get started, edit src/App.js and save to reload.",
+    "filepath": "src/react/App.jsx"
+  }
+]

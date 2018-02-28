@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+
 import logo from 'assets/logo.svg';
 import './App.css';
 
@@ -11,10 +13,18 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">
+            <FormattedMessage
+              id="global.welcome"
+              defaultMessage="Welcome !"
+            />
+          </h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          <FormattedMessage
+            id="global.intro"
+            defaultMessage="To get started, edit src/App.js and save to reload."
+          />
         </p>
       </div>
     );
