@@ -7,7 +7,7 @@ import App from './react/App';
 import AppWrapper from './react/AppWrapper';
 
 ReactDOM.render(
-  <AppWrapper locale="fr">
+  <AppWrapper>
     <App />
   </AppWrapper>,
   document.getElementById('root'),
