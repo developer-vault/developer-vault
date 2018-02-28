@@ -1,0 +1,17 @@
+dist: trusty
+language: node_js
+node_js:
+  - 9
+os:
+  - osx
+  - linux
+cache:
+  yarn: true
+  directories:
+    - node_modules
+addons:
+  apt:
+    packages:
+      - xz-utils
+after_success:
+  - npm run build
