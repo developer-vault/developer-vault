@@ -20,3 +20,7 @@ Object.assign = require('object-assign');
 if (process.env.NODE_ENV === 'test') {
   require('raf').polyfill(global);
 }
+
+// Needed by async/await and Babel 7
+require("babel-polyfill");
+require('raf/polyfill');

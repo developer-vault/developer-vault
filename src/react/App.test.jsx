@@ -7,8 +7,6 @@ import AppWrapper from './AppWrapper';
 
 jest.mock('redux/store');
 
-import AppWrapper from './AppWrapper';
-
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
