@@ -1,0 +1,10 @@
+{
+  "en": {
+    "global.welcome": "Welcome !",
+    "global.intro": "To get started, edit src/App.js and save to reload."
+  },
+  "fr": {
+    "global.welcome": "Bienvenue !",
+    "global.intro": "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."
+  }
+}

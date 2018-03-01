@@ -3,7 +3,11 @@ import { createLogger } from 'redux-logger';
 import ReduxThunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const reducers = combineReducers({});
+import { intlReducer } from 'react-intl-redux';
+
+const reducers = combineReducers({
+  intl: intlReducer,
+});
 
 const middlewares = [ReduxThunkMiddleware];
 

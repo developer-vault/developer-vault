@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2018-02-28T13:45:44.309Z\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"X-Generator: react-intl-po\n"
+
+
+#: resources/translations/messages.json
+#. [global.intro]
+#. defaultMessage is:
+#. To get started, edit src/App.js and save to reload.
+msgid "To get started, edit src/App.js and save to reload."
+msgstr ""
+
+#: resources/translations/messages.json
+#. [global.welcome]
+#. defaultMessage is:
+#. Welcome !
+msgid "Welcome !"
+msgstr ""
