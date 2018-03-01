@@ -4,9 +4,15 @@
   "description": "All-in-one toolbox",
   "author": "developer-vault",
   "dependencies": {
+    "prop-types": "^15.6.1",
     "raven-js": "^3.22.3",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "run-p start:react wait-and-start",
@@ -16,9 +22,9 @@
     "wait-and-start": "run-s wait-react start:electron",
     "build": "run-s build:react build:electron",
     "build:react": "node scripts/build.js",
-    "build:electron": "electron-builder --em.main=build/electron.js -p \"onTagOrDraft\" ",
+    "build:electron": "electron-builder -p \"onTagOrDraft\" ",
     "pack": "run-s build:react pack:electron",
-    "pack:electron": "electron-builder --em.main=build/electron.js --dir",
+    "pack:electron": "electron-builder --dir",
     "lint": "run-p lint:**",
     "lint:js": "eslint ./src --ext=js --ext=jsx --fix",
     "lint:scss": "stylelint \"src/**/*.scss\" --syntax scss --fix",
@@ -96,6 +102,7 @@
     "postcss-loader": "^2.0.8",
     "raf": "^3.4.0",
     "react-dev-utils": "^5.0.0",
+    "redux-mock-store": "^1.5.1",
     "style-loader": "^0.20.2",
     "stylelint": "^9.1.1",
     "sw-precache-webpack-plugin": "^0.11.4",
@@ -116,6 +123,9 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "extraMetadata": {
+      "main": "build/electron.js"
     }
   },
   "repository": "https://github.com/developer-vault/developer-vault",
