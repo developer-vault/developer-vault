@@ -22,5 +22,5 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 // Needed by async/await and Babel 7
-require("babel-polyfill");
+require("@babel/polyfill");
 require('raf/polyfill');
