@@ -10,6 +10,7 @@
   "rules": {
     "no-use-before-define": 0,
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+    "import/no-extraneous-dependencies": 0,
     "jsdoc/check-param-names": 1,
     "jsdoc/check-tag-names": 1,
     "jsdoc/check-types": 1,
