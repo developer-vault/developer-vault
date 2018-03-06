@@ -1,3 +1,6 @@
+// eslint does not allow me to put electron in devDependencies
+// electron-builder does not allow me to put electron in dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, dialog, shell } = require('electron');
 
 const name = app.getName();
@@ -30,12 +33,12 @@ module.exports = {
         if (!focusedWindow) {
           return;
         }
-        const { webContents: { isDevToolsOpened, closeDevTools, openDevTools } } = focusedWindow;
+        const { webContents } = focusedWindow;
 
-        if (isDevToolsOpened()) {
-          closeDevTools();
+        if (webContents.isDevToolsOpened()) {
+          webContents.closeDevTools();
         } else {
-          openDevTools({ mode: 'detach' });
+          webContents.openDevTools({ mode: 'detach' });
         }
       },
     },

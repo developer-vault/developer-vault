@@ -6,7 +6,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.40",
     "app-module-path": "^2.2.0",
-    "electron": "^1.7.12",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "raven-js": "^3.22.3",
@@ -96,6 +95,7 @@
     "css-loader": "^0.28.7",
     "dotenv": "^5.0.1",
     "dotenv-expand": "^4.0.1",
+    "electron": "^1.7.12",
     "electron-builder": "^19.0.0",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",

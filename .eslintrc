@@ -68,6 +68,9 @@
     }]
   },
   "settings": {
+    "import/core-module": [
+      "electron"
+    ],
     "import/resolver": {
       "node": {
         "extensions": [

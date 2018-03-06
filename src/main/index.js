@@ -1,3 +1,6 @@
+// eslint does not allow me to put electron in devDependencies
+// electron-builder does not allow me to put electron in dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies
 const electron = require('electron');
 // app - Module to control application life.
 // BrowserWindow - Module to create native browser window.

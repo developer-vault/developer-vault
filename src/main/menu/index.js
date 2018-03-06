@@ -1,3 +1,6 @@
+// eslint does not allow me to put electron in devDependencies
+// electron-builder does not allow me to put electron in dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { Menu } = require('electron');
 
 const { OPEN_MENU_POPUP } = require('common/events');
