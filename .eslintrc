@@ -76,6 +76,7 @@
         ],
         "moduleDirectory": [
           "./src/",
+          "./src/renderer",
           "./node_modules/"
         ]
       }

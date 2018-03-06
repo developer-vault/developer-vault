@@ -19,6 +19,30 @@ module.exports = {
       type: 'separator',
     },
     {
+      label: 'Toggle Dev Tools',
+      /**
+       * On Click, toggle developer tools.
+       *
+       * @param {Object} item - The item clicked.
+       * @param {Object} focusedWindow - The windows currently focused.
+       */
+      click(item, focusedWindow) {
+        if (!focusedWindow) {
+          return;
+        }
+        const { webContents: { isDevToolsOpened, closeDevTools, openDevTools } } = focusedWindow;
+
+        if (isDevToolsOpened()) {
+          closeDevTools();
+        } else {
+          openDevTools({ mode: 'detach' });
+        }
+      },
+    },
+    {
+      type: 'separator',
+    },
+    {
       label: 'About',
       /**
        * On click, open dialog.
@@ -30,7 +54,7 @@ module.exports = {
           details: `
           Thanks :
           - Sentry for the free OSS organization.
-          
+          -
           Licensed under MIT License`,
           buttons: [],
         });

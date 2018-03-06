@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { send } from 'services/ipc';
+
+import { OPEN_MENU_POPUP } from 'common/events';
+
 import logo from 'assets/logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    isMenuPopUpOpen: false,
+  };
+
+  onClickButton = async () => {
+    this.setState({ isMenuPopUpOpen: await send(OPEN_MENU_POPUP) });
+  };
+
   /**
    * Renders the component.
    */
@@ -25,6 +37,9 @@ class App extends Component {
             id="global.intro"
             defaultMessage="To get started, edit src/App.js and save to reload."
           />
+        </p>
+        <p>
+          <button onClick={this.onClickButton}>Test IPC : { this.state.isMenuPopUpOpen }</button>
         </p>
       </div>
     );

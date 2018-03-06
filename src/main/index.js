@@ -6,7 +6,10 @@ const { app, BrowserWindow } = electron;
 const path = require('path');
 const url = require('url');
 
-const { makeMenu } = require('./app/menu');
+// Allow using `require('common/events'); from inside main process
+require('app-module-path').addPath(path.join(__dirname, '..'));
+
+const { makeMenu } = require('./menu');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -17,7 +20,12 @@ let mainWindow;
  */
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
 
   // load the index.html of the app.
   const startUrl = process.env.ELECTRON_START_URL || url.format({
