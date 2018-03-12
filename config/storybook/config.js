@@ -9,7 +9,7 @@ import enLocaleData from 'react-intl/locale-data/en';
 import frLocaleData from 'react-intl/locale-data/fr';
 
 // Can't use paths.js here because this process can't access fs.
-import messages from '../../src/i18n/messages.json';
+import messages from '../../src/renderer/i18n/messages.json';
 
 const getMessages = locale => messages[locale];
 
@@ -102,7 +102,7 @@ storybook.addDecorator(withKnobs);
 // ================= STORIES LOADER =================
 const loadStories = () => {
   // Can't use paths.js here because this process can't access fs.
-  const req = require.context('../../src/react', true, /\.stories\.jsx$/);
+  const req = require.context('../../src/renderer/react', true, /\.stories\.jsx$/);
   req.keys().forEach(filename => req(filename));
 };
 
