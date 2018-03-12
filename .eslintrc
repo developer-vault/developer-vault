@@ -68,6 +68,9 @@
     }]
   },
   "settings": {
+    "import/core-module": [
+      "electron"
+    ],
     "import/resolver": {
       "node": {
         "extensions": [
@@ -76,6 +79,7 @@
         ],
         "moduleDirectory": [
           "./src/",
+          "./src/renderer",
           "./node_modules/"
         ]
       }

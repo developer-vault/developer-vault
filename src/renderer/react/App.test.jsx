@@ -5,7 +5,7 @@ import store from 'redux/store';
 import App from './App';
 import AppWrapper from './AppWrapper';
 
-jest.mock('redux/store');
+jest.mock('renderer/redux/store');
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
