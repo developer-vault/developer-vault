@@ -36,7 +36,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "extract:messages": "react-intl-cra src/**/*.jsx -o resources/translations/messages.json",
     "extract:pot": "react-intl-po json2pot resources/translations/messages.json -o resources/translations/messages.pot",
-    "extract:po": "react-intl-po po2json resources/translations/*.po -m resources/translations/messages.json -o src/i18n/messages.json",
+    "extract:po": "react-intl-po po2json resources/translations/*.po -m resources/translations/messages.json -o src/renderer/i18n/messages.json",
     "storybook": "start-storybook -p 3001 -c ./config/storybook",
     "storybook:build": "build-storybook -c ./config/storybook -o storybook/"
   },
