@@ -17,7 +17,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "start": "run-p start:react wait-and-start",
@@ -34,9 +35,9 @@
     "lint:js": "eslint ./src --ext=js --ext=jsx --fix",
     "lint:scss": "stylelint \"src/**/*.scss\" --syntax scss --fix",
     "test": "node scripts/test.js --env=jsdom",
-    "extract:messages": "react-intl-cra src/**/*.jsx -o resources/translations/messages.json",
+    "extract:messages": "react-intl-cra src/renderer/**/*.{js,jsx} -o resources/translations/messages.json",
     "extract:pot": "react-intl-po json2pot resources/translations/messages.json -o resources/translations/messages.pot",
-    "extract:po": "react-intl-po po2json resources/translations/*.po -m resources/translations/messages.json -o src/i18n/messages.json"
+    "extract:po": "react-intl-po po2json resources/translations/*.po -m resources/translations/messages.json -o src/renderer/i18n/messages.json"
   },
   "jest": {
     "collectCoverageFrom": [

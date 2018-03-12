@@ -1,10 +1,1 @@
-{
-  "en": {
-    "global.welcome": "Welcome !",
-    "global.intro": "To get started, edit src/App.js and save to reload."
-  },
-  "fr": {
-    "global.welcome": "Bienvenue !",
-    "global.intro": "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."
-  }
-}
+{"en":{"app.register.password.strength.too_guessable":"","app.register.password.strength.very_guessable":"","app.register.password.strength.somewhat_guessable":"","app.register.password.strength.safely_unguessable":"","app.register.password.strength.very_unguessable":"","app.register.password.strength":"Password strength:"},"fr":{"app.register.password.strength.too_guessable":"Trop facilement devinable","app.register.password.strength.very_guessable":"Facilement devinable","app.register.password.strength.somewhat_guessable":"Devinable dans une certaine mesure","app.register.password.strength.safely_unguessable":"Plutôt undevinable","app.register.password.strength.very_unguessable":"Très dur à deviner","app.register.password.strength":"Complexité du mot de passe :"}}

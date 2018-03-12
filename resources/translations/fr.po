@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-02-28T13:45:44.309Z\n"
+"POT-Creation-Date: 2018-03-12T13:10:51.589Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,16 +12,50 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. [global.intro]
+#. [app.register.password.strength]
 #. defaultMessage is:
-#. To get started, edit src/App.js and save to reload.
+#. Password strength:
 #: resources/translations/messages.json
-msgid "To get started, edit src/App.js and save to reload."
-msgstr "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."
+msgid "Password strength:"
+msgstr "Complexité du mot de passe :"
 
-#. [global.welcome]
+#. [app.register.password.strength.safely_unguessable] - Description of a safely unguessable password
 #. defaultMessage is:
-#. Welcome !
+#. Safely unguessable
 #: resources/translations/messages.json
-msgid "Welcome !"
-msgstr "Bienvenue !"
+msgid "Safely unguessable"
+msgstr "Plutôt undevinable"
+
+#. [app.register.password.strength.somewhat_guessable] - Description of a somewhat guessable password
+#. defaultMessage is:
+#. Somewhat guessable
+#: resources/translations/messages.json
+msgid "Somewhat guessable"
+msgstr "Devinable dans une certaine mesure"
+
+#. [app.register.password.strength.too_guessable] - Description of a too guessable password
+#. defaultMessage is:
+#. Too guessable
+#: resources/translations/messages.json
+msgid "Too guessable"
+msgstr "Trop facilement devinable"
+
+#. [app.register.password.strength.very_guessable] - Description of a very guessable password
+#. defaultMessage is:
+#. Very guessable
+#: resources/translations/messages.json
+msgid "Very guessable"
+msgstr "Facilement devinable"
+
+#. [app.register.password.strength.very_unguessable] - Description of a very unguessable password
+#. defaultMessage is:
+#. Very unguessable
+#: resources/translations/messages.json
+msgid "Very unguessable"
+msgstr "Très dur à deviner"
+
+#~ msgid "To get started, edit src/App.js and save to reload."
+#~ msgstr "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."
+
+#~ msgid "Welcome !"
+#~ msgstr "Bienvenue !"

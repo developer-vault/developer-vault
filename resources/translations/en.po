@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-02-28T13:45:44.309Z\n"
+"POT-Creation-Date: 2018-03-12T13:02:51.217Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,16 +12,15 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. [global.intro]
+#. [app.register.password.strength]
 #. defaultMessage is:
-#. To get started, edit src/App.js and save to reload.
+#. Password strength:
 #: resources/translations/messages.json
-msgid "To get started, edit src/App.js and save to reload."
-msgstr "To get started, edit src/App.js and save to reload."
+msgid "Password strength:"
+msgstr "Password strength:"
 
-#. [global.welcome]
-#. defaultMessage is:
-#. Welcome !
-#: resources/translations/messages.json
-msgid "Welcome !"
-msgstr "Welcome !"
+#~ msgid "To get started, edit src/App.js and save to reload."
+#~ msgstr "To get started, edit src/App.js and save to reload."
+
+#~ msgid "Welcome !"
+#~ msgstr "Welcome !"
