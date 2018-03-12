@@ -5,6 +5,7 @@
   "author": "developer-vault",
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.40",
+    "app-module-path": "^2.2.0",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "raven-js": "^3.22.3",
@@ -44,6 +45,7 @@
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
+      "<rootDir>/src/renderer/__mocks__/window.js",
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
@@ -71,6 +73,11 @@
       "web.jsx",
       "jsx",
       "node"
+    ],
+    "modulePaths": [
+      "<rootDir>/src/",
+      "<rootDir>/src/renderer",
+      "<rootDir>/node_modules/"
     ]
   },
   "devDependencies": {
@@ -131,7 +138,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "homepage": "./",
-  "main": "src/electron.js",
+  "main": "src/main/index.js",
   "build": {
     "appId": "org.developer-vault.developer-vault-app",
     "files": [
@@ -142,7 +149,7 @@
       "buildResources": "assets"
     },
     "extraMetadata": {
-      "main": "build/electron.js"
+      "main": "build/main/index.js"
     }
   },
   "repository": "https://github.com/developer-vault/developer-vault",

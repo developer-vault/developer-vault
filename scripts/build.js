@@ -49,8 +49,8 @@ measureFileSizesBeforeBuild(paths.appBuild)
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
     copyPublicFolder();
-    // Copy electron start script
-    copyElectronScript();
+    // Copy electron app
+    copyElectronApp();
     // Start the webpack build
     return build(previousFileSizes);
   })
@@ -152,6 +152,6 @@ function copyPublicFolder() {
 }
 
 
-function copyElectronScript() {
-  fs.copySync(paths.appElectronIndexJs, path.join(paths.appBuild, 'electron.js'));
+function copyElectronApp() {
+  fs.copySync(paths.appElectron, path.join(paths.appBuild, 'main'));
 }

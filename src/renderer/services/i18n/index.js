@@ -1,4 +1,5 @@
 import store from 'redux/store';
+import { addLocaleData } from 'react-intl';
 import { updateIntl } from 'react-intl-redux';
 import messages from 'i18n/messages.json';
 
@@ -52,9 +53,15 @@ export const setLocale = async (locale) => {
   const localeToSet = locale || getStoredLocale() || getBrowserLocale();
   setHtmlLangAttribute(localeToSet);
 
-  await Promise.all([
+  const [localeData] = await Promise.all([
     import(`react-intl/locale-data/${localeToSet}`),
   ]);
 
-  return store.dispatch(updateIntl({ locale: localeToSet, messages: messages[localeToSet] }));
+  addLocaleData(localeData);
+
+  storeLocale(localeToSet);
+  return store.dispatch(updateIntl({
+    locale: localeToSet,
+    messages: messages[localeToSet],
+  }));
 };
