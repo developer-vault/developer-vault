@@ -39,7 +39,7 @@ class App extends Component {
           />
         </p>
         <p>
-          <button onClick={this.onClickButton}>Test IPC : { this.state.isMenuPopUpOpen }</button>
+          <button onClick={this.onClickButton}>Test IPC : { `${this.state.isMenuPopUpOpen}` }</button>
         </p>
       </div>
     );

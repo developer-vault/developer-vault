@@ -15,12 +15,13 @@ export const send = async (channel, ...args) => {
       },
     );
 
-    // handle first answer
-    ipcRenderer.once(`${id}/resolve`, (event, data) => {
-      resolve(data.payload);
-    });
-    ipcRenderer.once(`${id}/reject`, (event, data) => {
-      reject(data.payload);
+    // wait for resolution or rejection
+    ipcRenderer.once(`${id}/result`, (event, data) => {
+      if (data.type === 'resolve') {
+        resolve(data.payload);
+      } else {
+        reject(data.payload);
+      }
     });
   });
 
@@ -33,17 +34,18 @@ export const send = async (channel, ...args) => {
 
 export const responseMessageHandler = callback => async (event, { id, payload }) => {
   try {
-    return event.sender.send(`${id}/resolve`, {
+    return event.sender.send(`${id}/result`, {
       id,
-      payload: await callback(payload),
+      type: 'resolve',
+      payload: callback(payload),
     });
   } catch (err) {
-    return event.sender.send(`${id}/reject`, {
+    return event.sender.send(`${id}/result`, {
       id,
+      type: 'reject',
       payload: err,
     });
   }
 };
 
 export const on = (channel, callback) => ipcRenderer.on(channel, responseMessageHandler(callback));
-

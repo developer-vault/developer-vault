@@ -5,18 +5,24 @@ const { ipcMain } = require('electron');
 const { uniqueId } = require('lodash');
 
 const send = async (channel, ...args) => {
+  // forge unique id
   const id = uniqueId(`ipc_${channel}_`);
 
+  // send an ipc request
   const promise = new Promise((resolve, reject) => {
+    // send request
     ipcMain.send(channel, {
       id,
       payload: args,
     });
-    ipcMain.once(`${id}/resolve`, (event, data) => {
-      resolve(data.payload);
-    });
-    ipcMain.reject(`${id}/reject`, (event, data) => {
-      reject(data.payload);
+
+    // wait for resolution or rejection
+    ipcMain.once(`${id}/result`, (event, data) => {
+      if (data.type === 'resolve') {
+        resolve(data.payload);
+      } else {
+        reject(data.payload);
+      }
     });
   });
 
@@ -29,13 +35,15 @@ const send = async (channel, ...args) => {
 
 const responseMessageHandler = callback => (event, { id, payload } = {}) => {
   try {
-    return event.sender.send(`${id}/resolve`, {
+    return event.sender.send(`${id}/result`, {
       id,
+      type: 'resolve',
       payload: callback(payload),
     });
   } catch (err) {
-    return event.sender.send(`${id}/reject`, {
+    return event.sender.send(`${id}/result`, {
       id,
+      type: 'reject',
       payload: err,
     });
   }

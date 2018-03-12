@@ -43,7 +43,7 @@
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
-      "<rootDir>/src/__mocks__/window.js",
+      "<rootDir>/src/renderer/__mocks__/window.js",
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
