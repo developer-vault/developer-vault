@@ -7,6 +7,8 @@ import { addLocaleData } from 'react-intl';
 // ================= INTL =================
 import enLocaleData from 'react-intl/locale-data/en';
 import frLocaleData from 'react-intl/locale-data/fr';
+
+// Can't use paths.js here because this process can't access fs.
 import messages from '../../src/i18n/messages.json';
 
 const getMessages = locale => messages[locale];
@@ -99,7 +101,8 @@ storybook.addDecorator(withKnobs);
 
 // ================= STORIES LOADER =================
 const loadStories = () => {
-  const req = require.context('../../src/react/components', true, /\.stories\.jsx$/);
+  // Can't use paths.js here because this process can't access fs.
+  const req = require.context('../../src/react', true, /\.stories\.jsx$/);
   req.keys().forEach(filename => req(filename));
 };
 
