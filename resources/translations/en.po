@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-12T13:02:51.217Z\n"
+"POT-Creation-Date: 2018-03-12T16:54:20.725Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,12 +12,54 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. [story.button.label]
+#. defaultMessage is:
+#. Click me!
+#: resources/translations/messages.json
+msgid "Click me!"
+msgstr "Click me!"
+
 #. [app.register.password.strength]
 #. defaultMessage is:
 #. Password strength:
 #: resources/translations/messages.json
 msgid "Password strength:"
 msgstr "Password strength:"
+
+#. [app.register.password.strength.safely_unguessable] - Description of a safely unguessable password
+#. defaultMessage is:
+#. Safely unguessable
+#: resources/translations/messages.json
+msgid "Safely unguessable"
+msgstr "Safely unguessable"
+
+#. [app.register.password.strength.somewhat_guessable] - Description of a somewhat guessable password
+#. defaultMessage is:
+#. Somewhat guessable
+#: resources/translations/messages.json
+msgid "Somewhat guessable"
+msgstr "Somewhat guessable"
+
+#. [app.register.password.strength.too_guessable] - Description of a too guessable password
+#. defaultMessage is:
+#. Too guessable
+#: resources/translations/messages.json
+msgid "Too guessable"
+msgstr "Too guessable"
+
+#. [app.register.password.strength.very_guessable] - Description of a very guessable password
+#. defaultMessage is:
+#. Very guessable
+#: resources/translations/messages.json
+msgid "Very guessable"
+msgstr "Very guessable"
+
+#. [app.register.password.strength.very_unguessable] - Description of a very unguessable password
+#. defaultMessage is:
+#. Very unguessable
+#: resources/translations/messages.json
+msgid "Very unguessable"
+msgstr "Very unguessable"
 
 #~ msgid "To get started, edit src/App.js and save to reload."
 #~ msgstr "To get started, edit src/App.js and save to reload."

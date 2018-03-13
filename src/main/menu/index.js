@@ -16,7 +16,7 @@ const makeMenu = () => {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
-  on(OPEN_MENU_POPUP, (...args) => {
+  on(OPEN_MENU_POPUP, async (...args) => {
     /**
      * @TODO
      * @assignee maxence-lefebvre

@@ -28,7 +28,7 @@ defineMessages({
   },
 });
 
-export const SCORE_TO_MESSAGE_ID = [
+const scores = [
   'app.register.password.strength.too_guessable',
   'app.register.password.strength.very_guessable',
   'app.register.password.strength.somewhat_guessable',
@@ -37,5 +37,5 @@ export const SCORE_TO_MESSAGE_ID = [
 ];
 
 export default {
-  SCORE_TO_MESSAGE_ID,
+  scores,
 };

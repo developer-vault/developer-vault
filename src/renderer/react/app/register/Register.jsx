@@ -1,28 +1,19 @@
 import React from 'react';
-import zxcvbn from 'zxcvbn';
-import { FormattedMessage } from 'react-intl';
 
-import { SCORE_TO_MESSAGE_ID } from './register.messages';
+import PasswordStrength from 'react/components/form/password/PasswordStrength';
+
+import classNames from './register.module.scss';
 
 export default class Register extends React.PureComponent {
   state = {
     password: '',
     confirm: '',
-    strength: {
-      score: 0,
-      feedback: {
-        warning: '',
-        suggestions: '',
-      },
-    },
   };
 
   onChangePassword = (event) => {
     const password = event.target.value;
-    const strength = zxcvbn(password);
     this.setState({
       password,
-      strength,
     });
   };
 
@@ -30,27 +21,20 @@ export default class Register extends React.PureComponent {
 
   /** Renders component. */
   render() {
-    const { password, confirm, strength } = this.state;
+    const { password, confirm } = this.state;
 
     return (
-      <div>
-        <div>
-          <div>
-            <input type="password" value={password} onChange={this.onChangePassword} />
-            <input type="password" value={confirm} onChange={this.onChangeConfirm} />
-          </div>
-          <div>
-            <button disabled={password !== confirm}>Submit</button>
-          </div>
+      <div className={classNames.container}>
+        {/* TODO: extract form to another component. Use rc-form */}
+        <div className={classNames.formContainer}>
+          <input type="password" value={password} onChange={this.onChangePassword} />
+          <PasswordStrength
+            password={password}
+          />
+          <input type="password" value={confirm} onChange={this.onChangeConfirm} />
         </div>
         <div>
-          <FormattedMessage
-            id="app.register.password.strength"
-            defaultMessage="Password strength: "
-          />
-          <FormattedMessage
-            id={SCORE_TO_MESSAGE_ID[strength.score]}
-          />
+          <button disabled={password !== confirm}>Submit</button>
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-12T13:10:51.589Z\n"
+"POT-Creation-Date: 2018-03-12T16:54:20.725Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. [story.button.label]
+#. defaultMessage is:
+#. Click me!
+#: resources/translations/messages.json
+msgid "Click me!"
+msgstr "Cliquez-moi !"
 
 #. [app.register.password.strength]
 #. defaultMessage is:

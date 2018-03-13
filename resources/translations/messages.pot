@@ -1,11 +1,18 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2018-03-12T13:10:51.589Z\n"
+"POT-Creation-Date: 2018-03-12T16:54:20.725Z\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
 "X-Generator: react-intl-po\n"
 
+
+#: resources/translations/messages.json
+#. [story.button.label]
+#. defaultMessage is:
+#. Click me!
+msgid "Click me!"
+msgstr ""
 
 #: resources/translations/messages.json
 #. [app.register.password.strength]
