@@ -1,35 +1,44 @@
-/** From http://lollyrock.com/articles/nodejs-encryption/. */
+const { SAVE_STATE, LOAD_STATE } = require('common/events');
 
-const crypto = require('crypto');
-
-const ALGORITHM = 'aes-256-cbc';
+const { saveFilePath } = require('../config/constants');
+const { on, removeEventListener } = require('../ipc');
+const { encryptToFile, decryptFromFile } = require('./encrypt');
 
 /**
- * Encrypt the state with the given key.
+ * Handler function for the SAVE_STATE event.
  *
+ * @async
  * @param {Object} state - State tree.
- * @param {string} key - Key to encrypt.
- * @returns {string} The state encrypted, as an utf-8 string.
+ * @param {string} key - Key to encrypt, as an utf8 string.
  */
-function encrypt(state, key) {
-  const cipher = crypto.createCipher(ALGORITHM, key);
-  return cipher.update(JSON.stringify(state), 'utf8', 'base64') + cipher.final('base64');
+function onSaveState(state, key) {
+  return encryptToFile(state, key, saveFilePath);
 }
 
 /**
- * Decrypt the state with the given key.
+ * Handler function for the LOAD_STATE event.
  *
- * @param {Object} encryptedState - Encrypted state, as an utf8 string.
- * @param {string} key - Key used to encrypt.
- * @returns {Object} The state tree, decrypted.
+ * @async
+ * @param {string} key - Key used at encryption, as an utf8 string.
+ * @returns {Object} The state, or null if none saved.
  */
-function decrypt(encryptedState, key) {
-  const decipher = crypto.createDecipher(ALGORITHM, key);
-  const decrypted = decipher.update(encryptedState, 'base64', 'utf8') + decipher.final('utf8');
-  return JSON.parse(decrypted);
+function onLoadState(key) {
+  return decryptFromFile(key, saveFilePath);
+}
+
+/** Register the callbacks. */
+function register() {
+  on(SAVE_STATE, onSaveState);
+  on(LOAD_STATE, onLoadState);
+}
+
+/** Unregister the callbacks. */
+function cleanup() {
+  removeEventListener(SAVE_STATE, onSaveState);
+  removeEventListener(LOAD_STATE, onLoadState);
 }
 
 module.exports = {
-  encrypt,
-  decrypt,
+  register,
+  cleanup,
 };

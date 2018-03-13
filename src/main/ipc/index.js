@@ -33,12 +33,12 @@ const send = async (channel, ...args) => {
   }
 };
 
-const responseMessageHandler = callback => (event, { id, payload } = {}) => {
+const responseMessageHandler = callback => async (event, { id, payload } = {}) => {
   try {
     return event.sender.send(`${id}/result`, {
       id,
       type: 'resolve',
-      payload: callback(payload),
+      payload: await callback(...payload),
     });
   } catch (err) {
     return event.sender.send(`${id}/result`, {
@@ -55,4 +55,5 @@ module.exports = {
   send,
   responseMessageHandler,
   on,
+  removeEventListener: ipcMain.removeEventListener.bind(ipcMain),
 };
