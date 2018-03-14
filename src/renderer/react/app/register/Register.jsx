@@ -1,42 +1,43 @@
 import React from 'react';
 
-import PasswordStrength from 'react/components/form/password/PasswordStrength';
+import { send } from 'services/ipc';
+import { SET_KEY } from 'common/events';
 
-import classNames from './register.module.scss';
+import RegisterPresentation from './RegisterPresentation';
 
-export default class Register extends React.PureComponent {
+export const RegisterContainer = Presentation => class Register extends React.PureComponent {
   state = {
     password: '',
     confirm: '',
   };
 
-  onChangePassword = (event) => {
-    const password = event.target.value;
-    this.setState({
-      password,
-    });
-  };
-
+  onChangePassword = event => this.setState({ password: event.target.value });
   onChangeConfirm = event => this.setState({ confirm: event.target.value });
+  onSubmit = async () => {
+    await send(SET_KEY, this.state.password);
+    /**
+     * @todo
+     * @assignee maxence-lefebvre
+     * Notify success
+     * Redirect to Home when key is set.
+     */
+  };
 
   /** Renders component. */
   render() {
     const { password, confirm } = this.state;
 
     return (
-      <div className={classNames.container}>
-        {/* TODO: extract form to another component. Use rc-form */}
-        <div className={classNames.formContainer}>
-          <input type="password" value={password} onChange={this.onChangePassword} />
-          <PasswordStrength
-            password={password}
-          />
-          <input type="password" value={confirm} onChange={this.onChangeConfirm} />
-        </div>
-        <div>
-          <button disabled={password !== confirm}>Submit</button>
-        </div>
-      </div>
+      <Presentation
+        password={password}
+        confirm={confirm}
+        isSubmitDisabled={password !== confirm}
+        onChangePassword={this.onChangePassword}
+        onChangeConfirm={this.onChangeConfirm}
+        onSubmit={this.onSubmit}
+      />
     );
   }
-}
+};
+
+export default RegisterContainer(RegisterPresentation);

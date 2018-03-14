@@ -46,6 +46,14 @@ export default class PasswordStrength extends React.PureComponent {
             )
           }
         </div>
+
+        <div>
+          <pre>
+            {
+              JSON.stringify(strength, undefined, 4)
+            }
+          </pre>
+        </div>
       </div>
     );
   }
