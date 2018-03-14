@@ -1,6 +1,6 @@
 const { SET_KEY, SAVE_STATE, LOAD_STATE } = require('common/events');
 
-const { saveFilePath } = require('../config/constants');
+const { storeFilePath } = require('../config/constants');
 const { on, removeEventListener } = require('../ipc');
 const { encryptToFile, decryptFromFile } = require('./encrypt');
 
@@ -22,7 +22,7 @@ function onSetKey(key) {
  * @param {Object} state - State tree.
  */
 function onSaveState(state) {
-  return encryptToFile(state, KEY, saveFilePath);
+  return encryptToFile(state, KEY, storeFilePath);
 }
 
 /**
@@ -33,7 +33,7 @@ function onSaveState(state) {
  * @returns {Object} The state, or null if none saved.
  */
 function onLoadState(key) {
-  return decryptFromFile(key, saveFilePath);
+  return decryptFromFile(key, storeFilePath);
 }
 
 /** Register the callbacks. */

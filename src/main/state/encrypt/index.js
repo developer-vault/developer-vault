@@ -37,13 +37,13 @@ function decrypt(encryptedState, key) {
  * @async
  * @param {Object} state - State tree.
  * @param {string} key - Key to encrypt, as an utf8 string.
- * @param {string} saveFilePath - Path to the file where to write.
+ * @param {string} storeFilePath - Path to the file where to write.
  */
-function encryptToFile(state, key, saveFilePath) {
+function encryptToFile(state, key, storeFilePath) {
   const encrypted = encrypt(state, key);
 
   return fse.writeFile(
-    saveFilePath,
+    storeFilePath,
     encrypted,
     {
       encoding: 'utf8',
@@ -56,13 +56,13 @@ function encryptToFile(state, key, saveFilePath) {
  *
  * @async
  * @param {string} key - Key used to encrypt, as an utf8 string.
- * @param {string} saveFilePath - Path to the file where the store is saved.
+ * @param {string} storeFilePath - Path to the file where the store is saved.
  * @returns {Object} The decrypted state, or null if the file does not exist.
  */
-async function decryptFromFile(key, saveFilePath) {
+async function decryptFromFile(key, storeFilePath) {
   let encrypted;
   try {
-    encrypted = await fse.readFile(saveFilePath, { encoding: 'utf8' });
+    encrypted = await fse.readFile(storeFilePath, { encoding: 'utf8' });
   } catch (err) {
     // If the file does not exist, return null.
     if (err.code === 'ENOENT') {
