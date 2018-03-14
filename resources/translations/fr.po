@@ -31,35 +31,35 @@ msgstr "Complexité du mot de passe :"
 #. Safely unguessable
 #: resources/translations/messages.json
 msgid "Safely unguessable"
-msgstr "Plutôt undevinable"
+msgstr "Encore un petit effort !"
 
 #. [app.register.password.strength.somewhat_guessable] - Description of a somewhat guessable password
 #. defaultMessage is:
 #. Somewhat guessable
 #: resources/translations/messages.json
 msgid "Somewhat guessable"
-msgstr "Devinable dans une certaine mesure"
+msgstr "On y est presque !"
 
 #. [app.register.password.strength.too_guessable] - Description of a too guessable password
 #. defaultMessage is:
 #. Too guessable
 #: resources/translations/messages.json
 msgid "Too guessable"
-msgstr "Trop facilement devinable"
+msgstr "Un enfant saura le bruteforcer"
 
 #. [app.register.password.strength.very_guessable] - Description of a very guessable password
 #. defaultMessage is:
 #. Very guessable
 #: resources/translations/messages.json
 msgid "Very guessable"
-msgstr "Facilement devinable"
+msgstr "Un chat saura le bruteforcer"
 
 #. [app.register.password.strength.very_unguessable] - Description of a very unguessable password
 #. defaultMessage is:
 #. Very unguessable
 #: resources/translations/messages.json
 msgid "Very unguessable"
-msgstr "Très dur à deviner"
+msgstr "Bon courage à l'attaquant !"
 
 #~ msgid "To get started, edit src/App.js and save to reload."
 #~ msgstr "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."

@@ -25,16 +25,18 @@ export default class PasswordStrength extends React.PureComponent {
     const strength = this.getStrength(this.props.password);
     return (
       <div className={classNames.container}>
+
         {
-          [0, 1, 2, 3, 4].map(score => (
+          [0, 3, 4].map(score => (
             <div
               key={score}
               className={concat(classNames.strengthStep, score <= strength.score ? classNames.active : '')}
             />
           ))
         }
+
         <div className={classNames.scoreHintContainer}>
-        {
+          {
           strength.score >= 0 && (
             <span className={classNames.scoreHint}>
               <FormattedMessage
