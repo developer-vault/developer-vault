@@ -38,7 +38,7 @@ const responseMessageHandler = callback => async (event, { id, payload } = {}) =
     return event.sender.send(`${id}/result`, {
       id,
       type: 'resolve',
-      payload: await callback(payload),
+      payload: await callback(...payload),
     });
   } catch (err) {
     return event.sender.send(`${id}/result`, {
@@ -55,4 +55,5 @@ module.exports = {
   send,
   responseMessageHandler,
   on,
+  removeEventListener: ipcMain.removeEventListener.bind(ipcMain),
 };

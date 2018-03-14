@@ -37,7 +37,7 @@ export const responseMessageHandler = callback => async (event, { id, payload })
     return event.sender.send(`${id}/result`, {
       id,
       type: 'resolve',
-      payload: callback(payload),
+      payload: await callback(...payload),
     });
   } catch (err) {
     return event.sender.send(`${id}/result`, {
