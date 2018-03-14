@@ -13,6 +13,7 @@ const url = require('url');
 require('app-module-path').addPath(path.join(__dirname, '..'));
 
 const { makeMenu } = require('./menu');
+const { register: registerStateIpc } = require('./state');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -56,6 +57,7 @@ function createWindow() {
 app.on('ready', () => {
   createWindow();
   makeMenu();
+  registerStateIpc();
 });
 
 // Quit when all windows are closed.
