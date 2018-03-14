@@ -4,17 +4,16 @@ const crypto = require('crypto');
 
 const fse = require('fs-extra');
 
-const ALGORITHM = 'aes-256-cbc';
-
 /**
  * Encrypt the state with the given key.
  *
  * @param {Object} state - State tree.
  * @param {string} key - Key to encrypt, as an utf8 string.
+ * @param {string} algorithm - Algorithm used to encrypt the state.
  * @returns {string} The state encrypted, as an utf8 string.
  */
-function encrypt(state, key) {
-  const cipher = crypto.createCipher(ALGORITHM, key);
+function encrypt(state, key, algorithm) {
+  const cipher = crypto.createCipher(algorithm, key);
   return cipher.update(JSON.stringify(state), 'utf8', 'base64') + cipher.final('base64');
 }
 
@@ -23,10 +22,11 @@ function encrypt(state, key) {
  *
  * @param {Object} encryptedState - Encrypted state, as an utf8 string.
  * @param {string} key - Key used to encrypt, as an utf8 string.
+ * @param {string} algorithm - Algorithm used to encrypt the state.
  * @returns {Object} The state tree, decrypted.
  */
-function decrypt(encryptedState, key) {
-  const decipher = crypto.createDecipher(ALGORITHM, key);
+function decrypt(encryptedState, key, algorithm) {
+  const decipher = crypto.createDecipher(algorithm, key);
   const decrypted = decipher.update(encryptedState, 'base64', 'utf8') + decipher.final('utf8');
   return JSON.parse(decrypted);
 }
@@ -37,10 +37,11 @@ function decrypt(encryptedState, key) {
  * @async
  * @param {Object} state - State tree.
  * @param {string} key - Key to encrypt, as an utf8 string.
+ * @param {string} algorithm - Algorithm used to encrypt the state.
  * @param {string} storeFilePath - Path to the file where to write.
  */
-function encryptToFile(state, key, storeFilePath) {
-  const encrypted = encrypt(state, key);
+function persistEncryptedState(state, key, algorithm, storeFilePath) {
+  const encrypted = encrypt(state, key, algorithm);
 
   return fse.writeFile(
     storeFilePath,
@@ -56,10 +57,11 @@ function encryptToFile(state, key, storeFilePath) {
  *
  * @async
  * @param {string} key - Key used to encrypt, as an utf8 string.
+ * @param {string} algorithm - Algorithm used to encrypt the state.
  * @param {string} storeFilePath - Path to the file where the store is saved.
  * @returns {Object} The decrypted state, or null if the file does not exist.
  */
-async function decryptFromFile(key, storeFilePath) {
+async function decryptFromFile(key, algorithm, storeFilePath) {
   let encrypted;
   try {
     encrypted = await fse.readFile(storeFilePath, { encoding: 'utf8' });
@@ -73,12 +75,12 @@ async function decryptFromFile(key, storeFilePath) {
     throw err;
   }
 
-  return decrypt(encrypted, key);
+  return decrypt(encrypted, key, algorithm);
 }
 
 module.exports = {
   encrypt,
   decrypt,
-  encryptToFile,
+  persistEncryptedState,
   decryptFromFile,
 };
