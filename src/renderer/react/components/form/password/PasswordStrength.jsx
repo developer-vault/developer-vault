@@ -37,14 +37,14 @@ export default class PasswordStrength extends React.PureComponent {
 
         <div className={classNames.scoreHintContainer}>
           {
-          strength.score >= 0 && (
-            <span className={classNames.scoreHint}>
-              <FormattedMessage
-                id={messages.scores[strength.score]}
-              />
-            </span>
-          )
-        }
+            strength.score >= 0 && (
+              <span className={classNames.scoreHint}>
+                <FormattedMessage
+                  id={messages.scores[strength.score]}
+                />
+              </span>
+            )
+          }
         </div>
       </div>
     );
