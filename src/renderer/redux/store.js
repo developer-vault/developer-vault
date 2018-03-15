@@ -1,15 +1,22 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
-import ReduxThunkMiddleware from 'redux-thunk';
+import reduxThunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { intlReducer } from 'react-intl-redux';
+
+import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
   intl: intlReducer,
 });
 
-const middlewares = [ReduxThunkMiddleware];
+const persistStateMiddleware = makePersistStateMiddleware();
+
+const middlewares = [
+  reduxThunkMiddleware,
+  persistStateMiddleware,
+];
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   middlewares.push(createLogger({ collapsed: true, diff: true, duration: true }));
