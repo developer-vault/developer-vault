@@ -1,4 +1,4 @@
-import throttle from 'lodash/debounce';
+import { throttle } from 'lodash';
 
 import { send } from 'services/ipc';
 import { SAVE_STATE } from 'common/events';
