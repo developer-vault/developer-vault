@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { send } from 'services/ipc';
-import { SET_KEY } from 'common/events';
+import { setKey } from 'services/state';
 
 import RegisterPresentation from './RegisterPresentation';
 
@@ -11,10 +10,27 @@ export const RegisterContainer = Presentation => class Register extends React.Pu
     confirm: '',
   };
 
+  /**
+   * Binds password state to input.
+   *
+   * @param {{target: {value: string}}} event - The DOM Event.
+   */
   onChangePassword = event => this.setState({ password: event.target.value });
+
+  /**
+   * Binds confirm state to input.
+   *
+   * @param {{target: {value: string}}} event - The DOM Event.
+   */
   onChangeConfirm = event => this.setState({ confirm: event.target.value });
+
+  /**
+   * On form submit, sends the key to the main process.
+   *
+   * @returns {Promise<void>} - Void.
+   */
   onSubmit = async () => {
-    await send(SET_KEY, this.state.password);
+    await setKey(this.state.password);
     /**
      * @todo
      * @assignee maxence-lefebvre

@@ -6,11 +6,12 @@ import memoize from 'fast-memoize';
 
 import { concat } from 'services/css';
 
-import messages from './password-strength.messages';
+import { scores, SCORES } from './password-strength.messages';
 import classNames from './password-strength.module.scss';
 
 export default class PasswordStrength extends React.PureComponent {
   static propTypes = {
+    /** The user password. */
     password: PropTypes.string,
   };
 
@@ -18,6 +19,14 @@ export default class PasswordStrength extends React.PureComponent {
     password: '',
   };
 
+  /**
+   * (MEMOIZED).
+   * Calculates password strength through zxcvbn.
+   *
+   * @param {string} password - The user password.
+   * @returns {{score: number}} - User password's strength.
+   * @example const { score } = this.getStrength('azerty123');
+   */
   getStrength = memoize(password => (password.length === 0 ? { score: -1 } : zxcvbn(password)));
 
   /** Renders component. */
@@ -25,34 +34,41 @@ export default class PasswordStrength extends React.PureComponent {
     const strength = this.getStrength(this.props.password);
     return (
       <div className={classNames.container}>
-
         {
-          [0, 3, 4].map(score => (
-            <div
-              key={score}
-              className={concat(classNames.strengthStep, score <= strength.score ? classNames.active : '')}
-            />
+          /*
+           * Displays strength tiles.
+           * Adds "active" className when score is gte the visual tile.
+           * Scores of 0,1,2 are all represented by a red tile.
+           * Scores of 3 are represented by a orange tile.
+           * Scores of 4 are represented by a green tile.
+           */
+        }
+        {
+          [SCORES.TOO_GUESSABLE, SCORES.SAFELY_UNGUESSABLE, SCORES.VERY_UNGUESSABLE]
+            .map(score => (
+              <div
+                key={score}
+                className={concat(classNames.strengthStep, score <= strength.score ? classNames.active : '')}
+              />
           ))
         }
 
+        {
+          /**
+           * Displays strength hint in the user language.
+           * For example for a score of 0 : it is too unguessable.
+           */
+        }
         <div className={classNames.scoreHintContainer}>
           {
             strength.score >= 0 && (
               <span className={classNames.scoreHint}>
                 <FormattedMessage
-                  id={messages.scores[strength.score]}
+                  id={scores[strength.score]}
                 />
               </span>
             )
           }
-        </div>
-
-        <div>
-          <pre>
-            {
-              JSON.stringify(strength, undefined, 4)
-            }
-          </pre>
         </div>
       </div>
     );
