@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Register from './app/register/Register';
 
@@ -11,6 +11,7 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/register" component={Register} />
+        <Redirect to="/register" />
       </Switch>
     );
   }

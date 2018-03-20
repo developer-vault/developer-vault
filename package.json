@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.40",
     "app-module-path": "^2.2.0",
+    "classnames": "^2.2.5",
     "fast-memoize": "^2.3.2",
     "fs-extra": "^5.0.0",
     "lodash": "^4.17.5",
