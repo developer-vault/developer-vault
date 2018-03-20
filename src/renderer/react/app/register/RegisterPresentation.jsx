@@ -16,13 +16,6 @@ const RegisterPresentation = props => (
        * Add register description
        */
     }
-    {
-      /**
-       * @todo
-       * @assignee maxence-lefebvre
-       * Extract form to another component.
-       */
-    }
     <div className={classNames.formContainer}>
       <input type="password" value={props.password} onChange={props.onChangePassword} />
       <PasswordStrength
