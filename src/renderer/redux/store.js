@@ -4,11 +4,13 @@ import reduxThunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { intlReducer } from 'react-intl-redux';
+import nodesReducer from './stores/nodes/reducer';
 
 import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
   intl: intlReducer,
+  nodes: nodesReducer,
 });
 
 const persistStateMiddleware = makePersistStateMiddleware();
