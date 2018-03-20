@@ -7,7 +7,7 @@ import { SET_KEY } from 'common/events';
  * @param {string} key - The user password.
  * @returns {Promise<void>} - The promise to await.
  */
-export const setKey = async key => send(SET_KEY, key);
+export const setKey = key => send(SET_KEY, key);
 
 export default {
   setKey,

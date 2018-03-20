@@ -4,7 +4,7 @@ import { setKey } from 'services/state';
 
 import RegisterPresentation from './RegisterPresentation';
 
-export const RegisterContainer = Presentation => class Register extends React.PureComponent {
+export const RegisterContainer = Presentation => class Register extends React.Component {
   state = {
     password: '',
     confirm: '',
