@@ -1,12 +1,37 @@
 [
   {
-    "id": "global.welcome",
-    "defaultMessage": "Welcome !",
-    "filepath": "src/react/App.jsx"
+    "id": "app.register.password.strength.too_guessable",
+    "description": "Description of a too guessable password",
+    "defaultMessage": "Too guessable",
+    "filepath": "src/renderer/react/components/form/password/password-strength.messages.js"
   },
   {
-    "id": "global.intro",
-    "defaultMessage": "To get started, edit src/App.js and save to reload.",
-    "filepath": "src/react/App.jsx"
+    "id": "app.register.password.strength.very_guessable",
+    "description": "Description of a very guessable password",
+    "defaultMessage": "Very guessable",
+    "filepath": "src/renderer/react/components/form/password/password-strength.messages.js"
+  },
+  {
+    "id": "app.register.password.strength.somewhat_guessable",
+    "description": "Description of a somewhat guessable password",
+    "defaultMessage": "Somewhat guessable",
+    "filepath": "src/renderer/react/components/form/password/password-strength.messages.js"
+  },
+  {
+    "id": "app.register.password.strength.safely_unguessable",
+    "description": "Description of a safely unguessable password",
+    "defaultMessage": "Safely unguessable",
+    "filepath": "src/renderer/react/components/form/password/password-strength.messages.js"
+  },
+  {
+    "id": "app.register.password.strength.very_unguessable",
+    "description": "Description of a very unguessable password",
+    "defaultMessage": "Very unguessable",
+    "filepath": "src/renderer/react/components/form/password/password-strength.messages.js"
+  },
+  {
+    "id": "story.button.label",
+    "defaultMessage": "Click me!",
+    "filepath": "src/renderer/react/components/general/button/Button.stories.jsx"
   }
 ]

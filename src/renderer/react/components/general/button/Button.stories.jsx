@@ -19,7 +19,7 @@ storiesOf('Components/General/Button', module)
   .add('Using locales', withNotes('With intl')(() => (
     <Button
       disabled={boolean('Disabled', false)}
-      label={<FormattedMessage id="global.welcome" />}
+      label={<FormattedMessage id="story.button.label" defaultMessage="Click me!" />}
       onClick={action('clicked')}
     />
   )));

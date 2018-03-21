@@ -1,10 +1,1 @@
-{
-  "en": {
-    "global.welcome": "Welcome !",
-    "global.intro": "To get started, edit src/App.js and save to reload."
-  },
-  "fr": {
-    "global.welcome": "Bienvenue !",
-    "global.intro": "Pour démarrer, éditer src/App.js et sauvegarder pour recharger."
-  }
-}
+{"en":{"app.register.password.strength":"Password strength:","app.register.password.strength.too_guessable":"Too guessable","app.register.password.strength.very_guessable":"Very guessable","app.register.password.strength.somewhat_guessable":"Somewhat guessable","app.register.password.strength.safely_unguessable":"Safely unguessable","app.register.password.strength.very_unguessable":"Very unguessable","story.button.label":"Click me!"},"fr":{"app.register.password.strength":"Complexité du mot de passe :","app.register.password.strength.too_guessable":"Un enfant saura le bruteforcer","app.register.password.strength.very_guessable":"Un chat saura le bruteforcer","app.register.password.strength.somewhat_guessable":"On y est presque !","app.register.password.strength.safely_unguessable":"Encore un petit effort !","app.register.password.strength.very_unguessable":"Bon courage à l'attaquant !","story.button.label":"Cliquez-moi !"}}

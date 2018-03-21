@@ -1,7 +1,8 @@
 import React from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Provider as ReduxProvider } from 'react-redux';
 import { IntlProvider } from 'react-intl-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export const storeShape = {
   subscribe: PropTypes.func.isRequired,
@@ -14,7 +15,9 @@ const AppWrapper = props => (
     store={props.store}
   >
     <IntlProvider>
-      { props.children }
+      <Router>
+        {props.children}
+      </Router>
     </IntlProvider>
   </ReduxProvider>
 );

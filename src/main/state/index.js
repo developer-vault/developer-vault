@@ -1,7 +1,7 @@
 const { SET_KEY, SAVE_STATE, LOAD_STATE } = require('common/events');
 
 const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
-const { on, removeEventListener } = require('../ipc');
+const { on, removeListener } = require('../ipc');
 const { encryptToFile, decryptFromFile } = require('./encrypt');
 
 let KEY;
@@ -45,9 +45,9 @@ function register() {
 
 /** Unregister the callbacks. */
 function cleanup() {
-  removeEventListener(SET_KEY, onSetKey);
-  removeEventListener(SAVE_STATE, onSaveState);
-  removeEventListener(LOAD_STATE, onLoadState);
+  removeListener(SET_KEY, onSetKey);
+  removeListener(SAVE_STATE, onSaveState);
+  removeListener(LOAD_STATE, onLoadState);
 }
 
 module.exports = {
