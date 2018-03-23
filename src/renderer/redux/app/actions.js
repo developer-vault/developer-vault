@@ -9,6 +9,4 @@ export const REGISTER = storeFilePath => ({
   storeFilePath,
 });
 
-export const register = key => async (dispatch) => {
-  dispatch(REGISTER(await setKey(key)));
-};
+export const register = key => async dispatch => dispatch(REGISTER(await setKey(key)));

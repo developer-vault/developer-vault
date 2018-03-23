@@ -5,9 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { intlReducer } from 'react-intl-redux';
 
+import appReducers from './app/reducers';
+
 import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
+  app: appReducers,
   intl: intlReducer,
 });
 
