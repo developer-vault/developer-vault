@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 
+import Button from 'react/components/general/button/Button';
 import PasswordStrength from 'react/components/form/password/PasswordStrength';
 
 import classNames from './register.module.scss';
@@ -24,15 +25,16 @@ const RegisterPresentation = props => (
       <input type="password" value={props.confirm} onChange={props.onChangeConfirm} />
     </div>
     <div>
-      <button
+      <Button
         onClick={props.onSubmit}
         disabled={props.isSubmitDisabled}
-      >
-        <FormattedMessage
-          id="app.register.submit.button.label"
-          defaultMessage="Create my encrypted database"
-        />
-      </button>
+        label={
+          <FormattedMessage
+            id="app.register.submit.button.label"
+            defaultMessage="Create my encrypted database"
+          />
+        }
+      />
     </div>
   </div>
 );

@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { IntlProvider } from 'react-intl-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import NotificationsSystem from 'reapop';
 
-export const storeShape = {
-  subscribe: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  getState: PropTypes.func.isRequired,
-};
+import { reapopThemeShape, storeShape } from './app-wrapper.shapes';
 
 const AppWrapper = props => (
   <ReduxProvider
     store={props.store}
   >
     <IntlProvider>
-      <Router>
-        {props.children}
-      </Router>
+      <React.Fragment>
+        <Router>
+          {props.children}
+        </Router>
+        <NotificationsSystem theme={props.reapopTheme} />
+      </React.Fragment>
     </IntlProvider>
   </ReduxProvider>
 );
@@ -25,7 +25,8 @@ const AppWrapper = props => (
 AppWrapper.displayName = 'AppWrapper';
 
 AppWrapper.propTypes = {
-  store: PropTypes.shape(storeShape).isRequired,
+  store: storeShape.isRequired,
+  reapopTheme: reapopThemeShape.isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
 

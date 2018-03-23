@@ -2,71 +2,105 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { injectIntl, intlShape } from 'react-intl';
+import { notify, STATUS } from 'reapop';
 
 import { register } from 'redux/app/actions';
 
 import RegisterPresentation from './RegisterPresentation';
+import messages from './register.messages';
 
-export const RegisterContainer = Presentation => class Register extends React.Component {
-  static propTypes = {
-    actions: PropTypes.shape({
-      register: PropTypes.func,
-    }).isRequired,
-  };
+export const RegisterContainer = (Presentation) => {
+  const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ register, notify }, dispatch),
+  });
 
-  state = {
-    password: '',
-    confirm: '',
-  };
+  @injectIntl
+  @connect(undefined, mapDispatchToProps)
+  class Register extends React.Component {
+    static propTypes = {
+      /** @connect/ Mapped redux actions. */
+      actions: PropTypes.shape({
+        /** Called on form submission. */
+        register: PropTypes.func,
+        /** Notify action. */
+        notify: PropTypes.func,
+      }).isRequired,
+      /** @injectIntl/ */
+      intl: intlShape.isRequired,
+    };
 
-  /**
-   * Binds password state to input.
-   *
-   * @param {{target: {value: string}}} event - The DOM Event.
-   */
-  onChangePassword = event => this.setState({ password: event.target.value });
+    state = {
+      password: '',
+      confirm: '',
+    };
 
-  /**
-   * Binds confirm state to input.
-   *
-   * @param {{target: {value: string}}} event - The DOM Event.
-   */
-  onChangeConfirm = event => this.setState({ confirm: event.target.value });
-
-  /**
-   * On form submit, sends the key to the main process.
-   *
-   * @returns {Promise<void>} - Void.
-   */
-  onSubmit = async () => {
-    await this.props.actions.register(this.state.password);
     /**
-     * @todo
-     * @assignee maxence-lefebvre
-     * Notify success
-     * Redirect to Home when key is set.
+     * Binds password state to input.
+     *
+     * @param {{target: {value: string}}} event - The DOM Event.
      */
-  };
+    onChangePassword = event => this.setState({ password: event.target.value });
 
-  /** Renders component. */
-  render() {
-    const { password, confirm } = this.state;
+    /**
+     * Binds confirm state to input.
+     *
+     * @param {{target: {value: string}}} event - The DOM Event.
+     */
+    onChangeConfirm = event => this.setState({ confirm: event.target.value });
 
-    return (
-      <Presentation
-        password={password}
-        confirm={confirm}
-        isSubmitDisabled={password !== confirm}
-        onChangePassword={this.onChangePassword}
-        onChangeConfirm={this.onChangeConfirm}
-        onSubmit={this.onSubmit}
-      />
-    );
+    /**
+     * On form submit, sends the key to the main process.
+     *
+     * @returns {Promise<void>} - Void.
+     */
+    onSubmit = async () => {
+      await this.props.actions.register(this.state.password);
+      this.props.actions.notify({
+        message: this.props.intl.formatMessage(messages.SUCCESS_NOTIFICATION_MESSAGE),
+        status: STATUS.success,
+        dismissible: true,
+      });
+      /**
+       * @todo
+       * @assignee maxence-lefebvre
+       * Redirect to Home when key is set.
+       */
+    };
+
+    /**
+     * Submit should be disabled :
+     * - if the form is pristine.
+     * - if confirm is not equal to password.
+     *
+     * @returns {boolean} - Should submit be disabled ?
+     */
+    isSubmitDisabled = () => {
+      const { password, confirm } = this.state;
+      const isPasswordPristine = !password;
+      const isConfirmInvalid = password !== confirm;
+
+      return isPasswordPristine || isConfirmInvalid;
+    };
+
+    /** Renders component. */
+    render() {
+      const { password, confirm } = this.state;
+
+      return (
+        <Presentation
+          password={password}
+          confirm={confirm}
+          isSubmitDisabled={this.isSubmitDisabled()}
+          onChangePassword={this.onChangePassword}
+          onChangeConfirm={this.onChangeConfirm}
+          onSubmit={this.onSubmit}
+        />
+      );
+    }
   }
+
+  return Register;
 };
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ register }, dispatch),
-});
-
-export default connect(undefined, mapDispatchToProps)(RegisterContainer(RegisterPresentation));
+export default RegisterContainer(RegisterPresentation);
