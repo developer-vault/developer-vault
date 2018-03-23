@@ -15,6 +15,7 @@ const mockState = {
     locale: 'en',
     messages: messages.en,
   },
+  notifications: [],
 };
 
 export default mockStore(mockState);
