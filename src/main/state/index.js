@@ -2,7 +2,7 @@ const { SET_KEY, SAVE_STATE, LOAD_STATE } = require('common/events');
 
 const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
 const { on, removeListener } = require('../ipc');
-const { encryptToFile, decryptFromFile } = require('./encrypt');
+const { persistEncryptedState, decryptFromFile } = require('./encrypt');
 
 let KEY;
 
@@ -23,7 +23,7 @@ function onSetKey(key) {
  * @param {Object} state - State tree.
  */
 function onSaveState(state) {
-  return encryptToFile(state, KEY, storeFileEncryptionAlgorithm, storeFilePath);
+  return persistEncryptedState(state, KEY, storeFileEncryptionAlgorithm, storeFilePath);
 }
 
 /**
