@@ -1,4 +1,4 @@
-import * as nodeService from 'renderer/services/node';
+import * as nodeService from 'services/node';
 
 export const ACTIONS = {
   CREATE: 'NODES/CREATE',
@@ -11,13 +11,12 @@ export const create = node => ({
   node: nodeService.create(node),
 });
 
-export const update = (nodeId, node) => ({
+export const update = node => ({
   type: ACTIONS.UPDATE,
-  nodeId,
   node,
 });
 
-export const remove = nodeId => ({
+export const remove = node => ({
   type: ACTIONS.REMOVE,
-  nodeId,
+  node,
 });

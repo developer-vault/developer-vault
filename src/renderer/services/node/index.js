@@ -10,6 +10,6 @@ import uuid from 'uuid/v4';
 export const create = (node) => {
   const uniqueId = uuid();
   return {
-    [uniqueId]: node,
+    [uniqueId]: { ...node, id: uniqueId },
   };
 };

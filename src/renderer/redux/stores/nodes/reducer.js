@@ -6,9 +6,9 @@ export default (state = {}, action) => {
     case ACTIONS.CREATE:
       return { ...state, ...action.node };
     case ACTIONS.UPDATE:
-      return { ...state, [action.nodeId]: action.node };
+      return { ...state, [action.node.id]: action.node };
     case ACTIONS.REMOVE:
-      return omit(state, action.nodeId);
+      return omit(state, action.node.id);
     default:
       return state;
   }
