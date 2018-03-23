@@ -55,5 +55,5 @@ module.exports = {
   send,
   responseMessageHandler,
   on,
-  removeEventListener: ipcMain.removeEventListener.bind(ipcMain),
+  removeListener: ipcMain.removeListener.bind(ipcMain),
 };

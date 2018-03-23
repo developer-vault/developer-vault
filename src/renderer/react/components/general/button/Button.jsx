@@ -19,7 +19,7 @@ Button.propTypes = {
   /** Boolean indicating whether the button should render as disabled */
   disabled: PropTypes.bool,
   /** Button label. */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   /** onClick handler */
   onClick: PropTypes.func,
 };
