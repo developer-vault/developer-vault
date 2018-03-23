@@ -1,10 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import { setKey } from 'services/state';
+import { register } from 'redux/app/actions';
 
 import RegisterPresentation from './RegisterPresentation';
 
 export const RegisterContainer = Presentation => class Register extends React.Component {
+  static propTypes = {
+    actions: PropTypes.shape({
+      register: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     password: '',
     confirm: '',
@@ -30,7 +39,7 @@ export const RegisterContainer = Presentation => class Register extends React.Co
    * @returns {Promise<void>} - Void.
    */
   onSubmit = async () => {
-    await setKey(this.state.password);
+    await this.props.actions.register(this.state.password);
     /**
      * @todo
      * @assignee maxence-lefebvre
@@ -56,4 +65,8 @@ export const RegisterContainer = Presentation => class Register extends React.Co
   }
 };
 
-export default RegisterContainer(RegisterPresentation);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ register }, dispatch),
+});
+
+export default connect(undefined, mapDispatchToProps)(RegisterContainer(RegisterPresentation));

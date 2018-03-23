@@ -13,6 +13,7 @@ let KEY;
  */
 function onSetKey(key) {
   KEY = key;
+  return storeFilePath;
 }
 
 /**
