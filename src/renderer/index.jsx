@@ -17,9 +17,11 @@ import { setLocale } from 'services/i18n';
 import App from './react/App';
 import AppWrapper from './react/AppWrapper';
 
+import { isInitializedAction } from './redux/app/actions';
+
 import './index.css';
 
-Promise.all([setLocale()])
+Promise.all([setLocale(), store.dispatch(isInitializedAction())])
   .then(() => {
     ReactDOM.render(
       <AppWrapper

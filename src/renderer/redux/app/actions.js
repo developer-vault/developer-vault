@@ -1,12 +1,13 @@
-import { setKey } from 'services/state';
+import { isInitialized } from 'services/state';
 
 export const ACTIONS = {
-  REGISTER: 'APP/REGISTER',
+  IS_INITIALIZED: 'APP/IS_INITIALIZED',
 };
 
-export const REGISTER = storeFilePath => ({
-  type: ACTIONS.REGISTER,
-  storeFilePath,
+export const IS_INITIALIZED = initialized => ({
+  type: ACTIONS.IS_INITIALIZED,
+  initialized,
 });
 
-export const register = key => async dispatch => dispatch(REGISTER(await setKey(key)));
+export const isInitializedAction = () =>
+  async dispatch => dispatch(IS_INITIALIZED(await isInitialized()));

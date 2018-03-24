@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 import { ACTIONS } from './actions';
 
 export default combineReducers({
-  storeFilePath: (state = '', action) => {
+  initialized: (state = false, action) => {
     switch (action.type) {
-      case ACTIONS.REGISTER:
-        return action.storeFilePath;
+      case ACTIONS.IS_INITIALIZED:
+        return action.initialized;
       default:
         return state;
     }

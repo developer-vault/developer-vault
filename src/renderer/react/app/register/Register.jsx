@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, intlShape } from 'react-intl';
 import { notify, STATUS } from 'reapop';
+import { Redirect } from 'react-router-dom';
 
-import { register } from 'redux/app/actions';
+import { register } from 'redux/data/actions';
 
 import RegisterPresentation from './RegisterPresentation';
 import messages from './register.messages';
@@ -33,6 +34,7 @@ export const RegisterContainer = (Presentation) => {
     state = {
       password: '',
       confirm: '',
+      redirectToHome: false,
     };
 
     /**
@@ -61,11 +63,7 @@ export const RegisterContainer = (Presentation) => {
         status: STATUS.success,
         dismissible: true,
       });
-      /**
-       * @todo
-       * @assignee maxence-lefebvre
-       * Redirect to Home when key is set.
-       */
+      this.setState({ redirectToHome: true });
     };
 
     /**
@@ -85,7 +83,11 @@ export const RegisterContainer = (Presentation) => {
 
     /** Renders component. */
     render() {
-      const { password, confirm } = this.state;
+      const { password, confirm, redirectToHome } = this.state;
+
+      if (redirectToHome) {
+        return <Redirect to="/home" />;
+      }
 
       return (
         <Presentation

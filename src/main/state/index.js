@@ -1,8 +1,10 @@
-const { SET_KEY, SAVE_STATE, LOAD_STATE } = require('common/events');
+const {
+  IS_INITIALIZED, SET_KEY, SAVE_STATE, LOAD_STATE,
+} = require('common/events');
 
 const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
 const { on, removeListener } = require('../ipc');
-const { persistEncryptedState, decryptFromFile } = require('./encrypt');
+const { isInitialized, persistEncryptedState, decryptFromFile } = require('./encrypt');
 
 let KEY;
 
@@ -14,6 +16,15 @@ let KEY;
 function onSetKey(key) {
   KEY = key;
   return storeFilePath;
+}
+
+/**
+ * Handler function for the "IS_INITIALIZED" event.
+ *
+ * @returns {bool} Whether the user has once registered.
+ */
+function onIsInitialized() {
+  return isInitialized(storeFilePath);
 }
 
 /**
@@ -39,6 +50,7 @@ function onLoadState(key) {
 
 /** Register the callbacks. */
 function register() {
+  on(IS_INITIALIZED, onIsInitialized);
   on(SET_KEY, onSetKey);
   on(SAVE_STATE, onSaveState);
   on(LOAD_STATE, onLoadState);

@@ -18,7 +18,10 @@ export default () => {
   // Return Redux middleware
   return store => next => (action) => {
     const result = next(action);
-    throttledSaveState(store.getState());
+    // Only persist "data" property of the state, if it exists.
+    if (store.getState().data) {
+      throttledSaveState(store.getState().data);
+    }
     return result;
   };
 };

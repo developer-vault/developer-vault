@@ -1,5 +1,7 @@
 import { send } from 'services/ipc';
-import { SET_KEY } from 'common/events';
+import { IS_INITIALIZED, SET_KEY } from 'common/events';
+
+export const isInitialized = () => send(IS_INITIALIZED);
 
 /**
  * Sends the password to main process.
