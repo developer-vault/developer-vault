@@ -14,7 +14,7 @@ const Starter = (props) => {
     );
   }
   return (
-    <Redirect to="/redirect" />
+    <Redirect to="/register" />
   );
 };
 
