@@ -7,6 +7,8 @@ export default class NodeManagerListElement extends React.PureComponent {
     /** Current node. */
     node: nodeShape,
     /** Called when edit button is clicked. */
+    onAddChildNode: PropTypes.func,
+    /** Called when edit button is clicked. */
     onEditNode: PropTypes.func,
     /** Called when delete button is clicked. */
     onDeleteNode: PropTypes.func,
@@ -14,9 +16,13 @@ export default class NodeManagerListElement extends React.PureComponent {
 
   static defaultProps = {
     node: null,
+    onAddChildNode: null,
     onEditNode: null,
     onDeleteNode: null,
   };
+
+  /** Called when edit button is clicked. */
+  onAddChildNode = () => this.props.onAddChildNode(this.props.node);
 
   /** Called when edit button is clicked. */
   onEditNode = () => this.props.onEditNode(this.props.node);
@@ -26,10 +32,16 @@ export default class NodeManagerListElement extends React.PureComponent {
 
   /** Render component. */
   render() {
-    const { node, onEditNode, onDeleteNode } = this.props;
+    const {
+      node,
+      onAddChildNode,
+      onEditNode,
+      onDeleteNode,
+    } = this.props;
     return (
       <div>
         {node.label}
+        {onAddChildNode && <button onClick={this.onAddChildNode}>AddChild</button>}
         {onEditNode && <button onClick={this.onEditNode}>Edit</button>}
         {onDeleteNode && <button onClick={this.onDeleteNode}>Delete</button>}
       </div>

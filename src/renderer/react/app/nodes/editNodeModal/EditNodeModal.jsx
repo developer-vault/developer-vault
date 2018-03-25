@@ -66,6 +66,7 @@ export default class EditNodeModal extends React.PureComponent {
         this.props.onSubmit({
           ...formValues,
           id,
+          parentId: formValues.parentId === '' ? null : formValues.parentId,
         });
       }
     });
@@ -92,9 +93,14 @@ export default class EditNodeModal extends React.PureComponent {
           })(<input />)}
 
           Parent:
-          {getFieldDecorator('parent', {})(
+          {getFieldDecorator('parentId', {
+            initialValue: '',
+            normalize: value => value || '',
+          })(
             <select>
-              {options.map(option => <option key={option.key}>{option.value}</option>)}
+              <option key="" value="">-</option>
+              {options.map(option =>
+                <option key={option.key} value={option.key}>{option.value}</option>)}
             </select>,
           )}
           <br />
