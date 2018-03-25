@@ -57,7 +57,7 @@ export default class NodeManagerList extends React.PureComponent {
   renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode) => (
     <ul>
       {treeElements.map(node => (
-        <li>
+        <li key={node.id}>
           <NodeManagerListElement
             node={nodeList[node.id]}
             onAddChildNode={onAddChildNode}
@@ -86,7 +86,6 @@ export default class NodeManagerList extends React.PureComponent {
 
   /** Render component. */
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <h1>List</h1>

@@ -4,8 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { noop, mapValues } from 'lodash';
 import { createForm, createFormField } from 'rc-form';
-import memoize from 'fast-memoize';
+import { createSelector } from 'reselect';
 
+import { listDescendants } from 'services/node';
 import { nodeShape } from 'react/shapes/node';
 import { formShape } from 'react/shapes/form';
 
@@ -20,17 +21,22 @@ const defaultValueMapper = props =>
 
 /**
  * Make a list of available parents.
- *
- * TODO (sylvainar) : Filter, avoid recursivity.
- *
- * @param {Object} nodeList - List of nodes in the store.
- * @returns {Object[]} - Values for the select.
  */
-const getOptions = nodeList =>
-  Object.values(nodeList).map(node => ({ key: node.id, value: node.label }));
+const getOptionsSelector = createSelector(
+  props => props.node,
+  props => props.nodeList,
+  (selectedNode, nodeList) => {
+    if (!selectedNode) return [];
 
-/** Same but memoized. */
-const memoizedGetOptions = memoize(getOptions);
+    // Non available parents are current node and all its descendants.
+    const nonAvailableParents = [selectedNode.id, ...listDescendants(selectedNode.id, nodeList)];
+
+    // Now filter the nodes and makes it select/option friendly.
+    return Object.values(nodeList)
+      .filter(node => !nonAvailableParents.includes(node.id))
+      .map(node => ({ key: node.id, value: node.label }));
+  },
+);
 
 @createForm({
   mapPropsToFields: defaultValueMapper,
@@ -40,6 +46,8 @@ export default class EditNodeModal extends React.PureComponent {
     /** Current node given for edition. */
     node: nodeShape,
     /** List of nodes in the store. */
+    // RESELECT
+    // eslint-disable-next-line react/no-unused-prop-types
     nodeList: PropTypes.objectOf(nodeShape),
     /** Callback for submission. */
     onSubmit: PropTypes.func,
@@ -75,11 +83,11 @@ export default class EditNodeModal extends React.PureComponent {
   /** Render component. */
   render() {
     const {
-      node, onCancel, form, nodeList,
+      node, onCancel, form,
     } = this.props;
     const { getFieldDecorator } = form;
 
-    const options = memoizedGetOptions(nodeList);
+    const options = getOptionsSelector(this.props);
 
     return (
       <React.Fragment>
@@ -99,7 +107,7 @@ export default class EditNodeModal extends React.PureComponent {
           })(
             <select>
               <option key="" value="">-</option>
-              {options.map(option =>
+              {(options || []).map(option =>
                 <option key={option.key} value={option.key}>{option.value}</option>)}
             </select>,
           )}

@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import { flattenDeep } from 'lodash';
 
 /**
  * Given a node, wrap it in an object with uuid as key.
@@ -14,27 +15,55 @@ export const create = (node) => {
 };
 
 /**
+ * Recursive function finding children for each node.
+ *
+ * @param {string | null} nodeId - Id of the node.
+ * @param {Object} nodesHashmap - Hashmap of nodes.
+ * @returns {Object[]} - Array of nodes with child in it.
+ */
+export const fetchChildrenRecursively = (nodeId, nodesHashmap) => Object.values(nodesHashmap)
+  .filter(node => node.parentId === nodeId)
+  .map(node => ({
+    ...node,
+    children: fetchChildrenRecursively(node.id, nodesHashmap),
+  }));
+
+/**
  * Given the hashmap of nodes, build the tree.
+ *
+ * Init recursion by getting all nodes without parent.
  *
  * @param {Object} nodes - Nodes hashmap.
  * @returns {Array} - Tree.
  * @see index.spec.js for implementation and data structure.
  */
-export const buildTree = (nodes) => {
-  /**
-   * Recursive function finding children for each node.
-   *
-   * @param {string | null} nodeId - Id of the node.
-   * @param {Object} nodesHashmap - Hashmap of nodes.
-   * @returns {Object[]} - Array of nodes with child in it.
-   */
-  const fetchChildren = (nodeId, nodesHashmap) => Object.values(nodesHashmap)
-    .filter(node => node.parentId === nodeId)
-    .map(node => ({
-      ...node,
-      children: fetchChildren(node.id, nodesHashmap),
-    }));
+export const buildTree = nodes => fetchChildrenRecursively(null, nodes);
 
-  // Init recursion by getting all nodes without parent.
-  return fetchChildren(null, nodes);
+/**
+ * Browse a subtree in order to find all elements.
+ *
+ * @param {Object[]} subtree - Subtree.
+ * @returns {string[]} - All ids we could find in subtree.
+ */
+export const listAllElementIdsInSubtree = (subtree) => {
+  // Recursively get children and add them in an array.
+  const allChildrenNested = (subtree || []).map(node =>
+    ((node.children || []).length > 0
+      ? [node.id, ...listAllElementIdsInSubtree(node.children)]
+      : [node.id]));
+
+  // And flatten everything in order to get a list.
+  return flattenDeep(allChildrenNested);
+};
+
+/**
+ * Given a node id and the node hashmap, get ids of descendants.
+ *
+ * @param {string} nodeId - Node id.
+ * @param {Object} nodes - Node hashmap.
+ * @returns {string[]} - Descendants ids.
+ */
+export const listDescendants = (nodeId, nodes) => {
+  const subtree = fetchChildrenRecursively(nodeId, nodes);
+  return listAllElementIdsInSubtree(subtree);
 };
