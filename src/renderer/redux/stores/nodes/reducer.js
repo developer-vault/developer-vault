@@ -1,4 +1,5 @@
-import { omit } from 'lodash';
+import { deleteSubTree } from 'services/node';
+
 import { ACTIONS } from './actions';
 
 export default (state = {}, action) => {
@@ -8,7 +9,7 @@ export default (state = {}, action) => {
     case ACTIONS.UPDATE:
       return { ...state, [action.node.id]: action.node };
     case ACTIONS.REMOVE:
-      return omit(state, action.node.id);
+      return deleteSubTree(action.node.id, state);
     default:
       return state;
   }

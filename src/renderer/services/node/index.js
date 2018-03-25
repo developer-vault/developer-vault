@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, omitBy } from 'lodash';
 
 /**
  * Given a node, wrap it in an object with uuid as key.
@@ -66,4 +66,19 @@ export const listAllElementIdsInSubtree = (subtree) => {
 export const listDescendants = (nodeId, nodes) => {
   const subtree = fetchChildrenRecursively(nodeId, nodes);
   return listAllElementIdsInSubtree(subtree);
+};
+
+/**
+ * Remove a node and all its descendants from hashmap.
+ *
+ * @param {string} nodeId - Id of the targeted node.
+ * @param {Object} nodes - Node hashmap.
+ * @returns {Object} - New node hashmap.
+ */
+export const deleteSubTree = (nodeId, nodes) => {
+  // Mark all descendants and the node itself.
+  const markedForDeletion = [...listDescendants(nodeId, nodes), nodeId];
+  const filterFunction = node => markedForDeletion.includes(node.id);
+
+  return omitBy(nodes, filterFunction);
 };

@@ -20,9 +20,11 @@ describe('Reducer: nodes', () => {
   });
 
   it('remove', () => {
-    const initialState = { node1: { label: 'label1' }, node2: { label: 'label2' } };
+    const initialState = { node1: { id: 'node1', label: 'label1' }, node2: { id: 'node2', label: 'label2' } };
     const action = remove({ id: 'node1' });
+    const result = reducer(initialState, action);
 
-    expect(reducer(initialState, action)).toMatchObject({ node2: { label: 'label2' } });
+    expect(result).toMatchObject({ node2: { id: 'node2', label: 'label2' } });
+    expect(Object.values(result)).toHaveLength(1);
   });
 });

@@ -38,9 +38,21 @@ export default class NodeManager extends React.PureComponent {
   onEditNode = currentlySelectedNode => this.setState({ currentlySelectedNode });
 
   /**
-   * Cancel node edition / creation, close form.
+   * Called when a delete button was pressed.
+   *
+   * @param {Object} node - Selected node.
    */
-  onCloseForm = () => this.setState({ currentlySelectedNode: null });
+  onDeleteNode = (node) => {
+    // TODO (sylvainar) : add a reapop confirm.
+    this.onDeleteConfirm(node);
+  };
+
+  /**
+   * Called when user confirmed the deletion.
+   *
+   * @param {Object} node - Selected node.
+   */
+  onDeleteConfirm = node => this.props.dispatch(nodeActions.remove(node));
 
   /**
    * Called when the form is submitted.
@@ -59,6 +71,11 @@ export default class NodeManager extends React.PureComponent {
     this.onCloseForm();
   };
 
+  /**
+   * Cancel node edition / creation, close form.
+   */
+  onCloseForm = () => this.setState({ currentlySelectedNode: null });
+
   /** Render component. */
   render() {
     const { currentlySelectedNode } = this.state;
@@ -70,6 +87,7 @@ export default class NodeManager extends React.PureComponent {
           nodeList={nodeList}
           onAddNode={this.onAddNode}
           onEditNode={this.onEditNode}
+          onDeleteNode={this.onDeleteNode}
         />
         <PromptNewNodeModal
           node={currentlySelectedNode}

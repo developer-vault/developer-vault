@@ -16,6 +16,9 @@ export default class NodeManagerList extends React.PureComponent {
     // RESELECT
     // eslint-disable-next-line react/no-unused-prop-types
     onEditNode: PropTypes.func,
+    // RESELECT
+    // eslint-disable-next-line react/no-unused-prop-types
+    onDeleteNode: PropTypes.func,
     /** Hashmap of nodes. */
     // RESELECT
     // eslint-disable-next-line react/no-unused-prop-types
@@ -25,6 +28,7 @@ export default class NodeManagerList extends React.PureComponent {
   static defaultProps = {
     onAddNode: noop,
     onEditNode: noop,
+    onDeleteNode: noop,
     nodeList: {},
   };
 
@@ -52,9 +56,10 @@ export default class NodeManagerList extends React.PureComponent {
    * @param {Object} nodeList - Nodes hashmap.
    * @param {func} onAddChildNode - Callback for node creation.
    * @param {func} onEditNode - Callback for node edition.
+   * @param {func} onDeleteNode - Callback for node deletion.
    * @returns {Object} - JSX render.
    */
-  renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode) => (
+  renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode, onDeleteNode) => (
     <ul>
       {treeElements.map(node => (
         <li key={node.id}>
@@ -62,9 +67,16 @@ export default class NodeManagerList extends React.PureComponent {
             node={nodeList[node.id]}
             onAddChildNode={onAddChildNode}
             onEditNode={onEditNode}
+            onDeleteNode={onDeleteNode}
           />
           {(node.children || []).length > 0
-            && this.renderChildren(node.children, nodeList, onAddChildNode, onEditNode)}
+          && this.renderChildren(
+            node.children,
+            nodeList,
+            onAddChildNode,
+            onEditNode,
+            onDeleteNode,
+          )}
         </li>
       ))}
     </ul>
@@ -78,9 +90,9 @@ export default class NodeManagerList extends React.PureComponent {
     props => props.onAddNode,
     props => props.onEditNode,
     props => props.onDeleteNode,
-    (nodeList, onAddNode, onEditNode) => {
+    (nodeList, onAddNode, onEditNode, onDeleteNode) => {
       const tree = memoizedBuildTree(nodeList);
-      return this.renderChildren(tree, nodeList, this.onAddChildNode, onEditNode);
+      return this.renderChildren(tree, nodeList, this.onAddChildNode, onEditNode, onDeleteNode);
     },
   );
 

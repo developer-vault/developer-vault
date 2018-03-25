@@ -3,18 +3,10 @@ import {
   buildTree,
   listAllElementIdsInSubtree,
   fetchChildrenRecursively,
-  listDescendants,
+  listDescendants, deleteSubTree,
 } from './index';
 
 describe('Node service', () => {
-  /*
- * node1
- * - node11
- * - node12
- * -- node121
- * -- node122
- * node2
- */
   const nodes = {
     node1: {
       id: 'node1',
@@ -96,5 +88,24 @@ describe('Node service', () => {
 
   it('listDescendants', () => {
     expect(listDescendants('node1', nodes)).toMatchObject(['node11', 'node12', 'node121', 'node122']);
+  });
+
+  it('deleteSubTree', () => {
+    const result = deleteSubTree('node12', nodes);
+    expect(result).toMatchObject({
+      node1: {
+        id: 'node1',
+        parentId: null,
+      },
+      node2: {
+        id: 'node2',
+        parentId: null,
+      },
+      node11: {
+        id: 'node11',
+        parentId: 'node1',
+      },
+    });
+    expect(Object.values(result)).toHaveLength(3);
   });
 });
