@@ -19,6 +19,7 @@ const Starter = (props) => {
 };
 
 Starter.propTypes = {
+  /* Is the store file created ? */
   isInitialized: PropTypes.bool,
 };
 

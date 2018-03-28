@@ -1,5 +1,9 @@
 const {
-  IS_INITIALIZED, SET_KEY, SAVE_STATE, LOAD_STATE,
+  IS_INITIALIZED,
+  GET_STORE_FILE_PATH,
+  SET_KEY,
+  SAVE_STATE,
+  LOAD_STATE,
 } = require('common/events');
 
 const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
@@ -15,6 +19,14 @@ let KEY;
  */
 function onSetKey(key) {
   KEY = key;
+}
+
+/**
+ * Handler function getting the store file path.
+ *
+ * @returns {string} - The store file path.
+ */
+function onGetStoreFilePath() {
   return storeFilePath;
 }
 
@@ -51,6 +63,7 @@ function onLoadState(key) {
 /** Register the callbacks. */
 function register() {
   on(IS_INITIALIZED, onIsInitialized);
+  on(GET_STORE_FILE_PATH, onGetStoreFilePath);
   on(SET_KEY, onSetKey);
   on(SAVE_STATE, onSaveState);
   on(LOAD_STATE, onLoadState);
@@ -58,6 +71,8 @@ function register() {
 
 /** Unregister the callbacks. */
 function cleanup() {
+  removeListener(IS_INITIALIZED, onIsInitialized);
+  removeListener(GET_STORE_FILE_PATH, onGetStoreFilePath);
   removeListener(SET_KEY, onSetKey);
   removeListener(SAVE_STATE, onSaveState);
   removeListener(LOAD_STATE, onLoadState);

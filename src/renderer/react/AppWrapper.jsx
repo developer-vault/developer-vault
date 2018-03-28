@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import NotificationsSystem from 'reapop';
 
-import { reapopThemeShape, storeShape } from './app-wrapper.shapes';
+import { reapopThemeShape, storeShape } from './shapes/app.shapes';
 
 const AppWrapper = props => (
   <ReduxProvider

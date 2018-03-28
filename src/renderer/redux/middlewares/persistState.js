@@ -18,9 +18,15 @@ export default () => {
   // Return Redux middleware
   return store => next => (action) => {
     const result = next(action);
-    // Only persist "data" property of the state, if it exists.
-    if (store.getState().data) {
-      throttledSaveState(store.getState().data);
+    /**
+     * @todo
+     * @assignee sylvainar
+     * Persist your "nodes" key instead of the app key I used as a placeholder.
+     * Also, please initialise the "node" keys when register is hit.
+     */
+    // Only persist "nodes" property of the state, if it exists.
+    if (store.getState().app) {
+      throttledSaveState(store.getState().app);
     }
     return result;
   };

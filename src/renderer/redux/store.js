@@ -7,13 +7,11 @@ import { intlReducer } from 'react-intl-redux';
 import { reducer as notificationsReducer } from 'reapop';
 
 import appReducers from './app/reducers';
-import dataReducers from './data/reducers';
 
 import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
   app: appReducers,
-  data: dataReducers,
   // 3rd party reducers
   intl: intlReducer,
   notifications: notificationsReducer(),
