@@ -32,7 +32,7 @@ function onLoadState(key) {
  *
  * @class
  */
-function OnSaveState() {
+function SaveStateHandler() {
   this.pendingSave = null;
   this.currentPromise = null;
 
@@ -65,7 +65,7 @@ function OnSaveState() {
   };
 }
 
-const saveStateHandler = new OnSaveState();
+const saveStateHandler = new SaveStateHandler();
 
 /** Register the callbacks. */
 function register() {
