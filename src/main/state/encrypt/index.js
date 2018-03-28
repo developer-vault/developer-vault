@@ -5,6 +5,18 @@ const crypto = require('crypto');
 const fse = require('fs-extra');
 
 /**
+ * Is user registered ?
+ * That would mean that the app is initialized and that the store file exists.
+ *
+ * @async
+ * @param {string} storeFilePath - Where to find the store file.
+ * @returns {bool} Whether the store file exists.
+ */
+function isInitialized(storeFilePath) {
+  return fse.pathExists(storeFilePath);
+}
+
+/**
  * Encrypt the state with the given key.
  *
  * @param {Object} state - State tree.
@@ -79,6 +91,7 @@ async function decryptFromFile(key, algorithm, storeFilePath) {
 }
 
 module.exports = {
+  isInitialized,
   encrypt,
   decrypt,
   persistEncryptedState,
