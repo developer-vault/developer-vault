@@ -42,7 +42,7 @@ function OnSaveState() {
    * @async
    * @param {Object} state - State tree.
    */
-  this.onSaveState = async (state) => {
+  this.onSaveState = (state) => {
     if (this.currentPromise) {
       this.pendingSave = state;
       return this.currentPromise;
