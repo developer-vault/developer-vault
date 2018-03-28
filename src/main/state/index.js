@@ -29,6 +29,8 @@ function onLoadState(key) {
 /**
  * Create a onSaveState handler.
  * Used to keep track of pending save requests that must be fulfilled before exiting the app.
+ *
+ * @class
  */
 function OnSaveState() {
   this.pendingSave = null;
