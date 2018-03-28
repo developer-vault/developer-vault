@@ -1,5 +1,10 @@
 import { send } from 'services/ipc';
-import { IS_INITIALIZED, GET_STORE_FILE_PATH, SET_KEY } from 'common/events';
+import {
+  IS_INITIALIZED,
+  GET_STORE_FILE_PATH,
+  SET_KEY,
+  LOAD_STATE,
+} from 'common/events';
 
 /**
  * Asks main process if application was initialized.
@@ -23,3 +28,11 @@ export const getStoreFilePath = () => send(GET_STORE_FILE_PATH);
  * @returns {Promise<void>} - The promise to await.
  */
 export const setKey = key => send(SET_KEY, key);
+
+/**
+ * Loads persisted state.
+ *
+ * @param {string} key - The user password.
+ * @returns {Promise<Object>} - The persisted state.
+ */
+export const loadState = key => send(LOAD_STATE, key);

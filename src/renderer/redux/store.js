@@ -6,12 +6,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { intlReducer } from 'react-intl-redux';
 import { reducer as notificationsReducer } from 'reapop';
 
-import appReducers from './app/reducers';
+import appReducers from './stores/app/reducers';
+import nodesReducer from './stores/nodes/reducer';
 
 import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
   app: appReducers,
+  nodes: nodesReducer,
   // 3rd party reducers
   intl: intlReducer,
   notifications: notificationsReducer(),

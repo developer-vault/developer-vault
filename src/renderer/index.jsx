@@ -17,7 +17,7 @@ import { setLocale } from 'services/i18n';
 import App from './react/App';
 import AppWrapper from './react/AppWrapper';
 
-import { isInitializedAction } from './redux/app/actions';
+import { isInitializedAction } from './redux/stores/app/actions';
 
 import './index.css';
 

@@ -6,7 +6,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 import { Redirect } from 'react-router-dom';
 
-import { registerAction } from 'redux/app/actions';
+import { registerAction } from 'redux/stores/app/actions';
 
 import RegisterPresentation from './RegisterPresentation';
 import messages from './register.messages';

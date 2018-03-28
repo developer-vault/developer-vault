@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { injectIntl, intlShape } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 
-import { loginAction } from 'redux/app/actions';
+import { loginAction } from 'redux/stores/app/actions';
 
 import LoginPresentation from './LoginPresentation';
 import messages from './login.messages';

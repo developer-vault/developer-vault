@@ -25,8 +25,8 @@ export default () => {
      * Also, please initialise the "node" keys when register is hit.
      */
     // Only persist "nodes" property of the state, if it exists.
-    if (store.getState().app) {
-      throttledSaveState(store.getState().app);
+    if (store.getState().app.authenticated) {
+      throttledSaveState(store.getState().nodes);
     }
     return result;
   };

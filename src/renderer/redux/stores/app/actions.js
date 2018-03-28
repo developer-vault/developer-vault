@@ -1,4 +1,4 @@
-import { isInitialized, getStoreFilePath, setKey } from 'services/state';
+import { isInitialized, getStoreFilePath, setKey, loadState } from 'services/state';
 
 export const ACTIONS = {
   IS_INITIALIZED: 'APP/IS_INITIALIZED',
@@ -29,8 +29,9 @@ export const REGISTER = () => ({
 
 export const registerAction = key => async dispatch => dispatch(REGISTER(await setKey(key)));
 
-export const LOGIN = () => ({
+export const LOGIN = state => ({
   type: ACTIONS.LOGIN,
+  state,
 });
 
-export const loginAction = key => async dispatch => dispatch(LOGIN(await setKey(key)));
+export const loginAction = key => async dispatch => dispatch(LOGIN(await loadState(key)));
