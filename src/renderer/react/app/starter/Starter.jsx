@@ -4,11 +4,11 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-  isInitialized: state.app.initialized,
+  initialized: state.app.initialized,
 });
 
 const Starter = (props) => {
-  if (props.isInitialized) {
+  if (props.initialized) {
     return (
       <Redirect to="/login" />
     );
@@ -20,11 +20,11 @@ const Starter = (props) => {
 
 Starter.propTypes = {
   /* Is the store file created ? */
-  isInitialized: PropTypes.bool,
+  initialized: PropTypes.bool,
 };
 
 Starter.defaultProps = {
-  isInitialized: false,
+  initialized: false,
 };
 
 export default connect(mapStateToProps)(Starter);

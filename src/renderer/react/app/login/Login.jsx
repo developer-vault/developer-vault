@@ -78,7 +78,7 @@ export const LoginContainer = (Presentation) => {
       return (
         <Presentation
           password={password}
-          isSubmitDisabled={!password}
+          submitDisabled={!password}
           onChangePassword={this.onChangePassword}
           onSubmit={this.onSubmit}
         />

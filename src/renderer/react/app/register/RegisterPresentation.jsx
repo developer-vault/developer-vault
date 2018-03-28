@@ -27,7 +27,7 @@ const RegisterPresentation = props => (
     <div>
       <Button
         onClick={props.onSubmit}
-        disabled={props.isSubmitDisabled}
+        disabled={props.submitDisabled}
         label={
           <FormattedMessage
             id="app.register.submit.button.label"
@@ -43,7 +43,7 @@ RegisterPresentation.displayName = 'RegisterPresentation';
 RegisterPresentation.propTypes = {
   password: PropTypes.string,
   confirm: PropTypes.string,
-  isSubmitDisabled: PropTypes.bool,
+  submitDisabled: PropTypes.bool,
   onChangePassword: PropTypes.func,
   onChangeConfirm: PropTypes.func,
   onSubmit: PropTypes.func,
@@ -51,7 +51,7 @@ RegisterPresentation.propTypes = {
 RegisterPresentation.defaultProps = {
   password: '',
   confirm: '',
-  isSubmitDisabled: false,
+  submitDisabled: false,
   onChangePassword: noop,
   onChangeConfirm: noop,
   onSubmit: noop,

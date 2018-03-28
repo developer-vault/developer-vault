@@ -93,7 +93,7 @@ export const RegisterContainer = (Presentation) => {
         <Presentation
           password={password}
           confirm={confirm}
-          isSubmitDisabled={this.isSubmitDisabled()}
+          submitDisabled={this.isSubmitDisabled()}
           onChangePassword={this.onChangePassword}
           onChangeConfirm={this.onChangeConfirm}
           onSubmit={this.onSubmit}

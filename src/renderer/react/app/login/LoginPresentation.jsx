@@ -23,7 +23,7 @@ const LoginPresentation = props => (
           id="app.login.submit.button.label"
           defaultMessage="Se connecter"
         />}
-      disabled={props.isSubmitDisabled}
+      disabled={props.submitDisabled}
       onClick={props.onSubmit}
     />
   </div>
@@ -31,14 +31,14 @@ const LoginPresentation = props => (
 
 LoginPresentation.propTypes = {
   password: PropTypes.string,
-  isSubmitDisabled: PropTypes.bool,
+  submitDisabled: PropTypes.bool,
   onChangePassword: PropTypes.func,
   onSubmit: PropTypes.func,
 };
 
 LoginPresentation.defaultProps = {
   password: '',
-  isSubmitDisabled: false,
+  submitDisabled: false,
   onChangePassword: noop,
   onSubmit: noop,
 };
