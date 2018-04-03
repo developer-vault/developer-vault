@@ -20,17 +20,26 @@ yarn install
 
 This will clone current git repository in a developer-vault folder and install project dependencies through yarn.
 
-## Building
+## Starting Dev
 
-Developer-vault is still in early phases of development and production build instructions should come soon.
+```shell
+yarn start
+```
+
+This will start the renderer app in http://localhost:3000 using webpack-dev-server and starts electron on this URL.
+
+## Building
 
 ```
 yarn run build
 ```
 
+This will bundle the renderer app and bundle it into an electron app.
+
 ## Deploying / Publishing
 
-Developer-vault is still in early phases of development and deployment instructions should come soon.
+Using `electron-builder`, you need to add a `GH_TOKEN` to your environment in order to deploy when running `yarn run build`.
+It will check if there is a release created on github (drafts are allowed) with the same version as your `package.json` version.
 
 # Versioning
 
@@ -44,6 +53,16 @@ Developer-vault is still in early phases of development and app model should com
 # Configuration
 
 Developer-vault is still in early phases of development and configuration instructions should come soon.
+
+You will need to copy `.env.sample` to a `.env` file and configure this keys :
+
+|Property|Description|Default|
+| ------------- | ------------- | ------------- |
+|SRC_PATH|The path to the renderer root|src/renderer|
+|CI|Wheter the current environment is a CI environment|false|
+|GH_TOKEN|A GitHub token to deploy the application (see deploying)||
+
+(TODO: Sentry, etc...)
 
 # Tests
 
