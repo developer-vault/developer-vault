@@ -11,11 +11,14 @@ addLocaleData(localeData);
 const mockStore = configureStore({});
 
 const mockState = {
+  app: {},
+  data: {},
   intl: {
     locale: 'en',
     messages: messages.en,
   },
   nodes: {},
+  notifications: [],
 };
 
 export default mockStore(mockState);

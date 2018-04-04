@@ -4,13 +4,19 @@ import reduxThunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { intlReducer } from 'react-intl-redux';
+import { reducer as notificationsReducer } from 'reapop';
+
+import appReducers from './stores/app/reducers';
 import nodesReducer from './stores/nodes/reducer';
 
 import makePersistStateMiddleware from './middlewares/persistState';
 
 const reducers = combineReducers({
-  intl: intlReducer,
+  app: appReducers,
   nodes: nodesReducer,
+  // 3rd party reducers
+  intl: intlReducer,
+  notifications: notificationsReducer(),
 });
 
 const persistStateMiddleware = makePersistStateMiddleware();
