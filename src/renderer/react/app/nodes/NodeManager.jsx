@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 
 import { nodeShape } from 'react/shapes/node';
 import * as nodeActions from 'redux/stores/nodes/actions';
+import isAuthenticated from 'react/hoc/isAuthenticated';
 
 import NodeManagerList from './nodeList/NodeManagerList';
 import PromptNewNodeModal from './editNodeModal/EditNodeModal';
 
+@isAuthenticated
 @connect(state => ({
   nodeList: state.nodes,
 }))
