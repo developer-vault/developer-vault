@@ -2,7 +2,7 @@ const { SET_KEY, SAVE_STATE, LOAD_STATE } = require('common/events');
 
 const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
 const { on, removeListener } = require('../ipc');
-const { encryptToFile, decryptFromFile } = require('./encrypt');
+const { persistEncryptedState, decryptFromFile } = require('./encrypt');
 
 let KEY;
 
@@ -48,18 +48,22 @@ function SaveStateHandler() {
       return this.currentPromise;
     }
 
-    this.currentPromise = encryptToFile(state, KEY, storeFileEncryptionAlgorithm, storeFilePath)
-      .then(() => {
-        this.currentPromise = null;
+    this.currentPromise = persistEncryptedState(
+      state,
+      KEY,
+      storeFileEncryptionAlgorithm,
+      storeFilePath,
+    ).then(() => {
+      this.currentPromise = null;
 
-        if (this.pendingSave) {
-          const tree = this.pendingSave;
-          this.pendingSave = null;
-          return this.onSaveState(tree);
-        }
+      if (this.pendingSave) {
+        const tree = this.pendingSave;
+        this.pendingSave = null;
+        return this.onSaveState(tree);
+      }
 
-        return null;
-      });
+      return null;
+    });
 
     return this.currentPromise;
   };
