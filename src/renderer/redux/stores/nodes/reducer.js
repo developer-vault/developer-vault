@@ -1,7 +1,7 @@
 import { deleteSubTree } from 'services/node';
 
-import { ACTIONS } from './actions';
 import { ACTIONS as APP_ACTIONS } from 'redux/stores/app/actions';
+import { ACTIONS } from './actions';
 
 export default (state = null, action) => {
   switch (action.type) {
