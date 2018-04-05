@@ -44,16 +44,6 @@ function onIsInitialized() {
 }
 
 /**
- * Handler function for the SAVE_STATE event.
- *
- * @async
- * @param {Object} state - State tree.
- */
-function onSaveState(state) {
-  return persistEncryptedState(state, KEY, storeFileEncryptionAlgorithm, storeFilePath);
-}
-
-/**
  * Handler function for the LOAD_STATE event.
  *
  * @async
@@ -74,12 +64,57 @@ function onLoadState(key) {
   }
 }
 
+/**
+ * Create a onSaveState handler.
+ * Used to keep track of pending save requests that must be fulfilled before exiting the app.
+ *
+ * @class
+ */
+function SaveStateHandler() {
+  this.pendingSave = null;
+  this.currentPromise = null;
+
+  /**
+   * Handler function for the SAVE_STATE event.
+   *
+   * @async
+   * @param {Object} state - State tree.
+   */
+  this.onSaveState = (state) => {
+    if (this.currentPromise) {
+      this.pendingSave = state;
+      return this.currentPromise;
+    }
+
+    this.currentPromise = persistEncryptedState(
+      state,
+      KEY,
+      storeFileEncryptionAlgorithm,
+      storeFilePath,
+    ).then(() => {
+      this.currentPromise = null;
+
+      if (this.pendingSave) {
+        const tree = this.pendingSave;
+        this.pendingSave = null;
+        return this.onSaveState(tree);
+      }
+
+      return null;
+    });
+
+    return this.currentPromise;
+  };
+}
+
+const saveStateHandler = new SaveStateHandler();
+
 /** Register the callbacks. */
 function register() {
   on(IS_INITIALIZED, onIsInitialized);
   on(GET_STORE_FILE_PATH, onGetStoreFilePath);
   on(SET_KEY, onSetKey);
-  on(SAVE_STATE, onSaveState);
+  on(SAVE_STATE, saveStateHandler.onSaveState);
   on(LOAD_STATE, onLoadState);
 }
 
@@ -88,11 +123,12 @@ function cleanup() {
   removeListener(IS_INITIALIZED, onIsInitialized);
   removeListener(GET_STORE_FILE_PATH, onGetStoreFilePath);
   removeListener(SET_KEY, onSetKey);
-  removeListener(SAVE_STATE, onSaveState);
+  removeListener(SAVE_STATE, saveStateHandler.onSaveState);
   removeListener(LOAD_STATE, onLoadState);
 }
 
 module.exports = {
   register,
   cleanup,
+  saveStateHandler,
 };

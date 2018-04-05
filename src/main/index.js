@@ -15,7 +15,7 @@ require('app-module-path').addPath(path.join(__dirname, '..'));
 require('app-module-path').addPath(__dirname);
 
 const { makeMenu } = require('./menu');
-const { register: registerStateIpc } = require('./state');
+const { register: registerStateIpc, saveStateHandler } = require('./state');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -76,6 +76,15 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow();
+  }
+});
+
+// Emitted when calling app.quit(), or when window-all-closed is not defined.
+app.on('will-quit', (event) => {
+  // If there is a save pending, stop exiting and wait before the save is complete.
+  if (saveStateHandler.currentPromise) {
+    event.preventDefault();
+    saveStateHandler.currentPromise.then(() => app.quit());
   }
 });
 
