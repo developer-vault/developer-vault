@@ -1,29 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, intlShape } from 'react-intl';
 import { notify, STATUS } from 'reapop';
-import { Redirect } from 'react-router-dom';
 
-import { registerAction } from 'redux/stores/app/actions';
+import { loginAction } from 'redux/stores/app/actions';
 
-import RegisterPresentation from './RegisterPresentation';
-import messages from './register.messages';
+import LoginPresentation from './LoginPresentation';
+import messages from './login.messages';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ register: registerAction, notify }, dispatch),
+  actions: bindActionCreators({
+    login: loginAction,
+    notify,
+  }, dispatch),
 });
 
-export const RegisterContainer = (Presentation) => {
+export const LoginContainer = (Presentation) => {
   @injectIntl
   @connect(undefined, mapDispatchToProps)
-  class Register extends React.Component {
+  class Login extends React.Component {
     static propTypes = {
       /** @connect/ Mapped redux actions. */
       actions: PropTypes.shape({
         /** Called on form submission. */
-        register: PropTypes.func,
+        login: PropTypes.func,
         /** Notify action. */
         notify: PropTypes.func,
       }).isRequired,
@@ -33,7 +36,6 @@ export const RegisterContainer = (Presentation) => {
 
     state = {
       password: '',
-      confirm: '',
       redirectToHome: false,
     };
 
@@ -45,19 +47,18 @@ export const RegisterContainer = (Presentation) => {
     onChangePassword = event => this.setState({ password: event.target.value });
 
     /**
-     * Binds confirm state to input.
-     *
-     * @param {{target: {value: string}}} event - The DOM Event.
-     */
-    onChangeConfirm = event => this.setState({ confirm: event.target.value });
-
-    /**
      * On form submit, sends the key to the main process.
      *
      * @returns {Promise<void>} - Void.
      */
     onSubmit = async () => {
-      await this.props.actions.register(this.state.password);
+      await this.props.actions.login(this.state.password);
+      /**
+       * @todo
+       * @assignee maxence-lefebvre
+       * Handle login failure.
+       * Handle state decryption.
+       */
       this.props.actions.notify({
         message: this.props.intl.formatMessage(messages.SUCCESS_NOTIFICATION_MESSAGE),
         status: STATUS.success,
@@ -66,24 +67,9 @@ export const RegisterContainer = (Presentation) => {
       this.setState({ redirectToHome: true });
     };
 
-    /**
-     * Submit should be disabled :
-     * - if the form is pristine.
-     * - if confirm is not equal to password.
-     *
-     * @returns {boolean} - Should submit be disabled ?
-     */
-    isSubmitDisabled = () => {
-      const { password, confirm } = this.state;
-      const isPasswordPristine = !password;
-      const isConfirmInvalid = password !== confirm;
-
-      return isPasswordPristine || isConfirmInvalid;
-    };
-
     /** Renders component. */
     render() {
-      const { password, confirm, redirectToHome } = this.state;
+      const { password, redirectToHome } = this.state;
 
       if (redirectToHome) {
         return <Redirect to="/home" />;
@@ -92,17 +78,15 @@ export const RegisterContainer = (Presentation) => {
       return (
         <Presentation
           password={password}
-          confirm={confirm}
-          submitDisabled={this.isSubmitDisabled()}
+          submitDisabled={!password}
           onChangePassword={this.onChangePassword}
-          onChangeConfirm={this.onChangeConfirm}
           onSubmit={this.onSubmit}
         />
       );
     }
   }
 
-  return Register;
+  return Login;
 };
 
-export default RegisterContainer(RegisterPresentation);
+export default LoginContainer(LoginPresentation);

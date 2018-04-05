@@ -1,5 +1,25 @@
 import { send } from 'services/ipc';
-import { SET_KEY } from 'common/events';
+import {
+  IS_INITIALIZED,
+  GET_STORE_FILE_PATH,
+  SET_KEY,
+  LOAD_STATE,
+} from 'common/events';
+
+/**
+ * Asks main process if application was initialized.
+ * Meaning, is the user locally registered ?
+ *
+ * @returns {Promise<bool>} - Is the app initialized ?
+ */
+export const isInitialized = () => send(IS_INITIALIZED);
+
+/**
+ * Gets the store file path used by developer-vault.
+ *
+ * @returns {Promise<string>} - The store file path.
+ */
+export const getStoreFilePath = () => send(GET_STORE_FILE_PATH);
 
 /**
  * Sends the password to main process.
@@ -9,6 +29,10 @@ import { SET_KEY } from 'common/events';
  */
 export const setKey = key => send(SET_KEY, key);
 
-export default {
-  setKey,
-};
+/**
+ * Loads persisted state.
+ *
+ * @param {string} key - The user password.
+ * @returns {Promise<Object>} - The persisted state.
+ */
+export const loadState = key => send(LOAD_STATE, key);

@@ -11,6 +11,8 @@ const url = require('url');
 
 // Allow using `require('common/events'); from inside main process
 require('app-module-path').addPath(path.join(__dirname, '..'));
+// Allow using require using src/main as a root folder.
+require('app-module-path').addPath(__dirname);
 
 const { makeMenu } = require('./menu');
 const { register: registerStateIpc, saveStateHandler } = require('./state');
