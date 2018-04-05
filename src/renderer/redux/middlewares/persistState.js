@@ -9,15 +9,15 @@ import { send } from 'services/ipc';
  */
 export default () => store => next => (action) => {
   const result = next(action);
-    /**
-     * @todo
-     * @assignee sylvainar
-     * Persist your "nodes" key instead of the app key I used as a placeholder.
-     * Also, please initialise the "node" keys when register is hit.
-     */
-    // Only persist "nodes" property of the state, if it exists.
-    if (store.getState().app.authenticated) {
-  send(store.getState());
-    }
+  /**
+   * @todo
+   * @assignee sylvainar
+   * Persist your "nodes" key instead of the app key I used as a placeholder.
+   * Also, please initialise the "node" keys when register is hit.
+   */
+  // Only persist "nodes" property of the state, if it exists.
+  if (store.getState().app.authenticated) {
+    send(store.getState().nodes);
+  }
   return result;
 };
