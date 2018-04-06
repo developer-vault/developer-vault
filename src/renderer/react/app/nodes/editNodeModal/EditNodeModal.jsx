@@ -26,7 +26,9 @@ const getOptionsSelector = createSelector(
   props => props.node,
   props => props.nodeList,
   (selectedNode, nodeList) => {
-    if (!selectedNode) return [];
+    if (!selectedNode) {
+      return [];
+    }
 
     // Non available parents are current node and all its descendants.
     const nonAvailableParents = [selectedNode.id, ...listDescendants(selectedNode.id, nodeList)];

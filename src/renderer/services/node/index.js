@@ -7,12 +7,7 @@ import { flattenDeep, omitBy } from 'lodash';
  * @param {Object} node - Node.
  * @returns {Object} - Wrapped node.
  */
-export const create = (node) => {
-  const uniqueId = uuid();
-  return {
-    [uniqueId]: { ...node, id: uniqueId },
-  };
-};
+export const create = node => ({ ...node, id: uuid() });
 
 /**
  * Recursive function finding children for each node.

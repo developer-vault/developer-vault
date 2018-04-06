@@ -3,22 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { nodeShape } from 'react/shapes/node';
-import * as nodeActions from 'redux/stores/nodes/actions';
+import { create, update, remove } from 'redux/stores/nodes/actions';
 import isAuthenticated from 'react/hoc/isAuthenticated';
 
 import NodeManagerList from './nodeList/NodeManagerList';
 import PromptNewNodeModal from './editNodeModal/EditNodeModal';
 
 @isAuthenticated
-@connect(state => ({
-  nodeList: state.nodes,
-}))
+@connect(
+  state => ({
+    nodeList: state.nodes,
+  }),
+  dispatch => ({
+    onCreateNode: node => dispatch(create(node)),
+    onUpdateNode: node => dispatch(update(node)),
+    onRemoveNode: node => dispatch(remove(node)),
+  }),
+)
 export default class NodeManager extends React.PureComponent {
   static propTypes = {
-    /** @connect / List of nodes in the store. */
+    /** List of nodes in the store. */
     nodeList: PropTypes.objectOf(nodeShape).isRequired,
-    /** @connect / Dispatch. */
-    dispatch: PropTypes.func.isRequired,
+    /** On node creation. */
+    onCreateNode: PropTypes.func.isRequired,
+    /** On node edition. */
+    onUpdateNode: PropTypes.func.isRequired,
+    /** On node deletion. */
+    onRemoveNode: PropTypes.func.isRequired,
   };
 
   state = {
@@ -54,7 +65,7 @@ export default class NodeManager extends React.PureComponent {
    *
    * @param {Object} node - Selected node.
    */
-  onDeleteConfirm = node => this.props.dispatch(nodeActions.remove(node));
+  onDeleteConfirm = node => this.props.onRemoveNode(node);
 
   /**
    * Called when the form is submitted.
@@ -64,10 +75,10 @@ export default class NodeManager extends React.PureComponent {
   onSubmit = (node) => {
     if (node.id) {
       // For an edition.
-      this.props.dispatch(nodeActions.update(node));
+      this.props.onUpdateNode(node);
     } else {
       // For a creation.
-      this.props.dispatch(nodeActions.create(node));
+      this.props.onCreateNode(node);
     }
 
     this.onCloseForm();

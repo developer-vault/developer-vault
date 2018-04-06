@@ -38,9 +38,8 @@ describe('Node service', () => {
     const node = { label: 'node1' };
 
     expect(create(node)).toMatchObject({
-      generatedTestValue: {
-        label: 'node1',
-      },
+      id: 'generatedTestValue',
+      label: 'node1',
     });
   });
 

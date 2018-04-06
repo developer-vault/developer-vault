@@ -11,7 +11,6 @@ export default (state = null, action) => {
       return action.state || {};
 
     case ACTIONS.CREATE:
-      return { ...state, ...action.node };
     case ACTIONS.UPDATE:
       return { ...state, [action.node.id]: action.node };
     case ACTIONS.REMOVE:
