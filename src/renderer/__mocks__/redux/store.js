@@ -17,6 +17,7 @@ const mockState = {
     locale: 'en',
     messages: messages.en,
   },
+  nodes: {},
   notifications: [],
 };
 

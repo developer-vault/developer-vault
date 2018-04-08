@@ -13,6 +13,7 @@
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "raven-js": "^3.22.3",
+    "rc-form": "^2.1.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-intl": "^2.4.0",
@@ -25,6 +26,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
+    "uuid": "^3.2.1",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
