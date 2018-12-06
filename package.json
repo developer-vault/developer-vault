@@ -15,7 +15,7 @@
     "raven-js": "^3.22.3",
     "rc-form": "^2.1.7",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.2.1",
     "react-intl": "^2.4.0",
     "react-intl-redux": "^0.7.0",
     "react-redux": "^5.0.7",
