@@ -10,7 +10,7 @@
     "fast-memoize": "^2.3.2",
     "font-awesome": "^4.7.0",
     "fs-extra": "^5.0.0",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.1",
     "raven-js": "^3.22.3",
     "rc-form": "^2.1.7",
