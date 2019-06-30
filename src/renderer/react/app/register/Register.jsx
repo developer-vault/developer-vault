@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { injectIntl, intlShape } from 'react-intl';
 import { notify, STATUS } from 'reapop';
@@ -16,18 +17,21 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const RegisterContainer = (Presentation) => {
-  @injectIntl
-  @connect(undefined, mapDispatchToProps)
+  const enhancer = compose(
+    injectIntl,
+    connect(null, mapDispatchToProps),
+  );
+
   class Register extends React.Component {
     static propTypes = {
-      /** @connect/ Mapped redux actions. */
+      /** From connect/ Mapped redux actions. */
       actions: PropTypes.shape({
         /** Called on form submission. */
         register: PropTypes.func,
         /** Notify action. */
         notify: PropTypes.func,
       }).isRequired,
-      /** @injectIntl/ */
+      /** From injectIntl. */
       intl: intlShape.isRequired,
     };
 
@@ -54,7 +58,7 @@ export const RegisterContainer = (Presentation) => {
     /**
      * On form submit, sends the key to the main process.
      *
-     * @returns {Promise<void>} - Void.
+     * @async
      */
     onSubmit = async () => {
       await this.props.actions.register(this.state.password);
@@ -102,7 +106,7 @@ export const RegisterContainer = (Presentation) => {
     }
   }
 
-  return Register;
+  return enhancer(Register);
 };
 
 export default RegisterContainer(RegisterPresentation);

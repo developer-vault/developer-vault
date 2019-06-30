@@ -1,8 +1,8 @@
-const mockFs = require('mock-fs');
-const fse = require('fs-extra');
+import mockFs from 'mock-fs';
+import fse from 'fs-extra';
 
-const { saveStateHandler } = require('./index');
-const { persistEncryptedState } = require('./encrypt');
+import { saveStateHandler } from './index';
+import { persistEncryptedState } from './encrypt';
 
 jest.mock('./encrypt');
 jest.mock('../config/constants');

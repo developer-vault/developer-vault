@@ -1,6 +1,5 @@
 import { uniqueId } from 'lodash';
-
-const { ipcRenderer } = window && window.electron;
+import { ipcRenderer } from 'electron';
 
 export const send = async (channel, ...args) => {
   const id = uniqueId(`ipc_${channel}_`);

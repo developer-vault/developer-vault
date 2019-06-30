@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import zxcvbn from 'zxcvbn';
-import memoize from 'fast-memoize';
-import concatClassNames from 'classnames';
+import memoize from 'memoize-one';
+import cn from 'classnames';
 
 import { scores, SCORES } from './password-strength.messages';
 import classNames from './password-strength.module.scss';
@@ -47,9 +47,12 @@ export default class PasswordStrength extends React.PureComponent {
             .map(score => (
               <div
                 key={score}
-                className={concatClassNames(classNames.strengthStep, score <= strength.score ? classNames.active : '')}
+                className={cn(
+                  classNames.strengthStep,
+                  score <= strength.score && classNames.active,
+                )}
               />
-          ))
+            ))
         }
 
         {

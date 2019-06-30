@@ -1,28 +1,23 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# Dependencies.
+node_modules/
 
-# dependencies
-/node_modules
+# Build.
+.releases/
+.dist/
+.dev/
+.reports/
+.tmp/
+.storybook-build/
 
-# testing
-/coverage
+# Secrets.
+.env.*
+# Allow .env.[ENV].example so developers can see the required env keys.
+!.env.*.example
 
-# production
-/build
-/dist
-/storybook
-
-# misc
-.DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+# Temp files.
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# IDE.
 .idea/
-
-resources/translations/*.mo

@@ -7,7 +7,7 @@ import reapopTheme from 'reapop-theme-wybo';
 import App from './App';
 import AppWrapper from './AppWrapper';
 
-jest.mock('renderer/redux/store');
+jest.mock('redux/store');
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

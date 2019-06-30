@@ -1,4 +1,4 @@
-const fse = require('fs-extra');
+import fse from 'fs-extra';
 
 /**
  * Write to a file without encrypting.
@@ -6,12 +6,17 @@ const fse = require('fs-extra');
  *
  * @async
  *
- * @param {Object} state - State.
+ * @param {object} state - State.
  * @param {string} key - Ignored.
  * @param {string} algorithm - Ignored.
  * @param {string} storeFilePath - Path where the file will be written.
  */
-const persistEncryptedState = jest.fn((state, key, algorithm, storeFilePath) => fse.writeFile(
+export const persistEncryptedState = jest.fn((
+  state,
+  key,
+  algorithm,
+  storeFilePath,
+) => fse.writeFile(
   storeFilePath,
   JSON.stringify(state),
   { encoding: 'utf8' },
@@ -25,9 +30,13 @@ const persistEncryptedState = jest.fn((state, key, algorithm, storeFilePath) => 
  * @param {string} key - Ignored.
  * @param {string} algorithm - Ignored.
  * @param {string} storeFilePath - Path to the file where the store is saved.
- * @returns {Object} The decrypted state, or null if the file does not exist.
+ * @returns {object} The decrypted state, or null if the file does not exist.
  */
-const decryptFromFile = jest.fn(async (key, algorithm, storeFilePath) => {
+export const decryptFromFile = jest.fn(async (
+  key,
+  algorithm,
+  storeFilePath,
+) => {
   let encrypted;
   try {
     encrypted = await fse.readFile(storeFilePath, { encoding: 'utf8' });
@@ -43,8 +52,3 @@ const decryptFromFile = jest.fn(async (key, algorithm, storeFilePath) => {
 
   return JSON.parse(encrypted);
 });
-
-module.exports = {
-  persistEncryptedState,
-  decryptFromFile,
-};

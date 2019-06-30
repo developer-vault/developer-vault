@@ -1,0 +1,10 @@
+// Breakpoints max size.
+// Breakpoint names are camelcased when imported in JS files (e.g. extra-large => extraLarge).
+// Keep values in px.
+$breakpoints: (
+  tiny: 480px,
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  extra-large: 1920px,
+);

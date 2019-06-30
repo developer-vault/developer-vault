@@ -1,7 +1,8 @@
-import store from 'redux/store';
 import { addLocaleData } from 'react-intl';
 import { updateIntl } from 'react-intl-redux';
-import messages from 'i18n/messages.json';
+
+import store from 'redux/store';
+import messages from 'locales/messages.json';
 
 export const LOCALE_STORAGE_KEY = 'locale';
 

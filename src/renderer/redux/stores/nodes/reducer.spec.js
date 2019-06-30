@@ -1,5 +1,5 @@
-import { create, update, remove } from './actions';
 import reducer from './reducer';
+import { create, update, remove } from './actions';
 
 describe('Reducer: nodes', () => {
   it('create', () => {

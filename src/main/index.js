@@ -1,21 +1,9 @@
-// eslint does not allow me to put electron in devDependencies
-// electron-builder does not allow me to put electron in dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
-const electron = require('electron');
-// app - Module to control application life.
-// BrowserWindow - Module to create native browser window.
-const { app, BrowserWindow } = electron;
+import path from 'path';
 
-const path = require('path');
-const url = require('url');
+import { app, BrowserWindow } from 'electron';
 
-// Allow using `require('common/events'); from inside main process
-require('app-module-path').addPath(path.join(__dirname, '..'));
-// Allow using require using src/main as a root folder.
-require('app-module-path').addPath(__dirname);
-
-const { makeMenu } = require('./menu');
-const { register: registerStateIpc, saveStateHandler } = require('./state');
+import { makeMenu } from './menu';
+import { register as registerStateIpc, saveStateHandler } from './state';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,18 +16,17 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
 
-  // load the index.html of the app.
-  const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
-    protocol: 'file:',
-    slashes: true,
-  });
-  mainWindow.loadURL(startUrl);
+  // And load the index.html of the app.
+  if (app.isPackaged) {
+    mainWindow.loadFile(path.resolve(app.getAppPath(), './renderer/index.html'));
+  } else {
+    mainWindow.loadURL(`http://localhost:${process.env.VAULT_WDS_PORT}`);
+  }
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

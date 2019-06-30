@@ -28,12 +28,12 @@ const RegisterPresentation = props => (
       <Button
         onClick={props.onSubmit}
         disabled={props.submitDisabled}
-        label={
+        label={(
           <FormattedMessage
             id="app.register.submit.button.label"
             defaultMessage="Create my encrypted database"
           />
-        }
+        )}
       />
     </div>
   </div>

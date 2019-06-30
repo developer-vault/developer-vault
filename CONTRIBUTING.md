@@ -7,7 +7,7 @@
 * Redux
 
 ## Prerequisites
-* Node (recommended with [nvm](https://github.com/creationix/nvm))
+* Node >= 10 (recommended with [nvm](https://github.com/creationix/nvm))
 * [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Setting up Dev
@@ -26,7 +26,7 @@ This will clone current git repository in a developer-vault folder and install p
 yarn start
 ```
 
-This will start the renderer app in http://localhost:3000 using webpack-dev-server and starts electron on this URL.
+This will start the renderer app in http://localhost:8080 using webpack-dev-server and starts electron on this URL.
 
 ## Building
 
@@ -43,7 +43,7 @@ It will check if there is a release created on github (drafts are allowed) with 
 
 # Versioning
 
-We use [SemVer](http://semver.org/) for versioning. 
+We use [SemVer](http://semver.org/) for versioning.
 For the versions available, see the [releases](https://github.com/LFBVR/developer-vault/releases).
 
 # Database
@@ -58,9 +58,10 @@ You will need to copy `.env.sample` to a `.env` file and configure this keys :
 
 |Property|Description|Default|
 | ------------- | ------------- | ------------- |
-|SRC_PATH|The path to the renderer root|src/renderer|
 |CI|Wheter the current environment is a CI environment|false|
 |GH_TOKEN|A GitHub token to deploy the application (see deploying)||
+|ENV_PREFIX|A prefix for environment variables specific to the app|VAULT_|
+|VAULT_WDS_PORT|webpack-dev-server port|8080|
 
 (TODO: Sentry, etc...)
 
@@ -92,10 +93,10 @@ Lines should not exceed 100 characters. This allows the message to be easier to 
 
 ```
  #271 feat(standard): add style config and refactor to match
- #270 fix(config): only override publicPath when served by webpack 
- #269 feat(eslint-config-defaults): replace eslint-config-airbnb 
- #268 feat(config): allow user to configure webpack stats output 
-``` 
+ #270 fix(config): only override publicPath when served by webpack
+ #269 feat(eslint-config-defaults): replace eslint-config-airbnb
+ #268 feat(config): allow user to configure webpack stats output
+```
 
 ## Type
 

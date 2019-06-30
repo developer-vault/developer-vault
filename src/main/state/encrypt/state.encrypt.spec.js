@@ -1,12 +1,12 @@
-const mockFs = require('mock-fs');
-const fs = require('fs-extra');
+import mockFs from 'mock-fs';
+import fs from 'fs-extra';
 
-const {
+import {
   encrypt,
   decrypt,
   persistEncryptedState,
   decryptFromFile,
-} = require('./index');
+} from './index';
 
 const payload = {
   a: 1,

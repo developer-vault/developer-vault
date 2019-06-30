@@ -1,4 +1,9 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux';
 import { createLogger } from 'redux-logger';
 import reduxThunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -27,16 +32,20 @@ const middlewares = [
 ];
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  middlewares.push(createLogger({ collapsed: true, diff: true, duration: true }));
+  middlewares.push(createLogger({
+    collapsed: true,
+    diff: true,
+    duration: true,
+  }));
 }
 
-const composedMiddlewares = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' ?
-  composeWithDevTools(applyMiddleware(...middlewares)) :
-  compose(applyMiddleware(...middlewares));
+const composeMiddlewares = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' ?
+  composeWithDevTools
+  : compose;
 
 const store = createStore(
   reducers,
-  composedMiddlewares,
+  composeMiddlewares(applyMiddleware(...middlewares)),
 );
 
 export default store;

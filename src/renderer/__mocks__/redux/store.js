@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { addLocaleData } from 'react-intl';
 import localeData from 'react-intl/locale-data/en';
 
-import messages from 'i18n/messages.json';
+import messages from 'locales/messages.json';
 
 addLocaleData(localeData);
 

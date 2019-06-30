@@ -3,24 +3,36 @@ import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 
 const Button = ({
-  disabled, label, onClick,
+  type,
+  disabled,
+  label,
+  onClick,
 }) => (
-  <button disabled={disabled} onClick={onClick}>
+  // Type is passed as default props.
+  // eslint-disable-next-line react/button-has-type
+  <button
+    type={type}
+    disabled={disabled}
+    onClick={onClick}
+  >
     {label}
   </button>
 );
 
 Button.defaultProps = {
+  type: 'button',
   disabled: false,
   onClick: noop,
 };
 
 Button.propTypes = {
-  /** Boolean indicating whether the button should render as disabled */
+  /** Button type. */
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  /** Boolean indicating whether the button should render as disabled. */
   disabled: PropTypes.bool,
   /** Button label. */
   label: PropTypes.node.isRequired,
-  /** onClick handler */
+  /** Handler for onClick event. */
   onClick: PropTypes.func,
 };
 

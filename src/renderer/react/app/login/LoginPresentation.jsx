@@ -18,11 +18,12 @@ const LoginPresentation = props => (
     }
     <input type="password" value={props.password} onChange={props.onChangePassword} />
     <Button
-      label={
+      label={(
         <FormattedMessage
           id="app.login.submit.button.label"
           defaultMessage="Se connecter"
-        />}
+        />
+      )}
       disabled={props.submitDisabled}
       onClick={props.onSubmit}
     />

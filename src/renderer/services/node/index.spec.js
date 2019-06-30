@@ -3,7 +3,8 @@ import {
   buildTree,
   listAllElementIdsInSubtree,
   fetchChildrenRecursively,
-  listDescendants, deleteSubTree,
+  listDescendants,
+  deleteSubTree,
 } from './index';
 
 describe('Node service', () => {
