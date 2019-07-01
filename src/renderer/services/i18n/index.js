@@ -54,7 +54,9 @@ export const setLocale = async (locale) => {
   const localeToSet = locale || getStoredLocale() || getBrowserLocale();
   setHtmlLangAttribute(localeToSet);
 
-  const [localeData] = await Promise.all([
+  const [
+    { default: localeData },
+  ] = await Promise.all([
     import(`react-intl/locale-data/${localeToSet}`),
   ]);
 
