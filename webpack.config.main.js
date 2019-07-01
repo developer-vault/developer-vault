@@ -74,11 +74,6 @@ module.exports = (
       ]),
     ],
 
-    node: {
-      // Don't replace __dirname in the bundle.
-      __dirname: false,
-    },
-
     // Don't bundle node modules, except @babel/polyfill.
     externals: [
       webpackNodeExternals({

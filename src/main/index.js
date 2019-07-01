@@ -1,9 +1,17 @@
 import path from 'path';
 
 import { app, BrowserWindow } from 'electron';
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 import { makeMenu } from './menu';
 import { register as registerStateIpc, saveStateHandler } from './state';
+
+function init() {
+  return Promise.all([
+    !app.isPackaged && installExtension(REACT_DEVELOPER_TOOLS),
+    !app.isPackaged && installExtension(REDUX_DEVTOOLS),
+  ].filter(Boolean));
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -12,7 +20,9 @@ let mainWindow;
 /**
  * Creates main window.
  */
-function createWindow() {
+async function createWindow() {
+  await init();
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     webPreferences: {
