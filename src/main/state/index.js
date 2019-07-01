@@ -1,3 +1,4 @@
+import { app } from 'electron';
 import fse from 'fs-extra';
 
 import EVENTS from 'shared/events';
@@ -5,9 +6,17 @@ import EVENTS from 'shared/events';
 import CONFIG from '../config/constants';
 import { on, removeListener } from '../services/ipc';
 
-import { persistEncryptedState, decryptFromFile } from './encrypt';
+import {
+  isInitialized,
+  persistEncryptedState,
+  decryptFromFile,
+  generateRandomSalt,
+  generateRandomIV,
+} from './encrypt';
 
 let KEY;
+let SALT;
+let IV;
 
 /**
  * Is user registered ?
@@ -59,9 +68,13 @@ function onIsInitialized() {
  * @param {string} key - Key used at encryption, as an utf8 string.
  * @returns {object} The state, or null if none saved.
  */
-function onLoadState(key) {
+async function onLoadState(key) {
   try {
-    const state = decryptFromFile(
+    const {
+      state,
+      salt,
+      iv,
+    } = await decryptFromFile(
       key,
       CONFIG.STORE.ENCRYPTION_ALGORITHM,
       CONFIG.STORE.PATH,
@@ -69,11 +82,15 @@ function onLoadState(key) {
 
     // If no error was thrown, we can save the key for later updates.
     KEY = key;
+    SALT = salt;
+    IV = iv;
     return state;
   } catch (err) {
     // If an error was thrown, key was not correct. We unset it
     // to prevent unlucky encryption with a wrong key !
     KEY = undefined;
+    SALT = undefined;
+    IV = undefined;
     throw err;
   }
 }
@@ -101,9 +118,16 @@ function SaveStateHandler() {
       return this.currentPromise;
     }
 
+    // Generate random salt and iv if not already initialized.
+    SALT = SALT || generateRandomSalt();
+    IV = IV || generateRandomIV();
+
     this.currentPromise = persistEncryptedState(
       state,
+      app.getVersion(),
       KEY,
+      SALT,
+      IV,
       CONFIG.STORE.ENCRYPTION_ALGORITHM,
       CONFIG.STORE.PATH,
     ).then(() => {

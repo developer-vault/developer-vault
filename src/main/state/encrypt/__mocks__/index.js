@@ -7,18 +7,29 @@ import fse from 'fs-extra';
  * @async
  *
  * @param {object} state - State.
+ * @param {string} version - Ignored.
  * @param {string} key - Ignored.
+ * @param {string} salt - Ignored.
+ * @param {string} iv - Ignored.
  * @param {string} algorithm - Ignored.
  * @param {string} storeFilePath - Path where the file will be written.
  */
 export const persistEncryptedState = jest.fn((
   state,
+  version,
   key,
+  salt,
+  iv,
   algorithm,
   storeFilePath,
 ) => fse.writeFile(
   storeFilePath,
-  JSON.stringify(state),
+  JSON.stringify({
+    version,
+    salt,
+    iv,
+    state: JSON.stringify(state),
+  }),
   { encoding: 'utf8' },
 ));
 
@@ -37,9 +48,9 @@ export const decryptFromFile = jest.fn(async (
   algorithm,
   storeFilePath,
 ) => {
-  let encrypted;
+  let fileContent;
   try {
-    encrypted = await fse.readFile(storeFilePath, { encoding: 'utf8' });
+    fileContent = await fse.readFile(storeFilePath, { encoding: 'utf8' });
   } catch (err) {
     // If the file does not exist, return null.
     if (err.code === 'ENOENT') {
@@ -50,5 +61,21 @@ export const decryptFromFile = jest.fn(async (
     throw err;
   }
 
-  return JSON.parse(encrypted);
+  const {
+    version,
+    salt,
+    iv,
+    state: encrypted,
+  } = JSON.parse(fileContent);
+
+  return {
+    version,
+    salt,
+    iv,
+    state: JSON.parse(encrypted),
+  };
 });
+
+export const generateRandomSalt = jest.fn(() => '0000000000000000');
+
+export const generateRandomIV = jest.fn(() => '00000000000000000000000000000000');

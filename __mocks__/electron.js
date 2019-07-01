@@ -11,6 +11,10 @@ export const app = {
         return '';
     }
   },
+
+  getVersion() {
+    return '1.0.0';
+  },
 };
 
 export const ipcMain = {
