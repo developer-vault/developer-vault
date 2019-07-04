@@ -1,8 +1,7 @@
-import { addLocaleData } from 'react-intl';
+import moment from 'moment';
 import { updateIntl } from 'react-intl-redux';
 
 import store from 'redux/store';
-import messages from 'locales/messages.json';
 
 export const LOCALE_STORAGE_KEY = 'locale';
 
@@ -54,17 +53,13 @@ export const setLocale = async (locale) => {
   const localeToSet = locale || getStoredLocale() || getBrowserLocale();
   setHtmlLangAttribute(localeToSet);
 
-  const [
-    { default: localeData },
-  ] = await Promise.all([
-    import(`react-intl/locale-data/${localeToSet}`),
-  ]);
+  const { default: bundle } = await import(`locales/${localeToSet}`);
 
-  addLocaleData(localeData);
+  moment.locale(locale);
+  setHtmlLangAttribute(locale);
 
-  storeLocale(localeToSet);
   return store.dispatch(updateIntl({
+    ...bundle,
     locale: localeToSet,
-    messages: messages[localeToSet],
   }));
 };

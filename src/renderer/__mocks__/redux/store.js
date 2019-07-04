@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { addLocaleData } from 'react-intl';
 import localeData from 'react-intl/locale-data/en';
 
-import messages from 'locales/messages.json';
+import messagesEn from 'locales/en/messages.po';
 
 addLocaleData(localeData);
 
@@ -15,7 +15,7 @@ const mockState = {
   data: {},
   intl: {
     locale: 'en',
-    messages: messages.en,
+    messages: messagesEn,
   },
   nodes: {},
   notifications: [],

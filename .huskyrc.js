@@ -1,3 +1,5 @@
+const tasks = cmds => cmds.join(' && ');
+
 module.exports = {
   hooks: {
     // Lint commit messages with commitlint.
@@ -7,6 +9,13 @@ module.exports = {
     'prepare-commit-msg': 'commitlint --color -e',
 
     // Lint staged files before commiting.
-    'pre-commit': 'lint-staged',
+    'pre-commit': tasks([
+       // Lint staged files.
+      'lint-staged',
+      // Update PO files.
+      'yarn i18n:update',
+      // Add updated PO files.
+      'git add src/renderer/locales/**/messages.po',
+    ]),
   },
 };

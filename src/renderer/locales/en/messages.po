@@ -1,0 +1,79 @@
+#. [story.button.label]
+#. defaultMessage is:
+#. Click me!
+#: .tmp/i18n/messages.json
+msgctxt "story.button.label"
+msgid "Click me!"
+msgstr "Click me!"
+
+#. [app.register.submit.button.label]
+#. defaultMessage is:
+#. Create my encrypted database
+#: .tmp/i18n/messages.json
+msgctxt "app.register.submit.button.label"
+msgid "Create my encrypted database"
+msgstr "Create my encrypted database"
+
+#. [app.login.submit.button.label]
+#. defaultMessage is:
+#. Log in
+#: .tmp/i18n/messages.json
+msgctxt "app.login.submit.button.label"
+msgid "Log in"
+msgstr "Log in"
+
+#. [app.register.password.strength.safely_unguessable]
+#. defaultMessage is:
+#. Safely unguessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.safely_unguessable"
+msgid "Safely unguessable"
+msgstr "Safely unguessable"
+
+#. [app.register.password.strength.somewhat_guessable]
+#. defaultMessage is:
+#. Somewhat guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.somewhat_guessable"
+msgid "Somewhat guessable"
+msgstr "Somewhat guessable"
+
+#. [app.login.success.notification.message]
+#. defaultMessage is:
+#. Success!
+#: .tmp/i18n/messages.json
+msgctxt "app.login.success.notification.message"
+msgid "Success!"
+msgstr "Success!"
+
+#. [app.register.success.notification.message]
+#. defaultMessage is:
+#. Success!
+#: .tmp/i18n/messages.json
+msgctxt "app.register.success.notification.message"
+msgid "Success!"
+msgstr "Success!"
+
+#. [app.register.password.strength.too_guessable]
+#. defaultMessage is:
+#. Too guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.too_guessable"
+msgid "Too guessable"
+msgstr "Too guessable"
+
+#. [app.register.password.strength.very_guessable]
+#. defaultMessage is:
+#. Very guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.very_guessable"
+msgid "Very guessable"
+msgstr "Very guessable"
+
+#. [app.register.password.strength.very_unguessable]
+#. defaultMessage is:
+#. Very unguessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.very_unguessable"
+msgid "Very unguessable"
+msgstr "Very unguessable"

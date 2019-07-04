@@ -123,6 +123,21 @@ const svgReactLoader = [
   },
 ];
 
+const poLoader = [
+  {
+    // react-intl-po-loader returns a json object.
+    loader: 'json-loader',
+  },
+  {
+    loader: 'react-intl-po-loader',
+    options: {
+      po2json: {
+        fuzzy: true,
+      },
+    },
+  },
+];
+
 module.exports = {
   babelLoader,
   eslintLoader,
@@ -131,4 +146,5 @@ module.exports = {
   sassVariablesLoader,
   assetsLoader,
   svgReactLoader,
+  poLoader,
 };

@@ -5,7 +5,7 @@ import zxcvbn from 'zxcvbn';
 import memoize from 'memoize-one';
 import cn from 'classnames';
 
-import { scores, SCORES } from './password-strength.messages';
+import messages, { scores, SCORES } from './password-strength.messages';
 import classNames from './password-strength.module.scss';
 
 export default class PasswordStrength extends React.PureComponent {
@@ -65,9 +65,7 @@ export default class PasswordStrength extends React.PureComponent {
           {
             strength.score >= 0 && (
               <span className={classNames.scoreHint}>
-                <FormattedMessage
-                  id={scores[strength.score]}
-                />
+                <FormattedMessage {...messages[scores[strength.score]]} />
               </span>
             )
           }

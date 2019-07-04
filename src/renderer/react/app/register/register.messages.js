@@ -5,4 +5,9 @@ export default defineMessages({
     id: 'app.register.success.notification.message',
     defaultMessage: 'Success!',
   },
+
+  CREATE_DATABASE: {
+    id: 'app.register.submit.button.label',
+    defaultMessage: 'Create my encrypted database',
+  },
 });

@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl';
 
-defineMessages({
+export default defineMessages({
   'app.register.password.strength.too_guessable': {
     id: 'app.register.password.strength.too_guessable',
     description: 'Description of a too guessable password',

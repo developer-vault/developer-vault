@@ -8,6 +8,8 @@ import { text, boolean } from '@storybook/addon-knobs/react';
 
 import Button from './Button';
 
+import messages from './Button.stories.messages';
+
 storiesOf('Components/General/Button', module)
   .add('Simple button', withNotes('Simple button')(() => (
     <Button
@@ -19,7 +21,7 @@ storiesOf('Components/General/Button', module)
   .add('Using locales', withNotes('With intl')(() => (
     <Button
       disabled={boolean('Disabled', false)}
-      label={<FormattedMessage id="story.button.label" defaultMessage="Click me!" />}
+      label={<FormattedMessage {...messages.CLICK_ME} />}
       onClick={action('clicked')}
     />
   )));

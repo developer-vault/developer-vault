@@ -100,7 +100,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['webpack.config.*.js'],
+      files: ['webpack.config.*.js', 'scripts/**/*.{js,jsx}'],
       rules: {
         'import/no-extraneous-dependencies': [
           'error',

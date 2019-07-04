@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import Button from 'react/components/general/button/Button';
 import PasswordStrength from 'react/components/form/password/PasswordStrength';
 
+import messages from './register.messages';
 import classNames from './register.module.scss';
 
 const RegisterPresentation = props => (
@@ -29,10 +30,7 @@ const RegisterPresentation = props => (
         onClick={props.onSubmit}
         disabled={props.submitDisabled}
         label={(
-          <FormattedMessage
-            id="app.register.submit.button.label"
-            defaultMessage="Create my encrypted database"
-          />
+          <FormattedMessage {...messages.CREATE_DATABASE} />
         )}
       />
     </div>

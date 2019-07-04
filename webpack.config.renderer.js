@@ -25,7 +25,12 @@ const {
   sassVariablesRule,
   assetsRule,
   svgReactRule,
+  poRule,
 } = require('./.webpack/rules');
+
+const {
+  ignoreMomentLocales,
+} = require('./.webpack/plugins');
 
 /**
  * Get all environment variables whose name starts with the ENV_PREFIX (case insensitive).
@@ -115,6 +120,9 @@ module.exports = (
         assetsRule,
         // App svg files (specific loader to have the actual <svg> tag in the DOM).
         svgReactRule,
+
+        // Gettext PO files for i18n.
+        poRule,
       ],
     },
 
@@ -167,6 +175,8 @@ module.exports = (
           },
         ),
       }),
+
+      ignoreMomentLocales,
 
       // HMR plugin.
       mode === 'development' && new webpack.HotModuleReplacementPlugin(),

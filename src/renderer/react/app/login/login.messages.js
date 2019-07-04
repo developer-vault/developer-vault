@@ -5,4 +5,9 @@ export default defineMessages({
     id: 'app.login.success.notification.message',
     defaultMessage: 'Success!',
   },
+
+  LOGIN: {
+    id: 'app.login.submit.button.label',
+    defaultMessage: 'Log in',
+  },
 });

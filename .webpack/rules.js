@@ -11,6 +11,7 @@ const {
   sassVariablesLoader,
   assetsLoader,
   svgReactLoader,
+  poLoader,
 } = require('./loaders');
 
 // Transpile using babel.
@@ -89,6 +90,11 @@ const svgReactRule = {
   use: svgReactLoader,
 };
 
+const poRule = {
+  test: /\.po$/i,
+  use: poLoader,
+};
+
 module.exports = {
   babelRule,
   eslintRule,
@@ -99,4 +105,5 @@ module.exports = {
   sassVariablesRule,
   assetsRule,
   svgReactRule,
+  poRule,
 };
