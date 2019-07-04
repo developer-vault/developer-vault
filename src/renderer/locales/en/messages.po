@@ -1,3 +1,14 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #. [story.button.label]
 #. defaultMessage is:
 #. Click me!
