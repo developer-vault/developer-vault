@@ -10,6 +10,8 @@
   "private": false,
   "scripts": {
     "test": "dotenv -e .env.test -e .env jest --",
+    "test:coverage": "dotenv -e .env.test -e .env jest -- --collect-coverage",
+    "test:debugger": "dotenv -e .env.test -e .env node -- --inspect-brk=9555 ./node_modules/jest/bin/jest.js --",
     "dev": "run-s _clean:dev _run:dev",
     "build": "run-s _clean:dist _build:dist _copy:dist && cd .dist && yarn install --production",
     "packager": "electron-builder --config .electronbuilderrc.js",

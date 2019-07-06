@@ -5,18 +5,6 @@ import crypto from 'crypto';
 import fse from 'fs-extra';
 
 /**
- * Is user registered ?
- * That would mean that the app is initialized and that the store file exists.
- *
- * @async
- * @param {string} storeFilePath - Where to find the store file.
- * @returns {boolean} Whether the store file exists.
- */
-export function isInitialized(storeFilePath) {
-  return fse.pathExists(storeFilePath);
-}
-
-/**
  * Encrypt the state with the given key.
  *
  * @param {object} state - State tree.

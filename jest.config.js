@@ -18,10 +18,17 @@ module.exports = {
     '<rootDir>/.jest/setup.js',
   ],
 
+  coverageDirectory: '<rootDir>/.reports/jest',
+
   projects: [
     // Main process tests.
     {
       displayName: 'main',
+
+      // Collect coverage from all sources in main folder.
+      collectCoverageFrom: [
+        '<rootDir>/src/main/**/*.js',
+      ],
 
       // Define node globals.
       testEnvironment: 'node',
@@ -46,6 +53,11 @@ module.exports = {
     {
       displayName: 'renderer',
 
+      collectCoverageFrom: [
+        // Collect coverage from all sources in renderer folder.
+        '<rootDir>/src/renderer/**/*.{js,jsx}',
+      ],
+
       // https://github.com/facebook/jest/issues/6769.
       testURL: 'http://localhost/',
 
@@ -59,6 +71,10 @@ module.exports = {
         '^shared\\/(.*)$': '<rootDir>/src/shared/$1',
         // Transform CSS modules to JS module.
         '^.+\\.(scss|css|less)$': 'identity-obj-proxy',
+        // PO files return object.
+        '^.+\\.(po)$': '<rootDir>/.jest/__mocks__/poFileMock.js',
+        // Assets files return strings.
+        '^.+\\.(jpg|jpeg|bmp|png|gif|eot|otf|ttf|woff|woff2|ico|pdf)$': '<rootDir>/.jest/__mocks__/assetFileMock.js',
       },
 
       testMatch: [
@@ -74,6 +90,11 @@ module.exports = {
     // Shared sources tests.
     {
       displayName: 'shared',
+
+      // Collect coverage from all sources in shared folder.
+      collectCoverageFrom: [
+        '<rootDir>/src/shared/**/*.{js,jsx}',
+      ],
 
       // Absolute import paths.
       modulePaths: [

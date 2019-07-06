@@ -1,11 +1,25 @@
+import fse from 'fs-extra';
+
 import EVENTS from 'shared/events';
 
 import CONFIG from '../config/constants';
 import { on, removeListener } from '../services/ipc';
 
-import { isInitialized, persistEncryptedState, decryptFromFile } from './encrypt';
+import { persistEncryptedState, decryptFromFile } from './encrypt';
 
 let KEY;
+
+/**
+ * Is user registered ?
+ * That would mean that the app is initialized and that the store file exists.
+ *
+ * @async
+ * @param {string} storeFilePath - Where to find the store file.
+ * @returns {boolean} Whether the store file exists.
+ */
+export function isInitialized(storeFilePath) {
+  return fse.pathExists(storeFilePath);
+}
 
 /**
  * Set the key.

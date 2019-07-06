@@ -11,6 +11,13 @@
       "outFiles": [
         "${workspaceFolder}/.dev/main/**/*.js"
       ]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach debugger to Jest",
+      "sourceMaps": false,
+      "port": 9555
     }
   ]
 }

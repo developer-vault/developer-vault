@@ -72,5 +72,10 @@ describe('State encryption', () => {
       expect(await decryptFromFile(key, ALGORITHM, '/appData/developer-vault/fileThatDoesNotExist'))
         .toBeNull();
     });
+
+    it('throws if the path is invalid', async () => {
+      expect(() => decryptFromFile(key, ALGORITHM, '/appData/developer-vault'))
+        .toThrowError('EBADF, bad file descriptor');
+    });
   });
 });

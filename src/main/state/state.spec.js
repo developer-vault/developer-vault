@@ -1,7 +1,7 @@
 import mockFs from 'mock-fs';
 import fse from 'fs-extra';
 
-import { saveStateHandler } from './index';
+import { saveStateHandler, isInitialized } from './index';
 import { persistEncryptedState } from './encrypt';
 
 jest.mock('./encrypt');
@@ -40,6 +40,16 @@ describe('State persistence', () => {
 
       // The content of the save file should be the last state requested to be saved.
       expect(JSON.parse(fileContent)).toEqual({ a: 4 });
+    });
+  });
+
+  describe('isInitialized', () => {
+    it('returns true if the save file exists', async () => {
+      expect(await isInitialized('/appData/developer-vault/store')).toBe(true);
+    });
+
+    it('returns false if the save file does not exist', async () => {
+      expect(await isInitialized('/appData/developer-vault/thisfiledoesnotexist')).toBe(false);
     });
   });
 });
