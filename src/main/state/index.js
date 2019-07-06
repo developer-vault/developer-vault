@@ -7,7 +7,6 @@ import CONFIG from '../config/constants';
 import { on, removeListener } from '../services/ipc';
 
 import {
-  isInitialized,
   persistEncryptedState,
   decryptFromFile,
   generateRandomSalt,
