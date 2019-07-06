@@ -74,7 +74,8 @@ describe('State encryption', () => {
     });
 
     it('throws if the path is invalid', async () => {
-      expect(() => decryptFromFile(key, ALGORITHM, '/appData/developer-vault'))
+      expect.assertions(1);
+      await expect(decryptFromFile(key, ALGORITHM, '/appData/developer-vault')).rejects
         .toThrowError('EBADF, bad file descriptor');
     });
   });
