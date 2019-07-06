@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach debugger",
+      "name": "Attach debugger to main process",
       "outFiles": [
         "${workspaceFolder}/.dev/main/**/*.js"
       ]
@@ -16,8 +16,20 @@
       "type": "node",
       "request": "attach",
       "name": "Attach debugger to Jest",
-      "sourceMaps": false,
       "port": 9555
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Jest",
+      "runtimeArgs": [
+        "--inspect-brk=9554",
+        "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9554
     }
   ]
 }
