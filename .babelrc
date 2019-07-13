@@ -15,7 +15,8 @@
       ],
       "plugins": [
         "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-syntax-dynamic-import"
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
       ],
       "retainLines": true,
       "sourceMaps": "inline"
@@ -36,7 +37,8 @@
       ],
       "plugins": [
         "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-syntax-dynamic-import"
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
       ]
     },
     "production": {
@@ -55,7 +57,8 @@
       ],
       "plugins": [
         "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-syntax-dynamic-import"
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
       ]
     }
   }
