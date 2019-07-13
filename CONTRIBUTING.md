@@ -62,8 +62,7 @@ You will need to copy `.env.sample` to a `.env` file and configure this keys :
 |GH_TOKEN|A GitHub token to deploy the application (see deploying)||
 |ENV_PREFIX|A prefix for environment variables specific to the app|VAULT_|
 |VAULT_WDS_PORT|webpack-dev-server port|8080|
-
-(TODO: Sentry, etc...)
+|VAULT_SENTRY_DNS|Sentry DSN||
 
 # Tests
 
