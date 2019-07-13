@@ -39,8 +39,8 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   }));
 }
 
-const composeMiddlewares = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' ?
-  composeWithDevTools
+const composeMiddlewares = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test'
+  ? composeWithDevTools
   : compose;
 
 const store = createStore(

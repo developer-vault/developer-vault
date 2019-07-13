@@ -14,8 +14,8 @@ export default (WrappedComponent) => {
   const enhancer = connect(mapStateToProps, emptyMapDispatchToProps);
 
   const isAuthenticated = ({ authenticated, ...props }) => (
-    authenticated ?
-      <WrappedComponent {...props} />
+    authenticated
+      ? <WrappedComponent {...props} />
       : <Redirect to="/starter" />
   );
 

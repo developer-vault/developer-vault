@@ -28,7 +28,6 @@ module.exports = {
     'operator-linebreak': [
       'error',
       'before',
-      { overrides: { '?': 'after' } },
     ],
 
     // Prevent multiple empty lines. Allow 1 at EOF, 0 at BOF.
