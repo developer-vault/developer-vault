@@ -88,8 +88,8 @@ module.exports = (
     // Target electron renderer process (does not bundle electron etc.).
     target: 'electron-renderer',
 
-    devtool: mode === 'production' ?
-      'source-map'
+    devtool: mode === 'production'
+      ? 'source-map'
       : 'inline-source-map',
 
     // Only show errors.
@@ -229,8 +229,8 @@ module.exports = (
     },
 
     // Dev server.
-    devServer: mode === 'development' ?
-      {
+    devServer: mode === 'development'
+      ? {
         publicPath,
 
         contentBase: './.dev/renderer/',

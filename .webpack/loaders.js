@@ -24,9 +24,9 @@ const makeCssLoader = ({
   importLoaders = 0,
 } = {}) => ([
   {
-    loader: mode === 'production' ?
+    loader: mode === 'production'
       // In production, extract css to an external stylesheet to allow caching.
-      MiniCssExtractPlugin.loader
+      ? MiniCssExtractPlugin.loader
       // In development, use the style-loader (faster and allows MHR).
       : 'style-loader',
   },
@@ -35,11 +35,11 @@ const makeCssLoader = ({
     options: {
       sourceMap: true,
       importLoaders,
-      modules: enableModules ?
-        {
-          localIdentName: mode === 'production' ?
+      modules: enableModules
+        ? {
+          localIdentName: mode === 'production'
             // In production, only set the hash of the class name.
-            '[hash:base64:8]'
+            ? '[hash:base64:8]'
             // In development, add the actual class name to the hash to make it easier to debug.
             : '[local]--[hash:base64:8]',
         }

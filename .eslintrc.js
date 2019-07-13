@@ -24,7 +24,7 @@ module.exports = {
     // Allow named export without default export.
     'import/prefer-default-export': 0,
 
-    // On linebreak, enforce operator on the new line, except for the '?' of a ternary expression.
+    // On linebreak, enforce operator on the new line.
     'operator-linebreak': [
       'error',
       'before',
