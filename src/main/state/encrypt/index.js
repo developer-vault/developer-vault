@@ -1,8 +1,16 @@
 /** From http://lollyrock.com/articles/nodejs-encryption/. */
 
-import crypto from 'crypto';
+import {
+  scrypt,
+  randomBytes,
+  createCipheriv,
+  createDecipheriv,
+} from 'crypto';
+import { promisify } from 'util';
 
 import fse from 'fs-extra';
+
+const scryptPromise = promisify(scrypt);
 
 /**
  * Encrypt the state with the given key.
@@ -14,9 +22,9 @@ import fse from 'fs-extra';
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @returns {string} The state encrypted, as an utf8 string.
  */
-export function encrypt(state, key, salt, iv, algorithm) {
-  const scrypt = crypto.scryptSync(key, salt, 32);
-  const cipher = crypto.createCipheriv(algorithm, scrypt, Buffer.from(iv, 'hex'));
+export async function encrypt(state, key, salt, iv, algorithm) {
+  const derivedKey = await scryptPromise(key, salt, 32);
+  const cipher = createCipheriv(algorithm, derivedKey, Buffer.from(iv, 'hex'));
   return cipher.update(JSON.stringify(state), 'utf8', 'base64') + cipher.final('base64');
 }
 
@@ -30,9 +38,9 @@ export function encrypt(state, key, salt, iv, algorithm) {
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @returns {object} The state tree, decrypted.
  */
-export function decrypt(encryptedState, key, salt, iv, algorithm) {
-  const scrypt = crypto.scryptSync(key, salt, 32);
-  const decipher = crypto.createDecipheriv(algorithm, scrypt, Buffer.from(iv, 'hex'));
+export async function decrypt(encryptedState, key, salt, iv, algorithm) {
+  const derivedKey = await scryptPromise(key, salt, 32);
+  const decipher = createDecipheriv(algorithm, derivedKey, Buffer.from(iv, 'hex'));
   const decrypted = decipher.update(encryptedState, 'base64', 'utf8') + decipher.final('utf8');
   return JSON.parse(decrypted);
 }
@@ -49,8 +57,16 @@ export function decrypt(encryptedState, key, salt, iv, algorithm) {
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @param {string} storeFilePath - Path to the file where to write.
  */
-export function persistEncryptedState(state, version, key, salt, iv, algorithm, storeFilePath) {
-  const encryptedState = encrypt(state, key, salt, iv, algorithm);
+export async function persistEncryptedState(
+  state,
+  version,
+  key,
+  salt,
+  iv,
+  algorithm,
+  storeFilePath,
+) {
+  const encryptedState = await encrypt(state, key, salt, iv, algorithm);
 
   const fileContent = JSON.stringify({
     version,
@@ -102,7 +118,7 @@ export async function decryptFromFile(key, algorithm, storeFilePath) {
     version,
     salt,
     iv,
-    state: decrypt(encrypted, key, salt, iv, algorithm),
+    state: await decrypt(encrypted, key, salt, iv, algorithm),
   };
 }
 
@@ -112,7 +128,7 @@ export async function decryptFromFile(key, algorithm, storeFilePath) {
  * @returns {string} The generated salt.
  */
 export function generateRandomSalt() {
-  return crypto.randomBytes(8).toString('hex');
+  return randomBytes(8).toString('hex');
 }
 
 /**
@@ -121,5 +137,5 @@ export function generateRandomSalt() {
  * @returns {string} The generated IV.
  */
 export function generateRandomIV() {
-  return crypto.randomBytes(16).toString('hex');
+  return randomBytes(16).toString('hex');
 }
