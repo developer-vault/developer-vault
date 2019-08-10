@@ -93,6 +93,7 @@ function SaveStateHandler() {
    *
    * @async
    * @param {object} state - State tree.
+   * @returns {Promise} Reference to the current Promise.
    */
   this.onSaveState = (state) => {
     if (this.currentPromise) {

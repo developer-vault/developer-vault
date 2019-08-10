@@ -31,6 +31,11 @@ const eslintRule = {
   use: eslintLoader,
 };
 
+const moduleRule = {
+  test: /\.mjs$/i,
+  type: 'javascript/auto',
+};
+
 const makeCssRule = ({ mode } = {}) => ({
   test: file => (
     /**
@@ -98,6 +103,7 @@ const poRule = {
 module.exports = {
   babelRule,
   eslintRule,
+  moduleRule,
   makeCssRule,
   makeCssModulesRule,
   makeSassRule,

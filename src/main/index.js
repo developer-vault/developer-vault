@@ -6,6 +6,11 @@ import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electro
 import { makeMenu } from './menu';
 import { register as registerStateIpc, saveStateHandler } from './state';
 
+/**
+ * Add developer tools to renderer window.
+ *
+ * @async
+ */
 function init() {
   return Promise.all([
     !app.isPackaged && installExtension(REACT_DEVELOPER_TOOLS),

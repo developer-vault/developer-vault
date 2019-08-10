@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 import { Redirect } from 'react-router-dom';
 
+import { intlShape } from 'react/shapes/vendor';
 import { registerAction } from 'redux/stores/app/actions';
 
 import RegisterPresentation from './RegisterPresentation';
@@ -85,7 +86,7 @@ export const RegisterContainer = (Presentation) => {
       return isPasswordPristine || isConfirmInvalid;
     };
 
-    /** Renders component. */
+    /** @returns {object} JSX. */
     render() {
       const { password, confirm, redirectToHome } = this.state;
 

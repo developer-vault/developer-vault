@@ -23,7 +23,7 @@ msgstr "Cliquez-moi !"
 #: .tmp/i18n/messages.json
 msgctxt "app.register.submit.button.label"
 msgid "Create my encrypted database"
-msgstr "Crer ma base de donnes chiffre"
+msgstr "Créer ma base de données chiffrée"
 
 #. [app.login.submit.button.label]
 #. defaultMessage is:
@@ -55,7 +55,7 @@ msgstr "Un peu devinable"
 #: .tmp/i18n/messages.json
 msgctxt "app.login.success.notification.message"
 msgid "Success!"
-msgstr "Succs !"
+msgstr "Succès !"
 
 #. [app.register.success.notification.message]
 #. defaultMessage is:
@@ -63,7 +63,7 @@ msgstr "Succs !"
 #: .tmp/i18n/messages.json
 msgctxt "app.register.success.notification.message"
 msgid "Success!"
-msgstr "Succs !"
+msgstr "Succès !"
 
 #. [app.register.password.strength.too_guessable]
 #. defaultMessage is:
@@ -79,7 +79,7 @@ msgstr "Trop devinable"
 #: .tmp/i18n/messages.json
 msgctxt "app.register.password.strength.very_guessable"
 msgid "Very guessable"
-msgstr "Trs devinable"
+msgstr "Très devinable"
 
 #. [app.register.password.strength.very_unguessable]
 #. defaultMessage is:
@@ -87,4 +87,4 @@ msgstr "Trs devinable"
 #: .tmp/i18n/messages.json
 msgctxt "app.register.password.strength.very_unguessable"
 msgid "Very unguessable"
-msgstr "Trs peu devinable"
+msgstr "Très peu devinable"

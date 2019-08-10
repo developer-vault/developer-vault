@@ -93,7 +93,7 @@ class NodeManager extends React.PureComponent {
    */
   onCloseForm = () => this.setState({ currentlySelectedNode: null });
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const { currentlySelectedNode } = this.state;
     const { nodeList } = this.props;

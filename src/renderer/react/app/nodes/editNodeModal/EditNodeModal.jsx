@@ -84,7 +84,7 @@ class EditNodeModal extends React.PureComponent {
     });
   };
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const {
       node, onCancel, form,

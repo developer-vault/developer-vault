@@ -18,6 +18,7 @@ const webpack = require('webpack');
 const {
   babelRule,
   eslintRule,
+  moduleRule,
   makeCssRule,
   makeCssModulesRule,
   makeSassRule,
@@ -42,6 +43,12 @@ function getAppEnvironment() {
   return pickBy(process.env, (value, key) => key.toLowerCase().startsWith(prefix));
 }
 
+/**
+ * Print option.
+ *
+ * @param {string} optName - Name of the option.
+ * @param {boolean} isOptEnabled - Is the option enabled?
+ */
 function printOpt(optName, isOptEnabled) {
   // eslint-disable-next-line no-console
   console.log(chalk`• [${isOptEnabled ? '{green.bold ✔}' : ' '}] ${optName}`);
@@ -108,6 +115,7 @@ module.exports = (
         // JavaScript.
         babelRule,
         eslintRule,
+        moduleRule,
 
         // Sass, less and css.
         makeCssRule({ mode }),
@@ -139,6 +147,7 @@ module.exports = (
 
       extensions: [
         '.json',
+        '.mjs',
         '.js',
         '.jsx',
       ],
@@ -256,6 +265,9 @@ module.exports = (
         // Allow users to override via environment.
         port: +(process.env[`${process.env.ENV_PREFIX}WDS_PORT`] || 8080),
 
+        /**
+         * @param {object} app - App.
+         */
         before(app) {
           // This lets us open files from the runtime error overlay.
           app.use(errorOverlayMiddleware());

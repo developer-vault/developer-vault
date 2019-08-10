@@ -3,10 +3,10 @@ import EVENTS from 'shared/events';
 
 /**
  * Asks main process if application was initialized.
- * Meaning, is the user locally registered ?
+ * Meaning, is the user locally registered?
  *
  * @async
- * @returns {boolean} - Is the app initialized ?
+ * @returns {boolean} - Is the app initialized?
  */
 export const isInitialized = () => send(EVENTS.IS_INITIALIZED);
 

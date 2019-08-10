@@ -96,7 +96,7 @@ export default class NodeManagerList extends React.PureComponent {
     },
   );
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     return (
       <React.Fragment>

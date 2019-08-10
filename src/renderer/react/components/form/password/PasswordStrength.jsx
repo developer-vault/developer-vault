@@ -28,7 +28,7 @@ export default class PasswordStrength extends React.PureComponent {
    */
   getStrength = memoize(password => (password.length === 0 ? { score: -1 } : zxcvbn(password)));
 
-  /** Renders component. */
+  /** @returns {object} JSX. */
   render() {
     const strength = this.getStrength(this.props.password);
     return (

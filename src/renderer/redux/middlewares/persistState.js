@@ -6,6 +6,7 @@ import { saveState } from 'services/state';
  * @example
  * const middleware = makeSaveState();
  * const store = createStore(reducers, applyMiddleware(middleware));
+ * @returns {object} The calculated state.
  */
 export default () => store => next => (action) => {
   const result = next(action);

@@ -17,6 +17,7 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: [
+          '.mjs',
           '.js',
           '.jsx',
         ],

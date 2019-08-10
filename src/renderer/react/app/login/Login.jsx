@@ -4,9 +4,10 @@ import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 
+import { intlShape } from 'react/shapes/vendor';
 import { loginAction } from 'redux/stores/app/actions';
 
 import LoginPresentation from './LoginPresentation';
@@ -71,7 +72,7 @@ export const LoginContainer = (Presentation) => {
       this.setState({ redirectToHome: true });
     };
 
-    /** Renders component. */
+    /** @returns {object} JSX. */
     render() {
       const { password, redirectToHome } = this.state;
 

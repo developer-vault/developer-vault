@@ -62,12 +62,13 @@ module.exports = {
 
     // JSDoc specific rules.
     // Set most rules as warnings instead of errors.
-    'jsdoc/check-param-names': 1,
-    'jsdoc/check-tag-names': 1,
-    'jsdoc/check-types': 1,
     'jsdoc/check-alignment': 1,
-    'jsdoc/check-indentation': 1,
+    'jsdoc/check-param-names': 1,
     'jsdoc/check-syntax': 1,
+    'jsdoc/check-tag-names': [1, { definedTags: ['async', 'assignee']} ],
+    'jsdoc/check-types': 1,
+    'jsdoc/implements-on-classes': 1,
+    'jsdoc/match-description': 1,
     'jsdoc/newline-after-description': 1,
     'jsdoc/no-undefined-types': 1,
     'jsdoc/require-description-complete-sentence': 1,
@@ -76,25 +77,28 @@ module.exports = {
     'jsdoc/require-param-description': 1,
     'jsdoc/require-param-name': 1,
     'jsdoc/require-param-type': 1,
-    'jsdoc/require-returns-check': 1,
     'jsdoc/require-returns-description': 1,
+    'jsdoc/require-returns-check': 1,
     'jsdoc/require-returns-type': 1,
     'jsdoc/valid-types': 1,
+
 
     // Disable these rules.
     'jsdoc/require-description': 0,
     'jsdoc/require-example': 0,
-  },
 
-  settings: {
-    jsdoc: {
-      additionalTagNames: {
-        customTags: [
-          'todo',
-          'assignee',
-        ],
+    'jsdoc/require-jsdoc': [
+      1,
+      {
+        require: {
+          FunctionDeclaration: true,
+          MethodDefinition: true,
+          ClassDeclaration: false,
+          ArrowFunctionExpression: false,
+          FunctionExpression: true,
+        },
       },
-    },
+    ],
   },
 
   overrides: [

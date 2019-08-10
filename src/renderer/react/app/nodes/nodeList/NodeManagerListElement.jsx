@@ -30,7 +30,7 @@ export default class NodeManagerListElement extends React.PureComponent {
   /** Called when delete button is clicked. */
   onDeleteNode = () => this.props.onDeleteNode(this.props.node);
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const {
       node,
