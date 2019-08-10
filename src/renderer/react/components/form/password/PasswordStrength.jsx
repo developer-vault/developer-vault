@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import zxcvbn from 'zxcvbn';
-import memoize from 'fast-memoize';
-import concatClassNames from 'classnames';
+import memoize from 'memoize-one';
+import cn from 'classnames';
 
-import { scores, SCORES } from './password-strength.messages';
+import messages, { scores, SCORES } from './password-strength.messages';
 import classNames from './password-strength.module.scss';
 
 export default class PasswordStrength extends React.PureComponent {
@@ -28,7 +28,7 @@ export default class PasswordStrength extends React.PureComponent {
    */
   getStrength = memoize(password => (password.length === 0 ? { score: -1 } : zxcvbn(password)));
 
-  /** Renders component. */
+  /** @returns {object} JSX. */
   render() {
     const strength = this.getStrength(this.props.password);
     return (
@@ -47,9 +47,12 @@ export default class PasswordStrength extends React.PureComponent {
             .map(score => (
               <div
                 key={score}
-                className={concatClassNames(classNames.strengthStep, score <= strength.score ? classNames.active : '')}
+                className={cn(
+                  classNames.strengthStep,
+                  score <= strength.score && classNames.active,
+                )}
               />
-          ))
+            ))
         }
 
         {
@@ -62,9 +65,7 @@ export default class PasswordStrength extends React.PureComponent {
           {
             strength.score >= 0 && (
               <span className={classNames.scoreHint}>
-                <FormattedMessage
-                  id={scores[strength.score]}
-                />
+                <FormattedMessage {...messages[scores[strength.score]]} />
               </span>
             )
           }

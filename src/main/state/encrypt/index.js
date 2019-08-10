@@ -1,30 +1,18 @@
 /** From http://lollyrock.com/articles/nodejs-encryption/. */
 
-const crypto = require('crypto');
+import crypto from 'crypto';
 
-const fse = require('fs-extra');
-
-/**
- * Is user registered ?
- * That would mean that the app is initialized and that the store file exists.
- *
- * @async
- * @param {string} storeFilePath - Where to find the store file.
- * @returns {bool} Whether the store file exists.
- */
-function isInitialized(storeFilePath) {
-  return fse.pathExists(storeFilePath);
-}
+import fse from 'fs-extra';
 
 /**
  * Encrypt the state with the given key.
  *
- * @param {Object} state - State tree.
+ * @param {object} state - State tree.
  * @param {string} key - Key to encrypt, as an utf8 string.
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @returns {string} The state encrypted, as an utf8 string.
  */
-function encrypt(state, key, algorithm) {
+export function encrypt(state, key, algorithm) {
   const cipher = crypto.createCipher(algorithm, key);
   return cipher.update(JSON.stringify(state), 'utf8', 'base64') + cipher.final('base64');
 }
@@ -32,12 +20,12 @@ function encrypt(state, key, algorithm) {
 /**
  * Decrypt the state with the given key.
  *
- * @param {Object} encryptedState - Encrypted state, as an utf8 string.
+ * @param {object} encryptedState - Encrypted state, as an utf8 string.
  * @param {string} key - Key used to encrypt, as an utf8 string.
  * @param {string} algorithm - Algorithm used to encrypt the state.
- * @returns {Object} The state tree, decrypted.
+ * @returns {object} The state tree, decrypted.
  */
-function decrypt(encryptedState, key, algorithm) {
+export function decrypt(encryptedState, key, algorithm) {
   const decipher = crypto.createDecipher(algorithm, key);
   const decrypted = decipher.update(encryptedState, 'base64', 'utf8') + decipher.final('utf8');
   return JSON.parse(decrypted);
@@ -47,12 +35,12 @@ function decrypt(encryptedState, key, algorithm) {
  * Encrypt the state and write to a file.
  *
  * @async
- * @param {Object} state - State tree.
+ * @param {object} state - State tree.
  * @param {string} key - Key to encrypt, as an utf8 string.
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @param {string} storeFilePath - Path to the file where to write.
  */
-function persistEncryptedState(state, key, algorithm, storeFilePath) {
+export function persistEncryptedState(state, key, algorithm, storeFilePath) {
   const encrypted = encrypt(state, key, algorithm);
 
   return fse.writeFile(
@@ -71,9 +59,9 @@ function persistEncryptedState(state, key, algorithm, storeFilePath) {
  * @param {string} key - Key used to encrypt, as an utf8 string.
  * @param {string} algorithm - Algorithm used to encrypt the state.
  * @param {string} storeFilePath - Path to the file where the store is saved.
- * @returns {Object} The decrypted state, or null if the file does not exist.
+ * @returns {object} The decrypted state, or null if the file does not exist.
  */
-async function decryptFromFile(key, algorithm, storeFilePath) {
+export async function decryptFromFile(key, algorithm, storeFilePath) {
   let encrypted;
   try {
     encrypted = await fse.readFile(storeFilePath, { encoding: 'utf8' });
@@ -89,11 +77,3 @@ async function decryptFromFile(key, algorithm, storeFilePath) {
 
   return decrypt(encrypted, key, algorithm);
 }
-
-module.exports = {
-  isInitialized,
-  encrypt,
-  decrypt,
-  persistEncryptedState,
-  decryptFromFile,
-};

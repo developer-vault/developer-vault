@@ -7,16 +7,20 @@ import NotificationsSystem from 'reapop';
 
 import { reapopThemeShape, storeShape } from './shapes/app.shapes';
 
-const AppWrapper = props => (
+const AppWrapper = ({
+  store,
+  reapopTheme,
+  children,
+}) => (
   <ReduxProvider
-    store={props.store}
+    store={store}
   >
     <IntlProvider>
       <React.Fragment>
         <Router>
-          {props.children}
+          {children}
         </Router>
-        <NotificationsSystem theme={props.reapopTheme} />
+        <NotificationsSystem theme={reapopTheme} />
       </React.Fragment>
     </IntlProvider>
   </ReduxProvider>

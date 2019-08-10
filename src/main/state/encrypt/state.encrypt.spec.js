@@ -1,12 +1,12 @@
-const mockFs = require('mock-fs');
-const fs = require('fs-extra');
+import mockFs from 'mock-fs';
+import fs from 'fs-extra';
 
-const {
+import {
   encrypt,
   decrypt,
   persistEncryptedState,
   decryptFromFile,
-} = require('./index');
+} from './index';
 
 const payload = {
   a: 1,
@@ -71,6 +71,12 @@ describe('State encryption', () => {
     it('returns null if the file does not exist', async () => {
       expect(await decryptFromFile(key, ALGORITHM, '/appData/developer-vault/fileThatDoesNotExist'))
         .toBeNull();
+    });
+
+    it('throws if the path is invalid', async () => {
+      expect.assertions(1);
+      await expect(decryptFromFile(key, ALGORITHM, '/appData/developer-vault')).rejects
+        .toThrowError('EBADF, bad file descriptor');
     });
   });
 });

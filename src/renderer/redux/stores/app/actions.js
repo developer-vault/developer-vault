@@ -1,4 +1,9 @@
-import { isInitialized, getStoreFilePath, setKey, loadState } from 'services/state';
+import {
+  isInitialized,
+  getStoreFilePath,
+  setKey,
+  loadState,
+} from 'services/state';
 
 export const ACTIONS = {
   IS_INITIALIZED: 'APP/IS_INITIALIZED',
@@ -12,16 +17,16 @@ export const IS_INITIALIZED = initialized => ({
   initialized,
 });
 
-export const isInitializedAction = () =>
-  async dispatch => dispatch(IS_INITIALIZED(await isInitialized()));
+export const isInitializedAction
+  = () => async dispatch => dispatch(IS_INITIALIZED(await isInitialized()));
 
 export const GET_STORE_FILE_PATH = storeFilePath => ({
   type: ACTIONS.IS_INITIALIZED,
   storeFilePath,
 });
 
-export const getStoreFilePathAction = () =>
-  async dispatch => dispatch(GET_STORE_FILE_PATH(await getStoreFilePath()));
+export const getStoreFilePathAction
+  = () => async dispatch => dispatch(GET_STORE_FILE_PATH(await getStoreFilePath()));
 
 export const REGISTER = () => ({
   type: ACTIONS.REGISTER,

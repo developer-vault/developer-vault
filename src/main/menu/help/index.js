@@ -1,12 +1,9 @@
-// eslint does not allow me to put electron in devDependencies
-// electron-builder does not allow me to put electron in dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { app, dialog, shell } = require('electron');
+import { app, dialog, shell } from 'electron';
 
 const name = app.getName();
 const version = app.getVersion();
 
-module.exports = {
+export default {
   role: 'help',
   submenu: [
     {
@@ -26,8 +23,8 @@ module.exports = {
       /**
        * On Click, toggle developer tools.
        *
-       * @param {Object} item - The item clicked.
-       * @param {Object} focusedWindow - The windows currently focused.
+       * @param {object} item - The item clicked.
+       * @param {object} focusedWindow - The windows currently focused.
        */
       click(item, focusedWindow) {
         if (!focusedWindow) {

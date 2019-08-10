@@ -1,37 +1,29 @@
-// eslint does not allow me to put electron in devDependencies
-// electron-builder does not allow me to put electron in dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { Menu } = require('electron');
+import { Menu } from 'electron';
 
-const { OPEN_MENU_POPUP } = require('common/events');
+import EVENTS from 'shared/events';
 
-const help = require('./help');
-const { on } = require('../ipc');
+import help from './help';
+import { on } from '../services/ipc';
 
-const template = [
+export const template = [
   help,
 ];
 
-const makeMenu = () => {
+export const makeMenu = () => {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
-  on(OPEN_MENU_POPUP, async (...args) => {
+  on(EVENTS.OPEN_MENU_POPUP, async (...args) => {
     /**
-     * @TODO
+     * @todo
      * @assignee maxence-lefebvre
      *
      * Remove test code when menu is complete
      */
     // for example and test purposes :
     // eslint-disable-next-line no-console
-    console.log(OPEN_MENU_POPUP, ...args);
+    console.log(EVENTS.OPEN_MENU_POPUP, ...args);
     menu.popup();
     return true;
   });
-};
-
-module.exports = {
-  template,
-  makeMenu,
 };

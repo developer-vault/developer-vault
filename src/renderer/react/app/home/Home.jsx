@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { compose } from 'recompose';
+import { Link } from 'react-router-dom';
+
 import isAuthenticated from 'react/hoc/isAuthenticated';
 
-@isAuthenticated
-export default class Home extends React.PureComponent {
-  /** Renders component. */
-  render() {
-    return (
-      <div>
-        <h1>Home</h1>
-        <ul>
-          <li>
-            <button
-              // This component is a placeholder.
-              // eslint-disable-next-line react/prop-types
-              onClick={() => this.props.history.push('/nodes')}
-            >
-              Nodes management
-            </button>
-          </li>
-        </ul>
-      </div>
-    );
-  }
-}
+const enhancer = compose(
+  isAuthenticated,
+  memo,
+);
+
+const Home = () => (
+  <div>
+    <h1>Home</h1>
+    <ul>
+      <li>
+        <Link to="/nodes">
+          Nodes management
+        </Link>
+      </li>
+    </ul>
+  </div>
+);
+
+Home.displayName = 'Home';
+
+export default enhancer(Home);

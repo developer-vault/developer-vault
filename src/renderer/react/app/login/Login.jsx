@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 
+import { intlShape } from 'react/shapes/vendor';
 import { loginAction } from 'redux/stores/app/actions';
 
 import LoginPresentation from './LoginPresentation';
@@ -19,18 +21,21 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const LoginContainer = (Presentation) => {
-  @injectIntl
-  @connect(undefined, mapDispatchToProps)
+  const enhancer = compose(
+    injectIntl,
+    connect(undefined, mapDispatchToProps),
+  );
+
   class Login extends React.Component {
     static propTypes = {
-      /** @connect/ Mapped redux actions. */
+      /** From connect/ Mapped redux actions. */
       actions: PropTypes.shape({
         /** Called on form submission. */
         login: PropTypes.func,
         /** Notify action. */
         notify: PropTypes.func,
       }).isRequired,
-      /** @injectIntl/ */
+      /** From injectIntl. */
       intl: intlShape.isRequired,
     };
 
@@ -49,7 +54,7 @@ export const LoginContainer = (Presentation) => {
     /**
      * On form submit, sends the key to the main process.
      *
-     * @returns {Promise<void>} - Void.
+     * @async
      */
     onSubmit = async () => {
       await this.props.actions.login(this.state.password);
@@ -67,7 +72,7 @@ export const LoginContainer = (Presentation) => {
       this.setState({ redirectToHome: true });
     };
 
-    /** Renders component. */
+    /** @returns {object} JSX. */
     render() {
       const { password, redirectToHome } = this.state;
 
@@ -86,7 +91,7 @@ export const LoginContainer = (Presentation) => {
     }
   }
 
-  return Login;
+  return enhancer(Login);
 };
 
 export default LoginContainer(LoginPresentation);

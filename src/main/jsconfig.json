@@ -1,0 +1,19 @@
+{
+  "exclude": [
+    "../../node_modules/",
+    "../../.dist/",
+    "../../.dev/",
+    "../../.vscode",
+    "../../.idea"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": [
+        "../shared/*"
+      ]
+    }
+  }
+}

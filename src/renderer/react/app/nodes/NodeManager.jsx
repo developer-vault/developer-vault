@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import { nodeShape } from 'react/shapes/node';
@@ -9,18 +10,21 @@ import isAuthenticated from 'react/hoc/isAuthenticated';
 import NodeManagerList from './nodeList/NodeManagerList';
 import PromptNewNodeModal from './editNodeModal/EditNodeModal';
 
-@isAuthenticated
-@connect(
-  state => ({
-    nodeList: state.nodes,
-  }),
-  dispatch => ({
-    onCreateNode: node => dispatch(create(node)),
-    onUpdateNode: node => dispatch(update(node)),
-    onRemoveNode: node => dispatch(remove(node)),
-  }),
-)
-export default class NodeManager extends React.PureComponent {
+const enhancer = compose(
+  isAuthenticated,
+  connect(
+    state => ({
+      nodeList: state.nodes,
+    }),
+    dispatch => ({
+      onCreateNode: node => dispatch(create(node)),
+      onUpdateNode: node => dispatch(update(node)),
+      onRemoveNode: node => dispatch(remove(node)),
+    }),
+  ),
+);
+
+class NodeManager extends React.PureComponent {
   static propTypes = {
     /** List of nodes in the store. */
     nodeList: PropTypes.objectOf(nodeShape).isRequired,
@@ -46,14 +50,14 @@ export default class NodeManager extends React.PureComponent {
   /**
    * Select the current node.
    *
-   * @param {Object} currentlySelectedNode - The node.
+   * @param {object} currentlySelectedNode - The node.
    */
   onEditNode = currentlySelectedNode => this.setState({ currentlySelectedNode });
 
   /**
    * Called when a delete button was pressed.
    *
-   * @param {Object} node - Selected node.
+   * @param {object} node - Selected node.
    */
   onDeleteNode = (node) => {
     // TODO (sylvainar) : add a reapop confirm.
@@ -63,14 +67,14 @@ export default class NodeManager extends React.PureComponent {
   /**
    * Called when user confirmed the deletion.
    *
-   * @param {Object} node - Selected node.
+   * @param {object} node - Selected node.
    */
   onDeleteConfirm = node => this.props.onRemoveNode(node);
 
   /**
    * Called when the form is submitted.
    *
-   * @param {Object} node - Node.
+   * @param {object} node - Node.
    */
   onSubmit = (node) => {
     if (node.id) {
@@ -89,7 +93,7 @@ export default class NodeManager extends React.PureComponent {
    */
   onCloseForm = () => this.setState({ currentlySelectedNode: null });
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const { currentlySelectedNode } = this.state;
     const { nodeList } = this.props;
@@ -112,3 +116,5 @@ export default class NodeManager extends React.PureComponent {
     );
   }
 }
+
+export default enhancer(NodeManager);

@@ -1,38 +1,44 @@
 import { send } from 'services/ipc';
-import {
-  IS_INITIALIZED,
-  GET_STORE_FILE_PATH,
-  SET_KEY,
-  LOAD_STATE,
-} from 'common/events';
+import EVENTS from 'shared/events';
 
 /**
  * Asks main process if application was initialized.
- * Meaning, is the user locally registered ?
+ * Meaning, is the user locally registered?
  *
- * @returns {Promise<bool>} - Is the app initialized ?
+ * @async
+ * @returns {boolean} - Is the app initialized?
  */
-export const isInitialized = () => send(IS_INITIALIZED);
+export const isInitialized = () => send(EVENTS.IS_INITIALIZED);
 
 /**
  * Gets the store file path used by developer-vault.
  *
- * @returns {Promise<string>} - The store file path.
+ * @async
+ * @returns {string} - The store file path.
  */
-export const getStoreFilePath = () => send(GET_STORE_FILE_PATH);
+export const getStoreFilePath = () => send(EVENTS.GET_STORE_FILE_PATH);
 
 /**
  * Sends the password to main process.
  *
+ * @async
  * @param {string} key - The user password.
- * @returns {Promise<void>} - The promise to await.
  */
-export const setKey = key => send(SET_KEY, key);
+export const setKey = key => send(EVENTS.SET_KEY, key);
+
+/**
+ * Persist state.
+ *
+ * @async
+ * @param {object} state - The state to persist.
+ */
+export const saveState = state => send(EVENTS.SAVE_STATE, state);
 
 /**
  * Loads persisted state.
  *
+ * @async
  * @param {string} key - The user password.
- * @returns {Promise<Object>} - The persisted state.
+ * @returns {object} - The persisted state.
  */
-export const loadState = key => send(LOAD_STATE, key);
+export const loadState = key => send(EVENTS.LOAD_STATE, key);

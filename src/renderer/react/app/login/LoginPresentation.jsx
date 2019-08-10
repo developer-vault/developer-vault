@@ -5,6 +5,7 @@ import { noop } from 'lodash';
 
 import Button from 'react/components/general/button/Button';
 
+import messages from './login.messages';
 import classNames from './login.module.scss';
 
 const LoginPresentation = props => (
@@ -18,11 +19,9 @@ const LoginPresentation = props => (
     }
     <input type="password" value={props.password} onChange={props.onChangePassword} />
     <Button
-      label={
-        <FormattedMessage
-          id="app.login.submit.button.label"
-          defaultMessage="Se connecter"
-        />}
+      label={(
+        <FormattedMessage {...messages.LOGIN} />
+      )}
       disabled={props.submitDisabled}
       onClick={props.onSubmit}
     />

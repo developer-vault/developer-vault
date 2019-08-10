@@ -1,4 +1,4 @@
-import { send } from 'services/ipc';
+import { saveState } from 'services/state';
 
 /**
  * Redux middleware creator to save the state to a file everytime there is an action.
@@ -6,6 +6,7 @@ import { send } from 'services/ipc';
  * @example
  * const middleware = makeSaveState();
  * const store = createStore(reducers, applyMiddleware(middleware));
+ * @returns {object} The calculated state.
  */
 export default () => store => next => (action) => {
   const result = next(action);
@@ -17,7 +18,7 @@ export default () => store => next => (action) => {
    */
   // Only persist "nodes" property of the state, if it exists.
   if (store.getState().app.authenticated) {
-    send(store.getState().nodes);
+    saveState(store.getState().nodes);
   }
   return result;
 };

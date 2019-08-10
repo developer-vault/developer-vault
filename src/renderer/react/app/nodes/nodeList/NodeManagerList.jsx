@@ -45,19 +45,19 @@ export default class NodeManagerList extends React.PureComponent {
    *
    * Give the parentId of the clicked node.
    *
-   * @param {Object} node - Selected node.
+   * @param {object} node - Selected node.
    */
   onAddChildNode = node => this.props.onAddNode(node.id);
 
   /**
    * Builds the rendering tree of nodes.
    *
-   * @param {Object[]} treeElements - An array of nodes.
-   * @param {Object} nodeList - Nodes hashmap.
-   * @param {func} onAddChildNode - Callback for node creation.
-   * @param {func} onEditNode - Callback for node edition.
-   * @param {func} onDeleteNode - Callback for node deletion.
-   * @returns {Object} - JSX render.
+   * @param {object[]} treeElements - An array of nodes.
+   * @param {object} nodeList - Nodes hashmap.
+   * @param {Function} onAddChildNode - Callback for node creation.
+   * @param {Function} onEditNode - Callback for node edition.
+   * @param {Function} onDeleteNode - Callback for node deletion.
+   * @returns {object} - JSX render.
    */
   renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode, onDeleteNode) => (
     <ul>
@@ -96,13 +96,13 @@ export default class NodeManagerList extends React.PureComponent {
     },
   );
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     return (
       <React.Fragment>
         <h1>List</h1>
         {this.renderTree(this.props)}
-        <button onClick={this.onAddRootNode}>Add</button>
+        <button type="button" onClick={this.onAddRootNode}>Add</button>
       </React.Fragment>
     );
   }

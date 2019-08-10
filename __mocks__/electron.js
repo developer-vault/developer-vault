@@ -1,4 +1,4 @@
-const app = {
+export const app = {
   /**
    * Mock of electron app.getPath.
    *
@@ -13,14 +13,9 @@ const app = {
   },
 };
 
-const ipcMain = {
+export const ipcMain = {
   /**
    * Mock of ipcMain.removeListener.
    */
-  removeListener() {},
-};
-
-module.exports = {
-  app,
-  ipcMain,
+  removeListener() { },
 };

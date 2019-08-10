@@ -1,11 +1,9 @@
-// eslint does not allow me to put electron in devDependencies
-// electron-builder does not allow me to put electron in dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { ipcRenderer } = require('electron');
 const { EventEmitter } = require('events');
 
+// This file is loaded by the renderer process.
+// eslint-disable-next-line no-undef
 window.electron = {
   ipcRenderer,
   EventEmitter,
 };
-

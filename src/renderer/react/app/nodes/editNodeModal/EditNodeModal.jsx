@@ -1,8 +1,7 @@
-/* eslint-disable function-paren-newline */
-
+import { noop, mapValues } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noop, mapValues } from 'lodash';
+import { compose } from 'recompose';
 import { createForm, createFormField } from 'rc-form';
 import { createSelector } from 'reselect';
 
@@ -13,11 +12,11 @@ import { formShape } from 'react/shapes/form';
 /**
  * Maps props to a rc-form friendly default value.
  *
- * @param {Object} props - Props.
- * @returns {Object} - Values.
+ * @param {object} props - Props.
+ * @returns {object} - Values.
  */
-const defaultValueMapper = props =>
-  mapValues(props.node || {}, value => createFormField({ value }));
+const defaultValueMapper
+  = props => mapValues(props.node || {}, value => createFormField({ value }));
 
 /**
  * Make a list of available parents.
@@ -40,10 +39,13 @@ const getOptionsSelector = createSelector(
   },
 );
 
-@createForm({
-  mapPropsToFields: defaultValueMapper,
-})
-export default class EditNodeModal extends React.PureComponent {
+const enhancer = compose(
+  createForm({
+    mapPropsToFields: defaultValueMapper,
+  }),
+);
+
+class EditNodeModal extends React.PureComponent {
   static propTypes = {
     /** Current node given for edition. */
     node: nodeShape,
@@ -55,7 +57,7 @@ export default class EditNodeModal extends React.PureComponent {
     onSubmit: PropTypes.func,
     /** Callback for cancel. */
     onCancel: PropTypes.func,
-    /** @createForm / Form */
+    /** From createForm / Form. */
     form: formShape.isRequired,
   };
 
@@ -82,7 +84,7 @@ export default class EditNodeModal extends React.PureComponent {
     });
   };
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const {
       node, onCancel, form,
@@ -93,33 +95,41 @@ export default class EditNodeModal extends React.PureComponent {
 
     return (
       <React.Fragment>
-        {!!node &&
-        <div>
-          Name:
-          {getFieldDecorator('label', {
-            rules: [{
-              required: true,
-            }],
-          })(<input />)}
+        { !!node
+          && (
+            <div>
+              Name:
+              {getFieldDecorator('label', {
+                rules: [{
+                  required: true,
+                }],
+              })(<input />)}
 
-          Parent:
-          {getFieldDecorator('parentId', {
-            initialValue: '',
-            normalize: value => value || '',
-          })(
-            <select>
-              <option key="" value="">-</option>
-              {(options || []).map(option =>
-                <option key={option.key} value={option.key}>{option.value}</option>)}
-            </select>,
+              Parent:
+              {getFieldDecorator('parentId', {
+                initialValue: '',
+                normalize: value => value || '',
+              })(
+                <select>
+                  <option key="" value="">-</option>
+                  {(options || []).map(option => (
+                    <option
+                      key={option.key}
+                      value={option.key}
+                    >
+                      {option.value}
+                    </option>
+                  ))}
+                </select>,
+              )}
+              <br />
+              <button type="button" onClick={this.submit}>OK</button>
+              <button type="button" onClick={onCancel}>Cancel</button>
+            </div>
           )}
-          <br />
-          <button onClick={this.submit}>OK</button>
-          <button onClick={onCancel}>Cancel</button>
-        </div>
-        }
       </React.Fragment>
     );
   }
 }
 
+export default enhancer(EditNodeModal);

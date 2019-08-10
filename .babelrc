@@ -5,18 +5,40 @@
         [
           "@babel/preset-env",
           {
-            "targets": {
-              "browsers": [
-                "> 1%"
-              ]
-            }
+            "targets": [
+              "node 10",
+              "chrome 69"
+            ]
           }
         ],
-        "@babel/preset-stage-1",
         "@babel/preset-react"
       ],
       "plugins": [
-        "dynamic-import-node"
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
+      ],
+      "retainLines": true,
+      "sourceMaps": "inline"
+    },
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "targets": [
+              "node 10",
+              "chrome 69"
+            ]
+          }
+        ],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
       ]
     },
     "production": {
@@ -24,33 +46,19 @@
         [
           "@babel/preset-env",
           {
-            "targets": {
-              "browsers": [
-                "> 1%"
-              ]
-            },
-            "modules": false
+            "modules": false,
+            "targets": [
+              "node 10",
+              "chrome 69"
+            ]
           }
         ],
-        "@babel/preset-stage-1",
         "@babel/preset-react"
-      ]
-    },
-    "development": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "targets": {
-              "browsers": [
-                "> 1%"
-              ]
-            },
-            "modules": false
-          }
-        ],
-        "@babel/preset-stage-1",
-        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-optional-chaining"
       ]
     }
   }

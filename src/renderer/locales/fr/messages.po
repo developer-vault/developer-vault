@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. [story.button.label]
+#. defaultMessage is:
+#. Click me!
+#: .tmp/i18n/messages.json
+msgctxt "story.button.label"
+msgid "Click me!"
+msgstr "Cliquez-moi !"
+
+#. [app.register.submit.button.label]
+#. defaultMessage is:
+#. Create my encrypted database
+#: .tmp/i18n/messages.json
+msgctxt "app.register.submit.button.label"
+msgid "Create my encrypted database"
+msgstr "Créer ma base de données chiffrée"
+
+#. [app.login.submit.button.label]
+#. defaultMessage is:
+#. Log in
+#: .tmp/i18n/messages.json
+msgctxt "app.login.submit.button.label"
+msgid "Log in"
+msgstr "Se connecter"
+
+#. [app.register.password.strength.safely_unguessable]
+#. defaultMessage is:
+#. Safely unguessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.safely_unguessable"
+msgid "Safely unguessable"
+msgstr "Difficilement devinable"
+
+#. [app.register.password.strength.somewhat_guessable]
+#. defaultMessage is:
+#. Somewhat guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.somewhat_guessable"
+msgid "Somewhat guessable"
+msgstr "Un peu devinable"
+
+#. [app.login.success.notification.message]
+#. defaultMessage is:
+#. Success!
+#: .tmp/i18n/messages.json
+msgctxt "app.login.success.notification.message"
+msgid "Success!"
+msgstr "Succès !"
+
+#. [app.register.success.notification.message]
+#. defaultMessage is:
+#. Success!
+#: .tmp/i18n/messages.json
+msgctxt "app.register.success.notification.message"
+msgid "Success!"
+msgstr "Succès !"
+
+#. [app.register.password.strength.too_guessable]
+#. defaultMessage is:
+#. Too guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.too_guessable"
+msgid "Too guessable"
+msgstr "Trop devinable"
+
+#. [app.register.password.strength.very_guessable]
+#. defaultMessage is:
+#. Very guessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.very_guessable"
+msgid "Very guessable"
+msgstr "Très devinable"
+
+#. [app.register.password.strength.very_unguessable]
+#. defaultMessage is:
+#. Very unguessable
+#: .tmp/i18n/messages.json
+msgctxt "app.register.password.strength.very_unguessable"
+msgid "Very unguessable"
+msgstr "Très peu devinable"

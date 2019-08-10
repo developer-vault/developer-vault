@@ -30,7 +30,7 @@ export default class NodeManagerListElement extends React.PureComponent {
   /** Called when delete button is clicked. */
   onDeleteNode = () => this.props.onDeleteNode(this.props.node);
 
-  /** Render component. */
+  /** @returns {object} JSX. */
   render() {
     const {
       node,
@@ -41,9 +41,9 @@ export default class NodeManagerListElement extends React.PureComponent {
     return (
       <div>
         {node.label}
-        {onAddChildNode && <button onClick={this.onAddChildNode}>AddChild</button>}
-        {onEditNode && <button onClick={this.onEditNode}>Edit</button>}
-        {onDeleteNode && <button onClick={this.onDeleteNode}>Delete</button>}
+        {onAddChildNode && <button type="button" onClick={this.onAddChildNode}>AddChild</button>}
+        {onEditNode && <button type="button" onClick={this.onEditNode}>Edit</button>}
+        {onDeleteNode && <button type="button" onClick={this.onDeleteNode}>Delete</button>}
       </div>
     );
   }

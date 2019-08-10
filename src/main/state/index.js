@@ -1,16 +1,25 @@
-const {
-  IS_INITIALIZED,
-  GET_STORE_FILE_PATH,
-  SET_KEY,
-  SAVE_STATE,
-  LOAD_STATE,
-} = require('common/events');
+import fse from 'fs-extra';
 
-const { storeFilePath, storeFileEncryptionAlgorithm } = require('../config/constants');
-const { on, removeListener } = require('../ipc');
-const { isInitialized, persistEncryptedState, decryptFromFile } = require('./encrypt');
+import EVENTS from 'shared/events';
+
+import CONFIG from '../config/constants';
+import { on, removeListener } from '../services/ipc';
+
+import { persistEncryptedState, decryptFromFile } from './encrypt';
 
 let KEY;
+
+/**
+ * Is user registered ?
+ * That would mean that the app is initialized and that the store file exists.
+ *
+ * @async
+ * @param {string} storeFilePath - Where to find the store file.
+ * @returns {boolean} Whether the store file exists.
+ */
+export function isInitialized(storeFilePath) {
+  return fse.pathExists(storeFilePath);
+}
 
 /**
  * Set the key.
@@ -20,7 +29,7 @@ let KEY;
  * @param {string} key - The key as an utf8 string.
  */
 function onSetKey(key) {
-  if (!isInitialized(storeFilePath)) {
+  if (!isInitialized(CONFIG.STORE.PATH)) {
     KEY = key;
   }
 }
@@ -31,16 +40,16 @@ function onSetKey(key) {
  * @returns {string} - The store file path.
  */
 function onGetStoreFilePath() {
-  return storeFilePath;
+  return CONFIG.STORE.PATH;
 }
 
 /**
  * Handler function for the "IS_INITIALIZED" event.
  *
- * @returns {bool} Whether the user has once registered.
+ * @returns {boolean} Whether the user has once registered.
  */
 function onIsInitialized() {
-  return isInitialized(storeFilePath);
+  return isInitialized(CONFIG.STORE.PATH);
 }
 
 /**
@@ -48,16 +57,21 @@ function onIsInitialized() {
  *
  * @async
  * @param {string} key - Key used at encryption, as an utf8 string.
- * @returns {Object} The state, or null if none saved.
+ * @returns {object} The state, or null if none saved.
  */
 function onLoadState(key) {
   try {
-    const state = decryptFromFile(key, storeFileEncryptionAlgorithm, storeFilePath);
-    // if no error was thrown, we can save the key for later updates.
+    const state = decryptFromFile(
+      key,
+      CONFIG.STORE.ENCRYPTION_ALGORITHM,
+      CONFIG.STORE.PATH,
+    );
+
+    // If no error was thrown, we can save the key for later updates.
     KEY = key;
     return state;
   } catch (err) {
-    // if an error was thrown, key was not correct. We unset it
+    // If an error was thrown, key was not correct. We unset it
     // to prevent unlucky encryption with a wrong key !
     KEY = undefined;
     throw err;
@@ -78,7 +92,8 @@ function SaveStateHandler() {
    * Handler function for the SAVE_STATE event.
    *
    * @async
-   * @param {Object} state - State tree.
+   * @param {object} state - State tree.
+   * @returns {Promise} Reference to the current Promise.
    */
   this.onSaveState = (state) => {
     if (this.currentPromise) {
@@ -89,8 +104,8 @@ function SaveStateHandler() {
     this.currentPromise = persistEncryptedState(
       state,
       KEY,
-      storeFileEncryptionAlgorithm,
-      storeFilePath,
+      CONFIG.STORE.ENCRYPTION_ALGORITHM,
+      CONFIG.STORE.PATH,
     ).then(() => {
       this.currentPromise = null;
 
@@ -107,28 +122,22 @@ function SaveStateHandler() {
   };
 }
 
-const saveStateHandler = new SaveStateHandler();
+export const saveStateHandler = new SaveStateHandler();
 
 /** Register the callbacks. */
-function register() {
-  on(IS_INITIALIZED, onIsInitialized);
-  on(GET_STORE_FILE_PATH, onGetStoreFilePath);
-  on(SET_KEY, onSetKey);
-  on(SAVE_STATE, saveStateHandler.onSaveState);
-  on(LOAD_STATE, onLoadState);
+export function register() {
+  on(EVENTS.IS_INITIALIZED, onIsInitialized);
+  on(EVENTS.GET_STORE_FILE_PATH, onGetStoreFilePath);
+  on(EVENTS.SET_KEY, onSetKey);
+  on(EVENTS.SAVE_STATE, saveStateHandler.onSaveState);
+  on(EVENTS.LOAD_STATE, onLoadState);
 }
 
 /** Unregister the callbacks. */
-function cleanup() {
-  removeListener(IS_INITIALIZED, onIsInitialized);
-  removeListener(GET_STORE_FILE_PATH, onGetStoreFilePath);
-  removeListener(SET_KEY, onSetKey);
-  removeListener(SAVE_STATE, saveStateHandler.onSaveState);
-  removeListener(LOAD_STATE, onLoadState);
+export function cleanup() {
+  removeListener(EVENTS.IS_INITIALIZED, onIsInitialized);
+  removeListener(EVENTS.GET_STORE_FILE_PATH, onGetStoreFilePath);
+  removeListener(EVENTS.SET_KEY, onSetKey);
+  removeListener(EVENTS.SAVE_STATE, saveStateHandler.onSaveState);
+  removeListener(EVENTS.LOAD_STATE, onLoadState);
 }
-
-module.exports = {
-  register,
-  cleanup,
-  saveStateHandler,
-};

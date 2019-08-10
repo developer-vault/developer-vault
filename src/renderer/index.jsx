@@ -1,8 +1,5 @@
-import 'services/raven';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from 'redux/store';
 
 /**
  * @todo
@@ -12,6 +9,9 @@ import store from 'redux/store';
 import reapopTheme from 'reapop-theme-wybo';
 import 'font-awesome/css/font-awesome.min.css';
 
+import store from 'redux/store';
+import 'services/sentry';
+
 import { setLocale } from 'services/i18n';
 
 import App from './react/App';
@@ -19,7 +19,7 @@ import AppWrapper from './react/AppWrapper';
 
 import { isInitializedAction } from './redux/stores/app/actions';
 
-import './index.css';
+import './style/main.scss';
 
 Promise.all([setLocale(), store.dispatch(isInitializedAction())])
   .then(() => {
@@ -33,4 +33,3 @@ Promise.all([setLocale(), store.dispatch(isInitializedAction())])
       document.getElementById('root'),
     );
   });
-
