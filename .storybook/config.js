@@ -64,7 +64,7 @@ addDecorator(getStory => (
 ));
 
 /**
- *
+ * Load stories in renderer.
  */
 function loadStories() {
   const req = require.context('../src/renderer/react', true, /\.stories\.jsx?$/);
