@@ -1,6 +1,7 @@
 const path = require('path');
 
 const {
+  moduleRule,
   makeCssRule,
   makeCssModulesRule,
   makeSassRule,
@@ -8,6 +9,7 @@ const {
   sassVariablesRule,
   assetsRule,
   svgReactRule,
+  poRule,
 } = require('../.webpack/rules');
 
 module.exports = ({ config }) => {
@@ -27,6 +29,9 @@ module.exports = ({ config }) => {
     // Files (mp3 etc.).
     config.module.rules[4],
 
+    // .mjs files.
+    moduleRule,
+
     makeCssRule(),
     makeCssModulesRule(),
     makeSassRule(),
@@ -35,6 +40,9 @@ module.exports = ({ config }) => {
 
     assetsRule,
     svgReactRule,
+
+    // Gettext PO files for i18n.
+    poRule,
   ];
 
   config.resolve.modules.push(path.resolve(__dirname, '../src/renderer'));
