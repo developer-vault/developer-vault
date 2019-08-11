@@ -2,7 +2,7 @@ import mockFs from 'mock-fs';
 import fse from 'fs-extra';
 
 import { saveStateHandler, isInitialized } from './index';
-import { persistEncryptedState } from './encrypt';
+import { persistEncryptedState, generateRandomSalt, generateRandomIV } from './encrypt';
 
 jest.mock('./encrypt');
 jest.mock('../config/constants');
@@ -38,8 +38,17 @@ describe('State persistence', () => {
       // The method should have been called on the first call, then on the last.
       expect(persistEncryptedState).toHaveBeenCalledTimes(2);
 
+      // Random Salt and IV generators must only have been called once.
+      expect(generateRandomSalt).toHaveBeenCalledTimes(1);
+      expect(generateRandomIV).toHaveBeenCalledTimes(1);
+
       // The content of the save file should be the last state requested to be saved.
-      expect(JSON.parse(fileContent)).toEqual({ a: 4 });
+      expect(JSON.parse(fileContent)).toEqual({
+        version: '1.0.0',
+        salt: '0000000000000000',
+        iv: '00000000000000000000000000000000',
+        state: JSON.stringify({ a: 4 }),
+      });
     });
   });
 
