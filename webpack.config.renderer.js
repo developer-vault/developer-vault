@@ -71,7 +71,7 @@ module.exports = (
   const publicPath = mode === 'production' ? './' : '/';
 
   // Point sourcemap entries to original disk location (format as URL on Windows).
-  const devtoolModuleFilenameTemplate = (info) => path
+  const devtoolModuleFilenameTemplate = info => path
     .relative('./src/renderer', info.absoluteResourcePath)
     .replace(/\\/g, '/');
 

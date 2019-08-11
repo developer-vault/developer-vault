@@ -37,13 +37,13 @@ module.exports = (
       path: path.join(__dirname, './.dev/main/'),
       filename: 'app.min.js',
       // Point sourcemap entries to original disk location (format as URL on Windows).
-      devtoolModuleFilenameTemplate: (info) => path
+      devtoolModuleFilenameTemplate: info => path
         .relative(path.join(__dirname, './.dev'), info.absoluteResourcePath)
         .replace(/\\/g, '/'),
     } : {
       path: path.join(__dirname, './.dist/main'),
       filename: 'app.min.js',
-      devtoolModuleFilenameTemplate: (info) => path
+      devtoolModuleFilenameTemplate: info => path
         .relative(path.join(__dirname, './.dist'), info.absoluteResourcePath)
         .replace(/\\/g, '/'),
     },

@@ -19,4 +19,4 @@ const cli = async () => {
 };
 
 // eslint-disable-next-line no-console
-cli().catch((error) => console.error(error));
+cli().catch(error => console.error(error));

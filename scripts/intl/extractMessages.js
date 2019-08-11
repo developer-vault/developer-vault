@@ -17,7 +17,7 @@ const extract = async (pattern) => {
   );
 
   return Object.keys(result.en).map(
-    (id) => ({
+    id => ({
       id,
       defaultMessage: result.en[id],
     }),

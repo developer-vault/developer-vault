@@ -37,7 +37,7 @@ const moduleRule = {
 };
 
 const makeCssRule = ({ mode } = {}) => ({
-  test: (file) => (
+  test: file => (
     /**
      * @todo
      * @assignee anyone
@@ -51,7 +51,7 @@ const makeCssRule = ({ mode } = {}) => ({
 });
 
 const makeCssModulesRule = ({ mode } = {}) => ({
-  test: (file) => (
+  test: file => (
     /**
      * @todo
      * @assignee anyone
@@ -64,7 +64,7 @@ const makeCssModulesRule = ({ mode } = {}) => ({
 });
 
 const makeSassRule = ({ mode } = {}) => ({
-  test: (file) => (
+  test: file => (
     !endsWith(file, '.module.scss')
     && !endsWith(file, '.variables.scss')
     && endsWith(file, '.scss')

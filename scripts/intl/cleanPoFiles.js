@@ -2,7 +2,7 @@ const fse = require('fs-extra');
 const glob = require('glob');
 const shell = require('shelljs');
 
-const headerRegex = (headerName) => new RegExp(`"${headerName}: .+(\\\r\\\n|\\\r|\\\n)`, 'g');
+const headerRegex = headerName => new RegExp(`"${headerName}: .+(\\\r\\\n|\\\r|\\\n)`, 'g');
 
 const PATTERN = 'src/renderer/locales/**/messages.po';
 
@@ -12,7 +12,7 @@ const PATTERN = 'src/renderer/locales/**/messages.po';
  * @async
  * @param {string} poFile - Path to po file.
  */
-const clearObsoleteMessages = (poFile) => new Promise((resolve, reject) => {
+const clearObsoleteMessages = poFile => new Promise((resolve, reject) => {
   shell.exec(
     `msgattrib --no-obsolete -o ${poFile} ${poFile}`,
     { silent: true },

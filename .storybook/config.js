@@ -56,7 +56,7 @@ addParameters({
 addDecorator(withKnobs);
 
 // Add mock store.
-addDecorator((getStory) => (
+addDecorator(getStory => (
   <StoreProvider store={store}>
     {getStory()}
   </StoreProvider>
