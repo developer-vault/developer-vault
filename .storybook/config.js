@@ -1,3 +1,4 @@
+import React from 'react';
 import { transform } from 'lodash';
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
