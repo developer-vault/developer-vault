@@ -17,7 +17,7 @@
     "packager": "electron-builder --config .electronbuilderrc.js",
     "clean": "run-p _clean:dev _clean:dist _clean:releases _clean:reports _clean:tmp",
     "lint": "run-p lint:**",
-    "lint:js": "eslint ./src --ext=js --ext=jsx",
+    "lint:js": "eslint . --ext=js --ext=jsx",
     "lint:scss": "stylelint \"src/**/*.scss\" --syntax scss",
     "lint-fix": "run-p lint-fix:**",
     "lint-fix:js": "run-s \"lint:js --fix\"",
