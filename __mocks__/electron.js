@@ -12,6 +12,11 @@ export const app = {
     }
   },
 
+  /**
+   * Mock of electron app.getVersion.
+   *
+   * @returns {string} Hardcoded version.
+   */
   getVersion() {
     return '1.0.0';
   },
@@ -20,6 +25,13 @@ export const app = {
 export const ipcMain = {
   /**
    * Mock of ipcMain.removeListener.
+   */
+  removeListener() { },
+};
+
+export const ipcRenderer = {
+  /**
+   * Mock of ipcRenderer.removeListener.
    */
   removeListener() { },
 };

@@ -16,14 +16,14 @@ import { formShape } from 'react/shapes/form';
  * @returns {object} - Values.
  */
 const defaultValueMapper
-  = props => mapValues(props.node || {}, value => createFormField({ value }));
+  = (props) => mapValues(props.node || {}, (value) => createFormField({ value }));
 
 /**
  * Make a list of available parents.
  */
 const getOptionsSelector = createSelector(
-  props => props.node,
-  props => props.nodeList,
+  (props) => props.node,
+  (props) => props.nodeList,
   (selectedNode, nodeList) => {
     if (!selectedNode) {
       return [];
@@ -34,8 +34,8 @@ const getOptionsSelector = createSelector(
 
     // Now filter the nodes and makes it select/option friendly.
     return Object.values(nodeList)
-      .filter(node => !nonAvailableParents.includes(node.id))
-      .map(node => ({ key: node.id, value: node.label }));
+      .filter((node) => !nonAvailableParents.includes(node.id))
+      .map((node) => ({ key: node.id, value: node.label }));
   },
 );
 
@@ -94,7 +94,7 @@ class EditNodeModal extends React.PureComponent {
     const options = getOptionsSelector(this.props);
 
     return (
-      <React.Fragment>
+      <>
         { !!node
           && (
             <div>
@@ -108,11 +108,11 @@ class EditNodeModal extends React.PureComponent {
               Parent:
               {getFieldDecorator('parentId', {
                 initialValue: '',
-                normalize: value => value || '',
+                normalize: (value) => value || '',
               })(
                 <select>
                   <option key="" value="">-</option>
-                  {(options || []).map(option => (
+                  {(options || []).map((option) => (
                     <option
                       key={option.key}
                       value={option.key}
@@ -127,7 +127,7 @@ class EditNodeModal extends React.PureComponent {
               <button type="button" onClick={onCancel}>Cancel</button>
             </div>
           )}
-      </React.Fragment>
+      </>
     );
   }
 }

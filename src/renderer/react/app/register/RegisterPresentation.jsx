@@ -9,7 +9,7 @@ import PasswordStrength from 'react/components/form/password/PasswordStrength';
 import messages from './register.messages';
 import classNames from './register.module.scss';
 
-const RegisterPresentation = props => (
+const RegisterPresentation = (props) => (
   <div className={classNames.container}>
     {
       /**

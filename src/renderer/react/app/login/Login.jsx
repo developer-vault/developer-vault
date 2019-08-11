@@ -13,7 +13,7 @@ import { loginAction } from 'redux/stores/app/actions';
 import LoginPresentation from './LoginPresentation';
 import messages from './login.messages';
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     login: loginAction,
     notify,
@@ -49,7 +49,7 @@ export const LoginContainer = (Presentation) => {
      *
      * @param {{target: {value: string}}} event - The DOM Event.
      */
-    onChangePassword = event => this.setState({ password: event.target.value });
+    onChangePassword = (event) => this.setState({ password: event.target.value });
 
     /**
      * On form submit, sends the key to the main process.

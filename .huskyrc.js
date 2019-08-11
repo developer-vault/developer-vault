@@ -1,4 +1,4 @@
-const tasks = cmds => cmds.join(' && ');
+const tasks = (cmds) => cmds.join(' && ');
 
 module.exports = {
   hooks: {

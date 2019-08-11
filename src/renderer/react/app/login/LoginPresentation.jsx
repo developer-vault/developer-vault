@@ -8,7 +8,7 @@ import Button from 'react/components/general/button/Button';
 import messages from './login.messages';
 import classNames from './login.module.scss';
 
-const LoginPresentation = props => (
+const LoginPresentation = (props) => (
   <div className={classNames.container}>
     {
       /**

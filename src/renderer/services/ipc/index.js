@@ -4,7 +4,7 @@ import { ipcRenderer } from 'electron';
 export const send = async (channel, ...args) => {
   const id = uniqueId(`ipc_${channel}_`);
 
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // request
     ipcRenderer.send(
       channel,
@@ -23,15 +23,9 @@ export const send = async (channel, ...args) => {
       }
     });
   });
-
-  try {
-    return await promise;
-  } catch (err) {
-    throw err;
-  }
 };
 
-export const responseMessageHandler = callback => async (event, { id, payload }) => {
+export const responseMessageHandler = (callback) => async (event, { id, payload }) => {
   try {
     return event.sender.send(`${id}/result`, {
       id,

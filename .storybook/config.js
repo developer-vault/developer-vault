@@ -56,7 +56,7 @@ addParameters({
 addDecorator(withKnobs);
 
 // Add mock store.
-addDecorator(getStory => (
+addDecorator((getStory) => (
   <StoreProvider store={store}>
     {getStory()}
   </StoreProvider>
@@ -64,7 +64,9 @@ addDecorator(getStory => (
 
 function loadStories() {
   const req = require.context('../src/renderer/react', true, /\.stories\.jsx?$/);
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach((filename) => {
+    req(filename);
+  });
 }
 
 configure(loadStories, module);

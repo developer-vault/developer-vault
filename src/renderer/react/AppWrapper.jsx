@@ -16,12 +16,12 @@ const AppWrapper = ({
     store={store}
   >
     <IntlProvider>
-      <React.Fragment>
+      <>
         <Router>
           {children}
         </Router>
         <NotificationsSystem theme={reapopTheme} />
-      </React.Fragment>
+      </>
     </IntlProvider>
   </ReduxProvider>
 );

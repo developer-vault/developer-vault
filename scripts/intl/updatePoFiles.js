@@ -27,7 +27,7 @@ const updatePoFiles = (pattern, { templateFile = TEMPLATE_FILE } = {}) => {
   const patternWithRootDir = `${process.cwd()}/${pattern.replace(/('|")/g, '')}`;
   const srcPaths = glob.sync(patternWithRootDir, { absolute: true });
   return Promise.all(srcPaths.map(
-    poFile => updatePoFile(poFile, templateFile),
+    (poFile) => updatePoFile(poFile, templateFile),
   ));
 };
 

@@ -7,7 +7,7 @@ import { flattenDeep, omitBy } from 'lodash';
  * @param {object} node - Node.
  * @returns {object} - Wrapped node.
  */
-export const create = node => ({ ...node, id: uuid() });
+export const create = (node) => ({ ...node, id: uuid() });
 
 /**
  * Recursive function finding children for each node.
@@ -17,8 +17,8 @@ export const create = node => ({ ...node, id: uuid() });
  * @returns {object[]} - Array of nodes with child in it.
  */
 export const fetchChildrenRecursively = (nodeId, nodesHashmap) => Object.values(nodesHashmap)
-  .filter(node => node.parentId === nodeId)
-  .map(node => ({
+  .filter((node) => node.parentId === nodeId)
+  .map((node) => ({
     ...node,
     children: fetchChildrenRecursively(node.id, nodesHashmap),
   }));
@@ -32,7 +32,7 @@ export const fetchChildrenRecursively = (nodeId, nodesHashmap) => Object.values(
  * @returns {Array} - Tree.
  * @see index.spec.js for implementation and data structure.
  */
-export const buildTree = nodes => fetchChildrenRecursively(null, nodes);
+export const buildTree = (nodes) => fetchChildrenRecursively(null, nodes);
 
 /**
  * Browse a subtree in order to find all elements.
@@ -42,7 +42,7 @@ export const buildTree = nodes => fetchChildrenRecursively(null, nodes);
  */
 export const listAllElementIdsInSubtree = (subtree) => {
   // Recursively get children and add them in an array.
-  const allChildrenNested = (subtree || []).map(node => ((node.children || []).length > 0
+  const allChildrenNested = (subtree || []).map((node) => ((node.children || []).length > 0
     ? [node.id, ...listAllElementIdsInSubtree(node.children)]
     : [node.id]));
 
@@ -72,7 +72,7 @@ export const listDescendants = (nodeId, nodes) => {
 export const deleteSubTree = (nodeId, nodes) => {
   // Mark all descendants and the node itself.
   const markedForDeletion = [...listDescendants(nodeId, nodes), nodeId];
-  const filterFunction = node => markedForDeletion.includes(node.id);
+  const filterFunction = (node) => markedForDeletion.includes(node.id);
 
   return omitBy(nodes, filterFunction);
 };
