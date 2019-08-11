@@ -111,7 +111,11 @@ module.exports = {
 
   overrides: [
     {
-      files: ['webpack.config.*.js', 'scripts/**/*.{js,jsx}'],
+      files: [
+        'webpack.config.*.js',
+        'scripts/**/*.{js,jsx}',
+        '.{jest,storybook,webpack}/**/*.{js,jsx}',
+      ],
       rules: {
         'import/no-extraneous-dependencies': [
           'error',

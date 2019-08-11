@@ -57,11 +57,15 @@ addDecorator(withKnobs);
 
 // Add mock store.
 addDecorator(getStory => (
+  // eslint-disable-next-line react/jsx-filename-extension
   <StoreProvider store={store}>
     {getStory()}
   </StoreProvider>
 ));
 
+/**
+ *
+ */
 function loadStories() {
   const req = require.context('../src/renderer/react', true, /\.stories\.jsx?$/);
   req.keys().forEach((filename) => {
