@@ -26,7 +26,7 @@ export default class PasswordStrength extends React.PureComponent {
    * @returns {{score: number}} - User password's strength.
    * @example const { score } = this.getStrength('azerty123');
    */
-  getStrength = memoize((password) => (password.length === 0 ? { score: -1 } : zxcvbn(password)));
+  getStrength = memoize(password => (password.length === 0 ? { score: -1 } : zxcvbn(password)));
 
   /** @returns {object} JSX. */
   render() {
@@ -44,7 +44,7 @@ export default class PasswordStrength extends React.PureComponent {
         }
         {
           [SCORES.TOO_GUESSABLE, SCORES.SAFELY_UNGUESSABLE, SCORES.VERY_UNGUESSABLE]
-            .map((score) => (
+            .map(score => (
               <div
                 key={score}
                 className={cn(

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   initialized: state.app.initialized,
 });
 

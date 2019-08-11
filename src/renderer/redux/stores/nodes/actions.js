@@ -6,17 +6,17 @@ export const ACTIONS = {
   REMOVE: 'NODES/REMOVE',
 };
 
-export const create = (node) => ({
+export const create = node => ({
   type: ACTIONS.CREATE,
   node: nodeService.create(node),
 });
 
-export const update = (node) => ({
+export const update = node => ({
   type: ACTIONS.UPDATE,
   node,
 });
 
-export const remove = (node) => ({
+export const remove = node => ({
   type: ACTIONS.REMOVE,
   node,
 });

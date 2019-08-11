@@ -24,7 +24,7 @@ export const getStoreFilePath = () => send(EVENTS.GET_STORE_FILE_PATH);
  * @async
  * @param {string} key - The user password.
  */
-export const setKey = (key) => send(EVENTS.SET_KEY, key);
+export const setKey = key => send(EVENTS.SET_KEY, key);
 
 /**
  * Persist state.
@@ -32,7 +32,7 @@ export const setKey = (key) => send(EVENTS.SET_KEY, key);
  * @async
  * @param {object} state - The state to persist.
  */
-export const saveState = (state) => send(EVENTS.SAVE_STATE, state);
+export const saveState = state => send(EVENTS.SAVE_STATE, state);
 
 /**
  * Loads persisted state.
@@ -41,4 +41,4 @@ export const saveState = (state) => send(EVENTS.SAVE_STATE, state);
  * @param {string} key - The user password.
  * @returns {object} - The persisted state.
  */
-export const loadState = (key) => send(EVENTS.LOAD_STATE, key);
+export const loadState = key => send(EVENTS.LOAD_STATE, key);

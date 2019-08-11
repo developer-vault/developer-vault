@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import { emptyMapDispatchToProps } from 'services/redux/empty';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   authenticated: state.app.authenticated,
 });
 

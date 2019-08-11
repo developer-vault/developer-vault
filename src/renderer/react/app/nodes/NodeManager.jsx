@@ -13,13 +13,13 @@ import PromptNewNodeModal from './editNodeModal/EditNodeModal';
 const enhancer = compose(
   isAuthenticated,
   connect(
-    (state) => ({
+    state => ({
       nodeList: state.nodes,
     }),
-    (dispatch) => ({
-      onCreateNode: (node) => dispatch(create(node)),
-      onUpdateNode: (node) => dispatch(update(node)),
-      onRemoveNode: (node) => dispatch(remove(node)),
+    dispatch => ({
+      onCreateNode: node => dispatch(create(node)),
+      onUpdateNode: node => dispatch(update(node)),
+      onRemoveNode: node => dispatch(remove(node)),
     }),
   ),
 );
@@ -45,14 +45,14 @@ class NodeManager extends React.PureComponent {
    *
    * @param {string} parentId - Id of parent.
    */
-  onAddNode = (parentId) => this.setState({ currentlySelectedNode: { parentId } });
+  onAddNode = parentId => this.setState({ currentlySelectedNode: { parentId } });
 
   /**
    * Select the current node.
    *
    * @param {object} currentlySelectedNode - The node.
    */
-  onEditNode = (currentlySelectedNode) => this.setState({ currentlySelectedNode });
+  onEditNode = currentlySelectedNode => this.setState({ currentlySelectedNode });
 
   /**
    * Called when a delete button was pressed.
@@ -69,7 +69,7 @@ class NodeManager extends React.PureComponent {
    *
    * @param {object} node - Selected node.
    */
-  onDeleteConfirm = (node) => this.props.onRemoveNode(node);
+  onDeleteConfirm = node => this.props.onRemoveNode(node);
 
   /**
    * Called when the form is submitted.

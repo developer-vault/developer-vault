@@ -47,7 +47,7 @@ export default class NodeManagerList extends React.PureComponent {
    *
    * @param {object} node - Selected node.
    */
-  onAddChildNode = (node) => this.props.onAddNode(node.id);
+  onAddChildNode = node => this.props.onAddNode(node.id);
 
   /**
    * Builds the rendering tree of nodes.
@@ -61,7 +61,7 @@ export default class NodeManagerList extends React.PureComponent {
    */
   renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode, onDeleteNode) => (
     <ul>
-      {treeElements.map((node) => (
+      {treeElements.map(node => (
         <li key={node.id}>
           <NodeManagerListElement
             node={nodeList[node.id]}
@@ -86,10 +86,10 @@ export default class NodeManagerList extends React.PureComponent {
    * Wrap renderChildren in a selector.
    */
   renderTree = createSelector(
-    (props) => props.nodeList,
-    (props) => props.onAddNode,
-    (props) => props.onEditNode,
-    (props) => props.onDeleteNode,
+    props => props.nodeList,
+    props => props.onAddNode,
+    props => props.onEditNode,
+    props => props.onDeleteNode,
     (nodeList, onAddNode, onEditNode, onDeleteNode) => {
       const tree = memoizedBuildTree(nodeList);
       return this.renderChildren(tree, nodeList, this.onAddChildNode, onEditNode, onDeleteNode);

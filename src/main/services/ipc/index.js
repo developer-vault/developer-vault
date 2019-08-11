@@ -24,7 +24,7 @@ export const send = async (channel, ...args) => {
   });
 };
 
-export const responseMessageHandler = (callback) => async (event, { id, payload } = {}) => {
+export const responseMessageHandler = callback => async (event, { id, payload } = {}) => {
   try {
     return event.sender.send(`${id}/result`, {
       id,
