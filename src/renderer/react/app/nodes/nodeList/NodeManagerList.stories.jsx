@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { withNotes } from '@storybook/addon-notes';
 import { action } from '@storybook/addon-actions';
 import NodeManagerList from './NodeManagerList';
 
@@ -39,11 +38,15 @@ const nodes = {
 };
 
 storiesOf('App/Nodes', module)
-  .add('Node manager list', withNotes('Render the tree of nodes, with controls.')(() => (
-    <NodeManagerList
-      nodeList={nodes}
-      onAddNode={action('node added')}
-      onEditNode={action('node edited')}
-      onDeleteNode={action('node deleted')}
-    />
-  )));
+  .add(
+    'Node manager list',
+    () => (
+      <NodeManagerList
+        nodeList={nodes}
+        onAddNode={action('node added')}
+        onEditNode={action('node edited')}
+        onDeleteNode={action('node deleted')}
+      />
+    ),
+    { notes: 'Render the tree of nodes, with controls.' },
+  );
