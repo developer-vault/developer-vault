@@ -5,6 +5,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import { Provider as StoreProvider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import { BREAKPOINTS_MAP } from '../src/renderer/config/style';
 import store from '../src/renderer/__mocks__/redux/store';
@@ -83,13 +84,10 @@ addParameters({
 // Add knobs.
 addDecorator(withKnobs);
 
-// Add mock store.
-addDecorator(getStory => (
-  // eslint-disable-next-line react/jsx-filename-extension
-  <StoreProvider store={store}>
-    {getStory()}
-  </StoreProvider>
-));
+// Add a mock redux store for each stories.
+addDecorator(getStory => <StoreProvider store={store}>{getStory()}</StoreProvider>);
+// Add a router context for each stories (navigation will be ignored).
+addDecorator(getStory => <MemoryRouter store={store}>{getStory()}</MemoryRouter>);
 
 /**
  * Load stories in renderer.
