@@ -1,1 +1,1 @@
-export default function () { return 'generatedTestValue'; }
+export default () => 'generatedTestValue';

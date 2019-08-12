@@ -1,0 +1,13 @@
+node_modules/
+.dev/
+.dist/
+.releases/
+.reports/
+.tmp/
+
+# Config folders.
+!/.jest
+!/.storybook
+!/.webpack
+# Root config files.
+!/*.js

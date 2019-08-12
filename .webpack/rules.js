@@ -1,12 +1,9 @@
-const path = require('path');
-
 const { endsWith } = require('lodash');
 
 const {
   babelLoader,
   eslintLoader,
   makeCssLoader,
-  makeLessLoader,
   makeSassLoader,
   sassVariablesLoader,
   assetsLoader,
@@ -43,7 +40,7 @@ const makeCssRule = ({ mode } = {}) => ({
      * @assignee anyone
      * Remove the reapop test when removing reapop-theme-wybo.
      */
-    !/reapop-theme-wybo[\/\\].+\.css$/.test(file)
+    !/reapop-theme-wybo[/\\].+\.css$/.test(file)
     && !endsWith(file, '.module.css')
     && endsWith(file, '.css')
   ),
@@ -57,7 +54,7 @@ const makeCssModulesRule = ({ mode } = {}) => ({
      * @assignee anyone
      * Remove the reapop test when removing reapop-theme-wybo.
      */
-    /reapop-theme-wybo[\/\\].+\.css$/.test(file)
+    /reapop-theme-wybo[/\\].+\.css$/.test(file)
     || endsWith(file, '.module.css')
   ),
   use: makeCssLoader({ mode, enableModules: true }),
@@ -84,7 +81,7 @@ const sassVariablesRule = {
 
 // Rule for assets file and NODE_MODULES svg.
 const assetsRule = {
-  test: /(node_modules[\/\\].+\.svg)|(\.(jpg|jpeg|bmp|png|gif|eot|otf|ttf|woff|woff2|ico|pdf))$/i,
+  test: /(node_modules[/\\].+\.svg)|(\.(jpg|jpeg|bmp|png|gif|eot|otf|ttf|woff|woff2|ico|pdf))$/i,
   use: assetsLoader,
 };
 

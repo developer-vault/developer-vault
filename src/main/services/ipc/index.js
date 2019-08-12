@@ -6,7 +6,7 @@ export const send = async (channel, ...args) => {
   const id = uniqueId(`ipc_${channel}_`);
 
   // send an ipc request
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // send request
     ipcMain.send(channel, {
       id,
@@ -22,12 +22,6 @@ export const send = async (channel, ...args) => {
       }
     });
   });
-
-  try {
-    return await promise;
-  } catch (err) {
-    throw err;
-  }
 };
 
 export const responseMessageHandler = callback => async (event, { id, payload } = {}) => {

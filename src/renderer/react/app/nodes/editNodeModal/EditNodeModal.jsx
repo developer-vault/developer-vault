@@ -94,7 +94,7 @@ class EditNodeModal extends React.PureComponent {
     const options = getOptionsSelector(this.props);
 
     return (
-      <React.Fragment>
+      <>
         { !!node
           && (
             <div>
@@ -127,7 +127,7 @@ class EditNodeModal extends React.PureComponent {
               <button type="button" onClick={onCancel}>Cancel</button>
             </div>
           )}
-      </React.Fragment>
+      </>
     );
   }
 }

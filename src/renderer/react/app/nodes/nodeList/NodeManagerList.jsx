@@ -99,11 +99,11 @@ export default class NodeManagerList extends React.PureComponent {
   /** @returns {object} JSX. */
   render() {
     return (
-      <React.Fragment>
+      <>
         <h1>List</h1>
         {this.renderTree(this.props)}
         <button type="button" onClick={this.onAddRootNode}>Add</button>
-      </React.Fragment>
+      </>
     );
   }
 }

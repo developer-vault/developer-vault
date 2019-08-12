@@ -99,7 +99,7 @@ class NodeManager extends React.PureComponent {
     const { nodeList } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <NodeManagerList
           nodeList={nodeList}
           onAddNode={this.onAddNode}
@@ -112,7 +112,7 @@ class NodeManager extends React.PureComponent {
           onSubmit={this.onSubmit}
           onCancel={this.onCloseForm}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

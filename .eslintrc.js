@@ -65,7 +65,7 @@ module.exports = {
     'jsdoc/check-alignment': 1,
     'jsdoc/check-param-names': 1,
     'jsdoc/check-syntax': 1,
-    'jsdoc/check-tag-names': [1, { definedTags: ['async', 'assignee']} ],
+    'jsdoc/check-tag-names': [1, { definedTags: ['async', 'assignee'] }],
     'jsdoc/check-types': 1,
     'jsdoc/implements-on-classes': 1,
     'jsdoc/match-description': 1,
@@ -81,7 +81,6 @@ module.exports = {
     'jsdoc/require-returns-check': 1,
     'jsdoc/require-returns-type': 1,
     'jsdoc/valid-types': 1,
-
 
     // Disable these rules.
     'jsdoc/require-description': 0,
@@ -99,11 +98,23 @@ module.exports = {
         },
       },
     ],
+
+    'arrow-parens': [
+      'error',
+      'as-needed',
+      {
+        requireForBlockBody: true,
+      },
+    ],
   },
 
   overrides: [
     {
-      files: ['webpack.config.*.js', 'scripts/**/*.{js,jsx}'],
+      files: [
+        'webpack.config.*.js',
+        'scripts/**/*.{js,jsx}',
+        '.{jest,storybook,webpack}/**/*.{js,jsx}',
+      ],
       rules: {
         'import/no-extraneous-dependencies': [
           'error',

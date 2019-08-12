@@ -10,7 +10,7 @@ module.exports = {
 
     // Lint staged files before commiting.
     'pre-commit': tasks([
-       // Lint staged files.
+      // Lint staged files.
       'lint-staged',
       // Update PO files.
       'yarn i18n:update',
