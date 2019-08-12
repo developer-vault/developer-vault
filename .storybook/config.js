@@ -51,6 +51,7 @@ addParameters({
         type: 'desktop',
         name: 'Responsive',
         styles: {
+          position: 'absolute',
           width: '100%',
           height: '100%',
           margin: 0,
@@ -70,9 +71,19 @@ addParameters({
             name: `${bpName} (${bpMaxWidth}px) -- custom breakpoint`,
             styles: {
               width: `${bpMaxWidth}px`,
+
               // Otherwise addon-viewport does not fill the device height.
               height: '100%',
+              position: 'absolute',
+
+              // Reset margins (only useful for actual devices).
               margin: 0,
+
+              // Reset borders (except the right border) and border radius.
+              borderLeft: 0,
+              borderTop: 0,
+              borderBottom: 0,
+              borderRadius: 0,
             },
           };
         },
