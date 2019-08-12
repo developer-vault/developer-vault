@@ -77,6 +77,8 @@ BasePasswordStrength.defaultProps = {
 
 const PasswordStrength = enhancer(BasePasswordStrength);
 
+PasswordStrength.displayName = 'PasswordStrength';
+
 PasswordStrength.propTypes = {
   password: PropTypes.string,
 };
