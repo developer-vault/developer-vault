@@ -3,6 +3,7 @@ import { transform } from 'lodash';
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import { Provider as StoreProvider } from 'react-redux';
 
 import { BREAKPOINTS_MAP } from '../src/renderer/config/style';
@@ -10,6 +11,33 @@ import store from '../src/renderer/__mocks__/redux/store';
 
 import '../src/renderer/style/main.scss';
 import './storybook.scss';
+
+// Set the configuration of react-intl for storybook.
+const loadLocales = () => {
+  const req = require.context('../src/renderer/locales', true, /index\.js$/i);
+
+  return transform(
+    req.keys(),
+    (localesMap, filename) => {
+      const localeName = filename
+        .replace(/^\.\//, '')
+        .split('/')[0];
+
+      localesMap[localeName] = req(filename).default;
+    },
+    {},
+  );
+};
+
+const localesMap = loadLocales();
+
+setIntlConfig({
+  locales: Object.keys(localesMap),
+  defaultLocale: 'en',
+  getMessages: locale => localesMap[locale].messages,
+});
+
+addDecorator(withIntl);
 
 // Add breakpoints viewports to the list of devices.
 addParameters({
