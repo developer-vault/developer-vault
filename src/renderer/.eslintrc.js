@@ -4,13 +4,13 @@ module.exports = {
   },
 
   rules: {
-    'react/destructuring-assignment': 0,
+    'react/destructuring-assignment': 'off',
 
     // Allow static propTypes and defaultProps in class components.
-    'react/static-property-placement': 0,
+    'react/static-property-placement': 'off',
 
     // Allow spreading props.
-    'react/jsx-props-no-spreading': 0,
+    'react/jsx-props-no-spreading': 'off',
 
     // Renderer dependencies are devDependencies because electron packager bundles dependencies.
     'import/no-extraneous-dependencies': [
