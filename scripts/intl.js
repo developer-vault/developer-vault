@@ -14,7 +14,7 @@ const cli = async () => {
       return cleanPoFiles(argv.p);
     default:
     case 'extract:messages':
-      return extractMessages(argv.p, { outputFile: argv.o });
+      return extractMessages(argv.p, { outputFile: argv.o, defaultLocale: argv.l });
   }
 };
 
