@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 const { argv } = require('yargs');
 
 const extractMessages = require('./intl/extractMessages');
