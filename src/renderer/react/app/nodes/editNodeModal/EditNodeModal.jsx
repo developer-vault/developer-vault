@@ -1,47 +1,51 @@
 import { noop, mapValues } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'recompose';
+import { compose, withPropsOnChange } from 'recompose';
 import { createForm, createFormField } from 'rc-form';
-import { createSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 
 import { listDescendants } from 'services/node';
 import { nodeShape } from 'react/shapes/node';
 import { formShape } from 'react/shapes/form';
-
-/**
- * Maps props to a rc-form friendly default value.
- *
- * @param {object} props - Props.
- * @returns {object} - Values.
- */
-const defaultValueMapper
-  = props => mapValues(props.node || {}, value => createFormField({ value }));
-
-/**
- * Make a list of available parents.
- */
-const getOptionsSelector = createSelector(
-  props => props.node,
-  props => props.nodeList,
-  (selectedNode, nodeList) => {
-    if (!selectedNode) {
-      return [];
-    }
-
-    // Non available parents are current node and all its descendants.
-    const nonAvailableParents = [selectedNode.id, ...listDescendants(selectedNode.id, nodeList)];
-
-    // Now filter the nodes and makes it select/option friendly.
-    return Object.values(nodeList)
-      .filter(node => !nonAvailableParents.includes(node.id))
-      .map(node => ({ key: node.id, value: node.label }));
-  },
-);
+import Button from 'react/components/general/button/Button';
+import globalMessages from 'config/global.messages';
+import { getNodesMap } from 'redux/stores/nodes/selector';
 
 const enhancer = compose(
+  connect(state => ({
+    nodesMap: getNodesMap(state),
+  }), null),
+
+  /**
+   * Make a list of available parents and format it for select/options.
+   */
+  withPropsOnChange(
+    ['node', 'nodesMap'],
+    ({ node, nodesMap }) => {
+      if (!node) {
+        return [];
+      }
+
+      // Non available parents are current node and all its descendants.
+      const nonAvailableParents = [node.id, ...listDescendants(node.id, nodesMap)];
+
+      // Now filter the nodes and makes it select/option friendly.
+      const options = Object.values(nodesMap)
+        .filter(currentNode => !nonAvailableParents.includes(currentNode.id))
+        .map(currentNode => ({ key: currentNode.id, value: currentNode.label }));
+
+      return { parentIdOptions: options };
+    },
+  ),
+
   createForm({
-    mapPropsToFields: defaultValueMapper,
+    // Maps props to a rc-form friendly default value.
+    mapPropsToFields: props => mapValues(
+      props.node || {},
+      value => createFormField({ value }),
+    ),
   }),
 );
 
@@ -50,22 +54,25 @@ class EditNodeModal extends React.PureComponent {
     /** Current node given for edition. */
     node: nodeShape,
     /** List of nodes in the store. */
-    // RESELECT
-    // eslint-disable-next-line react/no-unused-prop-types
-    nodeList: PropTypes.objectOf(nodeShape),
+    nodesMap: PropTypes.objectOf(nodeShape).isRequired,
     /** Callback for submission. */
     onSubmit: PropTypes.func,
     /** Callback for cancel. */
     onCancel: PropTypes.func,
     /** From createForm / Form. */
     form: formShape.isRequired,
+    /** Parent ID available options. */
+    parentIdOptions: PropTypes.shape({
+      key: PropTypes.string,
+      value: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
     node: null,
-    nodeList: {},
     onSubmit: noop,
     onCancel: noop,
+    parentIdOptions: [],
   };
 
   /**
@@ -87,11 +94,9 @@ class EditNodeModal extends React.PureComponent {
   /** @returns {object} JSX. */
   render() {
     const {
-      node, onCancel, form,
+      node, onCancel, form, parentIdOptions,
     } = this.props;
     const { getFieldDecorator } = form;
-
-    const options = getOptionsSelector(this.props);
 
     return (
       <>
@@ -112,7 +117,7 @@ class EditNodeModal extends React.PureComponent {
               })(
                 <select>
                   <option key="" value="">-</option>
-                  {(options || []).map(option => (
+                  {(parentIdOptions || []).map(option => (
                     <option
                       key={option.key}
                       value={option.key}
@@ -123,8 +128,14 @@ class EditNodeModal extends React.PureComponent {
                 </select>,
               )}
               <br />
-              <button type="button" onClick={this.submit}>OK</button>
-              <button type="button" onClick={onCancel}>Cancel</button>
+              <Button
+                onClick={this.submit}
+                label={<FormattedMessage {...globalMessages.OK} />}
+              />
+              <Button
+                onClick={onCancel}
+                label={<FormattedMessage {...globalMessages.CANCEL} />}
+              />
             </div>
           )}
       </>

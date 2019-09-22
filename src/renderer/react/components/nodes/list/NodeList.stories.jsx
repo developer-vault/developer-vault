@@ -3,9 +3,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withNotes } from '@storybook/addon-notes';
 import { action } from '@storybook/addon-actions';
-import NodeManagerList from './NodeManagerList';
 
-const nodes = {
+import { getNodesTree } from 'redux/stores/nodes/selector';
+import NodeList from './NodeList';
+
+const nodesMap = {
   node1: {
     id: 'node1',
     label: 'node1',
@@ -38,11 +40,14 @@ const nodes = {
   },
 };
 
-storiesOf('App/Nodes', module)
-  .add('Node manager list', withNotes('Render the tree of nodes, with controls.')(() => (
-    <NodeManagerList
-      nodeList={nodes}
-      onAddNode={action('node added')}
+const nodesTree = getNodesTree({ nodes: nodesMap });
+
+storiesOf('Components/Nodes', module)
+  .add('Node list', withNotes('Render the tree of nodes, with controls.')(() => (
+    <NodeList
+      nodesMap={nodesMap}
+      nodesTree={nodesTree}
+      onAddChildNode={action('node added')}
       onEditNode={action('node edited')}
       onDeleteNode={action('node deleted')}
     />

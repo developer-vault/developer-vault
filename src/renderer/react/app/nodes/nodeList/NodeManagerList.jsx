@@ -1,109 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
-import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { compose, withPropsOnChange } from 'recompose';
 
-import { nodeShape } from 'react/shapes/node';
+import { remove } from 'redux/stores/nodes/actions';
+import { getNodesMap, getNodesTree } from 'redux/stores/nodes/selector';
+import { nodeShape, nodeTreeElement } from 'react/shapes/node';
+import NodeList from 'react/components/nodes/list/NodeList';
+import Button from 'react/components/general/button/Button';
 
-import NodeManagerListElement from './NodeManagerListElement';
-import { memoizedBuildTree } from '../nodes.reselect';
+import messages from './NodeManagerList.messages';
 
-export default class NodeManagerList extends React.PureComponent {
-  static propTypes = {
-    /** Called when a node is created. */
-    onAddNode: PropTypes.func,
-    /** Called when a node is edited. */
-    // RESELECT
-    // eslint-disable-next-line react/no-unused-prop-types
-    onEditNode: PropTypes.func,
-    // RESELECT
-    // eslint-disable-next-line react/no-unused-prop-types
-    onDeleteNode: PropTypes.func,
-    /** Hashmap of nodes. */
-    // RESELECT
-    // eslint-disable-next-line react/no-unused-prop-types
-    nodeList: PropTypes.objectOf(nodeShape),
-  };
+const enhancer = compose(
+  withPropsOnChange(
+    ['onAddNode'],
+    props => ({
+      /**
+       * Proxies the onAddNode function.
+       *
+       * This way, the onAddNode from parent component receives a null
+       * value instead of the event from the clicked button.
+       */
+      onAddRootNode: () => props.onAddNode(null),
+    }),
+  ),
 
-  static defaultProps = {
-    onAddNode: noop,
-    onEditNode: noop,
-    onDeleteNode: noop,
-    nodeList: {},
-  };
+  connect(state => ({
+    nodesTree: getNodesTree(state),
+    nodesMap: getNodesMap(state),
+  }),
+  dispatch => ({
+    onDeleteNode: node => dispatch(remove(node)),
+  })),
+);
 
-  /**
-   * Proxies the onAddNode function.
-   *
-   * This way, the onAddNode from parent component receives a null
-   * value instead of the event from the clicked button.
-   */
-  onAddRootNode = () => this.props.onAddNode(null);
+const NodeManagerList = ({
+  nodesMap,
+  nodesTree,
+  onAddRootNode,
+  onAddNode,
+  onEditNode,
+  onDeleteNode,
+}) => (
+  <>
+    <h1>List</h1>
+    <NodeList
+      nodesMap={nodesMap}
+      nodesTree={nodesTree}
+      onAddChildNode={onAddNode}
+      onEditNode={onEditNode}
+      onDeleteNode={onDeleteNode}
+    />
+    <Button
+      type="button"
+      onClick={onAddRootNode}
+      label={<FormattedMessage {...messages.ADD_ROOT_NODE} />}
+    />
+  </>
+);
 
-  /**
-   * Proxies the onAddNode function.
-   *
-   * Give the parentId of the clicked node.
-   *
-   * @param {object} node - Selected node.
-   */
-  onAddChildNode = node => this.props.onAddNode(node.id);
+NodeManagerList.propTypes = {
+  /** Called when "add child" button is clicked. */
+  onAddNode: PropTypes.func.isRequired,
+  /** Called when "add root node" button is clicked. */
+  onAddRootNode: PropTypes.func.isRequired,
+  /** Called when "edit" button is clicked. */
+  onEditNode: PropTypes.func.isRequired,
+  /** Called when "delete" button is clicked. */
+  onDeleteNode: PropTypes.func.isRequired,
+  /** Hashmap of nodes. */
+  nodesMap: PropTypes.objectOf(nodeShape).isRequired,
+  /** Tree representation of nodes. */
+  nodesTree: PropTypes.arrayOf(nodeTreeElement).isRequired,
+};
 
-  /**
-   * Builds the rendering tree of nodes.
-   *
-   * @param {object[]} treeElements - An array of nodes.
-   * @param {object} nodeList - Nodes hashmap.
-   * @param {Function} onAddChildNode - Callback for node creation.
-   * @param {Function} onEditNode - Callback for node edition.
-   * @param {Function} onDeleteNode - Callback for node deletion.
-   * @returns {object} - JSX render.
-   */
-  renderChildren = (treeElements, nodeList, onAddChildNode, onEditNode, onDeleteNode) => (
-    <ul>
-      {treeElements.map(node => (
-        <li key={node.id}>
-          <NodeManagerListElement
-            node={nodeList[node.id]}
-            onAddChildNode={onAddChildNode}
-            onEditNode={onEditNode}
-            onDeleteNode={onDeleteNode}
-          />
-          {(node.children || []).length > 0
-          && this.renderChildren(
-            node.children,
-            nodeList,
-            onAddChildNode,
-            onEditNode,
-            onDeleteNode,
-          )}
-        </li>
-      ))}
-    </ul>
-  );
-
-  /**
-   * Wrap renderChildren in a selector.
-   */
-  renderTree = createSelector(
-    props => props.nodeList,
-    props => props.onAddNode,
-    props => props.onEditNode,
-    props => props.onDeleteNode,
-    (nodeList, onAddNode, onEditNode, onDeleteNode) => {
-      const tree = memoizedBuildTree(nodeList);
-      return this.renderChildren(tree, nodeList, this.onAddChildNode, onEditNode, onDeleteNode);
-    },
-  );
-
-  /** @returns {object} JSX. */
-  render() {
-    return (
-      <>
-        <h1>List</h1>
-        {this.renderTree(this.props)}
-        <button type="button" onClick={this.onAddRootNode}>Add</button>
-      </>
-    );
-  }
-}
+export default enhancer(NodeManagerList);

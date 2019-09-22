@@ -3,37 +3,29 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import { nodeShape } from 'react/shapes/node';
-import { create, update, remove } from 'redux/stores/nodes/actions';
+import { create, update } from 'redux/stores/nodes/actions';
 import isAuthenticated from 'react/hoc/isAuthenticated';
 
 import NodeManagerList from './nodeList/NodeManagerList';
-import PromptNewNodeModal from './editNodeModal/EditNodeModal';
+import EditNodeModal from './editNodeModal/EditNodeModal';
 
 const enhancer = compose(
   isAuthenticated,
   connect(
-    state => ({
-      nodeList: state.nodes,
-    }),
+    null,
     dispatch => ({
       onCreateNode: node => dispatch(create(node)),
       onUpdateNode: node => dispatch(update(node)),
-      onRemoveNode: node => dispatch(remove(node)),
     }),
   ),
 );
 
 class NodeManager extends React.PureComponent {
   static propTypes = {
-    /** List of nodes in the store. */
-    nodeList: PropTypes.objectOf(nodeShape).isRequired,
     /** On node creation. */
     onCreateNode: PropTypes.func.isRequired,
     /** On node edition. */
     onUpdateNode: PropTypes.func.isRequired,
-    /** On node deletion. */
-    onRemoveNode: PropTypes.func.isRequired,
   };
 
   state = {
@@ -41,35 +33,18 @@ class NodeManager extends React.PureComponent {
   };
 
   /**
-   * Creates a new node, pass a parentId if it was given.
+   * Creates a new node.
    *
-   * @param {string} parentId - Id of parent.
+   * @param {object} node - Node that was clicked (which is going to become the parent).
    */
-  onAddNode = parentId => this.setState({ currentlySelectedNode: { parentId } });
+  onAddNode = node => this.setState({ currentlySelectedNode: { parentId: node?.id || null } });
 
   /**
-   * Select the current node.
+   * Select the current node for edition.
    *
    * @param {object} currentlySelectedNode - The node.
    */
   onEditNode = currentlySelectedNode => this.setState({ currentlySelectedNode });
-
-  /**
-   * Called when a delete button was pressed.
-   *
-   * @param {object} node - Selected node.
-   */
-  onDeleteNode = (node) => {
-    // TODO (sylvainar) : add a reapop confirm.
-    this.onDeleteConfirm(node);
-  };
-
-  /**
-   * Called when user confirmed the deletion.
-   *
-   * @param {object} node - Selected node.
-   */
-  onDeleteConfirm = node => this.props.onRemoveNode(node);
 
   /**
    * Called when the form is submitted.
@@ -96,19 +71,16 @@ class NodeManager extends React.PureComponent {
   /** @returns {object} JSX. */
   render() {
     const { currentlySelectedNode } = this.state;
-    const { nodeList } = this.props;
 
     return (
       <>
         <NodeManagerList
-          nodeList={nodeList}
           onAddNode={this.onAddNode}
           onEditNode={this.onEditNode}
-          onDeleteNode={this.onDeleteNode}
         />
-        <PromptNewNodeModal
+
+        <EditNodeModal
           node={currentlySelectedNode}
-          nodeList={nodeList}
           onSubmit={this.onSubmit}
           onCancel={this.onCloseForm}
         />
