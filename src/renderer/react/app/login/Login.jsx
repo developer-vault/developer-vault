@@ -77,7 +77,7 @@ export const LoginContainer = (Presentation) => {
       const { password, redirectToHome } = this.state;
 
       if (redirectToHome) {
-        return <Redirect to="/home" />;
+        return <Redirect to="/nodes" />;
       }
 
       return (

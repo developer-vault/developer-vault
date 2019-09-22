@@ -91,7 +91,7 @@ export const RegisterContainer = (Presentation) => {
       const { password, confirm, redirectToHome } = this.state;
 
       if (redirectToHome) {
-        return <Redirect to="/home" />;
+        return <Redirect to="/nodes" />;
       }
 
       return (
