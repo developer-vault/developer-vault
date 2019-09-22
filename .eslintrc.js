@@ -22,7 +22,9 @@ module.exports = {
 
   rules: {
     // Allow named export without default export.
-    'import/prefer-default-export': 0,
+    'import/prefer-default-export': 'off',
+    // Allow ++ operator.
+    'no-plusplus': 'off',
 
     // On linebreak, enforce operator on the new line.
     'operator-linebreak': [
@@ -39,9 +41,6 @@ module.exports = {
         maxBOF: 0,
       },
     ],
-
-    // Allow ++ operator.
-    'no-plusplus': 0,
 
     // Enforce single quotes except for strings with single quotes in body.
     quotes: [
@@ -60,34 +59,43 @@ module.exports = {
       },
     ],
 
+    // Omit parenthesis for arrow functions parameters with one parameter and no body.
+    'arrow-parens': [
+      'error',
+      'as-needed',
+      {
+        requireForBlockBody: true,
+      },
+    ],
+
     // JSDoc specific rules.
     // Set most rules as warnings instead of errors.
-    'jsdoc/check-alignment': 1,
-    'jsdoc/check-param-names': 1,
-    'jsdoc/check-syntax': 1,
-    'jsdoc/check-tag-names': [1, { definedTags: ['async', 'assignee'] }],
-    'jsdoc/check-types': 1,
-    'jsdoc/implements-on-classes': 1,
-    'jsdoc/match-description': 1,
-    'jsdoc/newline-after-description': 1,
-    'jsdoc/no-undefined-types': 1,
-    'jsdoc/require-description-complete-sentence': 1,
-    'jsdoc/require-hyphen-before-param-description': 1,
-    'jsdoc/require-param': 1,
-    'jsdoc/require-param-description': 1,
-    'jsdoc/require-param-name': 1,
-    'jsdoc/require-param-type': 1,
-    'jsdoc/require-returns-description': 1,
-    'jsdoc/require-returns-check': 1,
-    'jsdoc/require-returns-type': 1,
-    'jsdoc/valid-types': 1,
+    'jsdoc/check-alignment': 'warn',
+    'jsdoc/check-param-names': 'warn',
+    'jsdoc/check-syntax': 'warn',
+    'jsdoc/check-tag-names': ['warn', { definedTags: ['async', 'assignee'] }],
+    'jsdoc/check-types': 'warn',
+    'jsdoc/implements-on-classes': 'warn',
+    'jsdoc/match-description': 'warn',
+    'jsdoc/newline-after-description': 'warn',
+    'jsdoc/no-undefined-types': 'warn',
+    'jsdoc/require-description-complete-sentence': 'warn',
+    'jsdoc/require-hyphen-before-param-description': 'warn',
+    'jsdoc/require-param': 'warn',
+    'jsdoc/require-param-description': 'warn',
+    'jsdoc/require-param-name': 'warn',
+    'jsdoc/require-param-type': 'warn',
+    'jsdoc/require-returns-description': 'warn',
+    'jsdoc/require-returns-check': 'warn',
+    'jsdoc/require-returns-type': 'warn',
+    'jsdoc/valid-types': 'warn',
 
     // Disable these rules.
-    'jsdoc/require-description': 0,
-    'jsdoc/require-example': 0,
+    'jsdoc/require-description': 'off',
+    'jsdoc/require-example': 'off',
 
     'jsdoc/require-jsdoc': [
-      1,
+      'warn',
       {
         require: {
           FunctionDeclaration: true,
@@ -96,14 +104,6 @@ module.exports = {
           ArrowFunctionExpression: false,
           FunctionExpression: true,
         },
-      },
-    ],
-
-    'arrow-parens': [
-      'error',
-      'as-needed',
-      {
-        requireForBlockBody: true,
       },
     ],
   },
@@ -120,6 +120,8 @@ module.exports = {
           'error',
           { devDependencies: true },
         ],
+
+        'react/jsx-filename-extension': 'off',
       },
     },
   ],
