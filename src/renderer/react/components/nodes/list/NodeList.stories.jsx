@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { withNotes } from '@storybook/addon-notes';
 import { action } from '@storybook/addon-actions';
 
 import { getNodesTree } from 'redux/stores/nodes/selector';
@@ -43,12 +42,15 @@ const nodesMap = {
 const nodesTree = getNodesTree({ nodes: nodesMap });
 
 storiesOf('Components/Nodes', module)
-  .add('Node list', withNotes('Render the tree of nodes, with controls.')(() => (
-    <NodeList
-      nodesMap={nodesMap}
-      nodesTree={nodesTree}
-      onAddChildNode={action('node added')}
-      onEditNode={action('node edited')}
-      onDeleteNode={action('node deleted')}
-    />
-  )));
+  .add(
+    'Node list', () => (
+      <NodeList
+        nodesMap={nodesMap}
+        nodesTree={nodesTree}
+        onAddChildNode={action('node added')}
+        onEditNode={action('node edited')}
+        onDeleteNode={action('node deleted')}
+      />
+    ),
+    { notes: 'Render the tree of nodes, with controls.' },
+  );
