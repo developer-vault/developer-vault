@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose, withPropsOnChange } from 'recompose';
 
-import { remove } from 'redux/stores/nodes/actions';
 import { getNodesMap, getNodesTree } from 'redux/stores/nodes/selector';
 import { nodeShape, nodeTreeElement } from 'react/shapes/node';
 import NodeList from 'react/components/nodes/list/NodeList';
@@ -22,17 +21,17 @@ const enhancer = compose(
        * This way, the onAddNode from parent component receives a null
        * value instead of the event from the clicked button.
        */
-      onAddRootNode: () => props.onAddNode(null),
+      onAddRootNode: props.onAddNode ? () => props.onAddNode(null) : null,
     }),
   ),
 
-  connect(state => ({
-    nodesTree: getNodesTree(state),
-    nodesMap: getNodesMap(state),
-  }),
-  dispatch => ({
-    onDeleteNode: node => dispatch(remove(node)),
-  })),
+  connect(
+    state => ({
+      nodesTree: getNodesTree(state),
+      nodesMap: getNodesMap(state),
+    }),
+    null,
+  ),
 );
 
 const NodeManagerList = ({
@@ -52,11 +51,13 @@ const NodeManagerList = ({
       onEditNode={onEditNode}
       onDeleteNode={onDeleteNode}
     />
-    <Button
-      type="button"
-      onClick={onAddRootNode}
-      label={<FormattedMessage {...messages.ADD_ROOT_NODE} />}
-    />
+    {onAddRootNode && (
+      <Button
+        type="button"
+        onClick={onAddRootNode}
+        label={<FormattedMessage {...messages.ADD_ROOT_NODE} />}
+      />
+    )}
   </>
 );
 

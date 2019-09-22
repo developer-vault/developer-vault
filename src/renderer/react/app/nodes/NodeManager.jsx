@@ -1,34 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
-import { create, update } from 'redux/stores/nodes/actions';
+import { create, remove, update } from 'redux/stores/nodes/actions';
 import isAuthenticated from 'react/hoc/isAuthenticated';
+import { nodeShape } from 'react/shapes/node';
+import Button from 'react/components/general/button/Button';
 
 import NodeManagerList from './nodeList/NodeManagerList';
 import EditNodeModal from './editNodeModal/EditNodeModal';
+import messages from './NodeManager.messages';
 
 const enhancer = compose(
   isAuthenticated,
+
   connect(
     null,
     dispatch => ({
       onCreateNode: node => dispatch(create(node)),
       onUpdateNode: node => dispatch(update(node)),
+      onDeleteNode: node => dispatch(remove(node)),
     }),
+  ),
+
+  withStateHandlers(
+    {
+      locked: true,
+      currentlySelectedNode: null,
+    },
+    {
+      toggleLock: ({ locked }) => () => ({ locked: !locked }),
+      selectNode: () => node => ({ currentlySelectedNode: node }),
+      unselectNode: () => () => ({ currentlySelectedNode: null }),
+    },
   ),
 );
 
 class NodeManager extends React.PureComponent {
   static propTypes = {
     /** On node creation. */
-    onCreateNode: PropTypes.func.isRequired,
+    onCreateNode: PropTypes.func,
     /** On node edition. */
-    onUpdateNode: PropTypes.func.isRequired,
+    onUpdateNode: PropTypes.func,
+    /** On node deletion. */
+    onDeleteNode: PropTypes.func,
+
+    locked: PropTypes.bool.isRequired,
+    toggleLock: PropTypes.func.isRequired,
+    selectNode: PropTypes.func.isRequired,
+    unselectNode: PropTypes.func.isRequired,
+    currentlySelectedNode: PropTypes.shape(nodeShape),
   };
 
-  state = {
+  static defaultProps = {
+    onCreateNode: null,
+    onUpdateNode: null,
+    onDeleteNode: null,
     currentlySelectedNode: null,
   };
 
@@ -37,14 +66,24 @@ class NodeManager extends React.PureComponent {
    *
    * @param {object} node - Node that was clicked (which is going to become the parent).
    */
-  onAddNode = node => this.setState({ currentlySelectedNode: { parentId: node?.id || null } });
+  onAddNode = node => this.props.selectNode({ parentId: node?.id || null });
 
   /**
    * Select the current node for edition.
    *
-   * @param {object} currentlySelectedNode - The node.
+   * @param {object} node - The node.
    */
-  onEditNode = currentlySelectedNode => this.setState({ currentlySelectedNode });
+  onEditNode = node => this.props.selectNode(node);
+
+  /**
+   * Called when a delete button was pressed.
+   *
+   * @param {object} node - Selected node.
+   */
+  onDeleteNode = (node) => {
+    // TODO (sylvainar) : add a reapop confirm.
+    this.props.onDeleteNode(node);
+  };
 
   /**
    * Called when the form is submitted.
@@ -66,17 +105,18 @@ class NodeManager extends React.PureComponent {
   /**
    * Cancel node edition / creation, close form.
    */
-  onCloseForm = () => this.setState({ currentlySelectedNode: null });
+  onCloseForm = () => this.props.unselectNode();
 
   /** @returns {object} JSX. */
   render() {
-    const { currentlySelectedNode } = this.state;
+    const { currentlySelectedNode, locked } = this.props;
 
     return (
       <>
         <NodeManagerList
-          onAddNode={this.onAddNode}
-          onEditNode={this.onEditNode}
+          onAddNode={!locked && this.onAddNode}
+          onEditNode={!locked && this.onEditNode}
+          onDeleteNode={!locked && this.onDeleteNode}
         />
 
         <EditNodeModal
@@ -84,6 +124,17 @@ class NodeManager extends React.PureComponent {
           onSubmit={this.onSubmit}
           onCancel={this.onCloseForm}
         />
+
+        <div>
+          <Button
+            label={
+              locked
+                ? <FormattedMessage {...messages.UNLOCK} />
+                : <FormattedMessage {...messages.LOCK} />
+            }
+            onClick={this.props.toggleLock}
+          />
+        </div>
       </>
     );
   }
