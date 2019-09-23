@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 
 import { intlShape } from 'react/shapes/vendor';
 import { loginAction } from 'redux/stores/app/actions';
+import { connect } from 'redux/utils';
 
 import LoginPresentation from './LoginPresentation';
 import messages from './login.messages';
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 export const LoginContainer = (Presentation) => {
   const enhancer = compose(
     injectIntl,
-    connect(undefined, mapDispatchToProps),
+    connect(null, mapDispatchToProps),
   );
 
   class Login extends React.Component {

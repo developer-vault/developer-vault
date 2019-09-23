@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { compose, withPropsOnChange } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 
-import { getNodesMap, getNodesTree } from 'redux/stores/nodes/selector';
+import { connect } from 'redux/utils';
+import { selectNodesMap, selectNodesTree } from 'redux/stores/nodes/selector';
 import { nodeShape, nodeTreeElement } from 'react/shapes/node';
 import NodeList from 'react/components/nodes/list/NodeList';
 import Button from 'react/components/general/button/Button';
@@ -12,25 +12,21 @@ import Button from 'react/components/general/button/Button';
 import messages from './NodeManagerList.messages';
 
 const enhancer = compose(
-  withPropsOnChange(
-    ['onAddNode'],
-    props => ({
-      /**
-       * Proxies the onAddNode function.
-       *
-       * This way, the onAddNode from parent component receives a null
-       * value instead of the event from the clicked button.
-       */
-      onAddRootNode: props.onAddNode ? () => props.onAddNode(null) : null,
-    }),
-  ),
+  withHandlers({
+    /**
+     * Proxies the onAddNode function.
+     *
+     * This way, the onAddNode from parent component receives a null
+     * value instead of the event from the clicked button.
+     */
+    onAddRootNode: ({ onAddNode }) => (onAddNode ? () => onAddNode(null) : null),
+  }),
 
   connect(
     state => ({
-      nodesTree: getNodesTree(state),
-      nodesMap: getNodesMap(state),
+      nodesTree: selectNodesTree(state),
+      nodesMap: selectNodesMap(state),
     }),
-    null,
   ),
 );
 
@@ -51,9 +47,8 @@ const NodeManagerList = ({
       onEditNode={onEditNode}
       onDeleteNode={onDeleteNode}
     />
-    {onAddRootNode && (
+    {onAddNode && (
       <Button
-        type="button"
         onClick={onAddRootNode}
         label={<FormattedMessage {...messages.ADD_ROOT_NODE} />}
       />

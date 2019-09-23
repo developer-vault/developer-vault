@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 import { Redirect } from 'react-router-dom';
 
 import { intlShape } from 'react/shapes/vendor';
 import { registerAction } from 'redux/stores/app/actions';
+import { connect } from 'redux/utils';
 
 import RegisterPresentation from './RegisterPresentation';
 import messages from './register.messages';

@@ -1,18 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { compose, withPropsOnChange } from 'recompose';
+
 import { nodeShape } from 'react/shapes/node';
 import Button from 'react/components/general/button/Button';
-import { FormattedMessage } from 'react-intl';
-import { compose, pure, withProps } from 'recompose';
+
 import messages from './NodeListElement.messages';
 
 const enhancer = compose(
-  pure,
-  withProps(props => ({
-    onAddChildNode: props.onAddChildNode ? () => props.onAddChildNode(props.node) : null,
-    onEditNode: props.onEditNode ? () => props.onEditNode(props.node) : null,
-    onDeleteNode: props.onDeleteNode ? () => props.onDeleteNode(props.node) : null,
-  })),
+  // Can't use withHandlers because we can't check if callbacks are falsy or not.
+  // They're replaced by dummy function definitions in recompose internal.
+  withPropsOnChange(
+    [
+      'onAddChildNode',
+      'onEditNode',
+      'onDeleteNode',
+    ],
+    ({
+      node,
+      onAddChildNode,
+      onEditNode,
+      onDeleteNode,
+    }) => ({
+      onAddChildNode: onAddChildNode ? () => onAddChildNode(node) : null,
+      onEditNode: onEditNode ? () => onEditNode(node) : null,
+      onDeleteNode: onDeleteNode ? () => onDeleteNode(node) : null,
+    }),
+  ),
 );
 
 const NodeListElement = ({

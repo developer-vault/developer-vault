@@ -4,40 +4,34 @@ import PropTypes from 'prop-types';
 import { compose, withPropsOnChange } from 'recompose';
 import { createForm, createFormField } from 'rc-form';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
 
-import { listDescendants } from 'services/node';
 import { nodeShape } from 'react/shapes/node';
 import { formShape } from 'react/shapes/form';
 import Button from 'react/components/general/button/Button';
 import globalMessages from 'config/global.messages';
-import { getNodesMap } from 'redux/stores/nodes/selector';
+import { selectEligibleNewParents, selectNodesMap } from 'redux/stores/nodes/selector';
+import { connect } from 'redux/utils';
 
 const enhancer = compose(
   connect(state => ({
-    nodesMap: getNodesMap(state),
-  }), null),
+    nodesMap: selectNodesMap(state),
+    getEligibleNewParents: selectEligibleNewParents(state),
+  })),
 
   /**
    * Make a list of available parents and format it for select/options.
    */
   withPropsOnChange(
-    ['node', 'nodesMap'],
-    ({ node, nodesMap }) => {
-      if (!node) {
-        return [];
-      }
-
-      // Non available parents are current node and all its descendants.
-      const nonAvailableParents = [node.id, ...listDescendants(node.id, nodesMap)];
-
-      // Now filter the nodes and makes it select/option friendly.
-      const options = Object.values(nodesMap)
-        .filter(currentNode => !nonAvailableParents.includes(currentNode.id))
-        .map(currentNode => ({ key: currentNode.id, value: currentNode.label }));
-
-      return { parentIdOptions: options };
-    },
+    ['node', 'getEligibleNewParents', 'nodesMap'],
+    ({ node, getEligibleNewParents, nodesMap }) => ({
+      // Call selector to get eligible new parents,
+      // then format it into a select/options format.
+      parentIdOptions: getEligibleNewParents(node?.id)
+        .map(currentNodeId => ({
+          key: nodesMap[currentNodeId].id,
+          value: nodesMap[currentNodeId].label,
+        })),
+    }),
   ),
 
   createForm({
@@ -53,8 +47,6 @@ class EditNodeModal extends React.PureComponent {
   static propTypes = {
     /** Current node given for edition. */
     node: nodeShape,
-    /** List of nodes in the store. */
-    nodesMap: PropTypes.objectOf(nodeShape).isRequired,
     /** Callback for submission. */
     onSubmit: PropTypes.func,
     /** Callback for cancel. */

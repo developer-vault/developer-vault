@@ -76,3 +76,28 @@ export const deleteSubTree = (nodeId, nodes) => {
 
   return omitBy(nodes, filterFunction);
 };
+
+/**
+ * Returns all nodes that can be current node
+ * new parent without causing an infinite recursion.
+ *
+ * @param {string} nodeId - Id of the targeted node.
+ * @param {object} nodes - Node hashmap.
+ * @returns {string[]} - Ids of eligible nodes.
+ */
+export const getEligibleNewParents = (nodeId, nodes) => {
+  const allNodeIds = Object.keys(nodes);
+
+  if (!nodeId) {
+    // No nodeId was passed, it means that all
+    // node could be a parent (we're in a creation).
+    return allNodeIds;
+  }
+
+  // Non available parents are current node and all its descendants.
+  const nonAvailableParents = [nodeId, ...listDescendants(nodeId, nodes)];
+
+  // Invert the list by returning all that are not non-available.
+  return allNodeIds
+    .filter(currentNodeId => !nonAvailableParents.includes(currentNodeId));
+};
