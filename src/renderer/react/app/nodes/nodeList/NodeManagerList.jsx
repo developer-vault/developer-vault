@@ -39,7 +39,6 @@ const NodeManagerList = ({
   onDeleteNode,
 }) => (
   <>
-    <h1>List</h1>
     <NodeList
       nodesMap={nodesMap}
       nodesTree={nodesTree}
