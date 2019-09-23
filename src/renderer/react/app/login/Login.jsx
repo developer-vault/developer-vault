@@ -9,9 +9,9 @@ import { notify, STATUS } from 'reapop';
 import { intlShape } from 'react/shapes/vendor';
 import { loginAction } from 'redux/stores/app/actions';
 import { connect } from 'redux/utils';
+import globalMessages from 'intl/global.messages';
 
 import LoginPresentation from './LoginPresentation';
-import messages from './login.messages';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -65,7 +65,7 @@ export const LoginContainer = (Presentation) => {
        * Handle state decryption.
        */
       this.props.actions.notify({
-        message: this.props.intl.formatMessage(messages.SUCCESS_NOTIFICATION_MESSAGE),
+        message: this.props.intl.formatMessage(globalMessages.SUCCESS),
         status: STATUS.success,
         dismissible: true,
       });

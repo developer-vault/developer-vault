@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import { nodeShape } from 'react/shapes/node';
 import { formShape } from 'react/shapes/form';
 import Button from 'react/components/general/button/Button';
-import globalMessages from 'config/global.messages';
+import globalMessages from 'intl/global.messages';
 import { selectEligibleNewParents, selectNodesMap } from 'redux/stores/nodes/selector';
 import { connect } from 'redux/utils';
 

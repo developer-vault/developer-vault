@@ -8,10 +8,10 @@ import isAuthenticated from 'react/hoc/isAuthenticated';
 import { nodeShape } from 'react/shapes/node';
 import Button from 'react/components/general/button/Button';
 import { connect } from 'redux/utils';
+import messages from 'intl/global.messages';
 
 import NodeManagerList from './nodeList/NodeManagerList';
 import EditNodeModal from './editNodeModal/EditNodeModal';
-import messages from './NodeManager.messages';
 
 const enhancer = compose(
   isAuthenticated,

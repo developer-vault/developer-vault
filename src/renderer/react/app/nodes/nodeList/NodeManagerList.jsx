@@ -9,7 +9,7 @@ import { nodeShape, nodeTreeElement } from 'react/shapes/node';
 import NodeList from 'react/components/nodes/list/NodeList';
 import Button from 'react/components/general/button/Button';
 
-import messages from './NodeManagerList.messages';
+import messages from '../../../../intl/nodes.message';
 
 const enhancer = compose(
   withHandlers({
