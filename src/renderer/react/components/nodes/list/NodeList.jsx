@@ -6,42 +6,30 @@ import NodeListElement from 'react/components/nodes/listElement/NodeListElement'
 
 import classNames from './NodeList.module.scss';
 
-/**
- * Builds the rendering tree of nodes.
- *
- * @param {object[]} treeElements - An array of nodes.
- * @param {object} nodesMap - Nodes hashmap.
- * @param {object} props - Props to propagate.
- * @returns {object} - JSX render.
- */
-const renderChildren = (treeElements, nodesMap, props) => (
+const NodeList = ({ nodesTree, nodesMap, ...restProps }) => (
   <ul className={classNames.listWrapper}>
-    {treeElements.map(node => (
+    {nodesTree.map(node => (
       <li key={node.id}>
 
         {/* Display the node itself. */}
         <NodeListElement
           node={nodesMap[node.id]}
-          {...props}
+          {...restProps}
         />
 
         {/* Then call the function recursively to render this node's children. */}
         {(node.children || []).length > 0
-        && renderChildren(
-          node.children,
-          nodesMap,
-          props,
-        )}
-
+          && (
+            <NodeList
+              nodesTree={node.children}
+              nodesMap={nodesMap}
+              {...restProps}
+            />
+          )}
       </li>
     ))}
   </ul>
 );
-
-const NodeList = (props) => {
-  const { nodesTree, nodesMap, ...restProps } = props;
-  return renderChildren(nodesTree, nodesMap, restProps);
-};
 
 NodeList.propTypes = {
   /** Hashmap of nodes. */
