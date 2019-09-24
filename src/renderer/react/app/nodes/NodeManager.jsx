@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 import { FormattedMessage } from 'react-intl';
 
 import { create, remove, update } from 'redux/stores/nodes/actions';
@@ -25,66 +25,52 @@ const enhancer = compose(
     },
   ),
 
+  // Handle lock.
   withStateHandlers(
     {
       locked: true,
-      currentlySelectedNode: null,
     },
     {
       toggleLock: ({ locked }) => () => ({ locked: !locked }),
-      selectNode: () => node => ({ currentlySelectedNode: node }),
-      unselectNode: () => () => ({ currentlySelectedNode: null }),
     },
   ),
 
-  withHandlers({
-    /**
-     * Creates a new node.
-     *
-     * @param {object} node - Node that was clicked (which is going to become the parent).
-     */
-    onAddNode: ({ selectNode }) => node => selectNode({ parentId: node?.id || null }),
-
-    /**
-     * Select the current node for edition.
-     *
-     * @param {object} node - The node.
-     */
-    onEditNode: ({ selectNode }) => node => selectNode(node),
-
-    /**
-     * Called when a delete button was pressed.
-     *
-     * TODO (sylvainar) : add a reapop confirm.
-     *
-     * @param {object} node - Selected node.
-     */
-    onDeleteNode: ({ onDeleteNode }) => node => onDeleteNode(node),
-  }),
-
-  withHandlers({
-    /**
-     * Cancel node edition / creation, close form.
-     */
-    onCloseForm: ({ unselectNode }) => () => unselectNode(),
-
-    /**
-     * Called when the form is submitted.
-     *
-     * @param {object} node - Node.
-     */
-    onSubmit: ({ unselectNode, onUpdateNode, onCreateNode }) => (node) => {
-      if (node.id) {
-        // For an edition.
-        onUpdateNode(node);
-      } else {
-        // For a creation.
-        onCreateNode(node);
-      }
-
-      unselectNode();
+  // Handle selector and callbacks.
+  withStateHandlers(
+    {
+      currentlySelectedNode: null,
     },
-  }),
+    {
+      // Open the form for creation.
+      onAddNode: () => node => ({
+        currentlySelectedNode: { parentId: node?.id || null },
+      }),
+
+      // Select the current node for edition.
+      onEditNode: () => node => ({
+        currentlySelectedNode: node,
+      }),
+
+      // Called when a delete button was pressed.
+      onDeleteNode: (_, { onDeleteNode }) => node => onDeleteNode(node),
+
+      // Called when the form is dismissed.
+      onCloseForm: () => () => ({ currentlySelectedNode: null }),
+
+      // Called when the form is submitted.
+      onSubmit: (_, { onUpdateNode, onCreateNode }) => (node) => {
+        if (node.id) {
+          // For an edition.
+          onUpdateNode(node);
+        } else {
+          // For a creation.
+          onCreateNode(node);
+        }
+
+        return { currentlySelectedNode: null };
+      },
+    },
+  ),
 );
 
 const NodeManager = ({
