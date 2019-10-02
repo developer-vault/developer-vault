@@ -6,20 +6,21 @@ const extractReactIntl = require('extract-react-intl');
 // Default args values.
 const PATTERN = 'src/renderer/**/*.messages.{js,jsx}';
 const OUTPUT_FILE = '.tmp/i18n/messages.json';
+const DEFAULT_LOCALE = 'en';
 
-const extract = async (pattern) => {
+const extract = async (pattern, defaultLocale) => {
   const result = await extractReactIntl(
-    ['en'],
+    [defaultLocale],
     pattern,
     {
-      defaultLocale: 'en',
+      defaultLocale,
     },
   );
 
-  return Object.keys(result.en).map(
+  return Object.keys(result[defaultLocale]).map(
     id => ({
       id,
-      defaultMessage: result.en[id],
+      defaultMessage: result[defaultLocale][id],
     }),
   );
 };
@@ -45,9 +46,15 @@ const writeToFile = async (file, output) => {
  * @param {object} opts - Options.
  * @param {string} opts.outputFile - Output file.
  */
-const extractMessagesToFile = async (pattern = PATTERN, { outputFile = OUTPUT_FILE }) => {
+const extractMessagesToFile = async (
+  pattern = PATTERN,
+  {
+    outputFile = OUTPUT_FILE,
+    defaultLocale = DEFAULT_LOCALE,
+  },
+) => {
   const patternWithRootDir = `${process.cwd()}/${pattern.replace(/('|")/g, '')}`;
-  const messages = JSON.stringify(await extract(patternWithRootDir));
+  const messages = JSON.stringify(await extract(patternWithRootDir, defaultLocale));
   return writeToFile(outputFile, messages);
 };
 
