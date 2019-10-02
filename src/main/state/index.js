@@ -36,8 +36,8 @@ export function isInitialized(storeFilePath) {
  *
  * @param {string} key - The key as an utf8 string.
  */
-function onSetKey(key) {
-  if (!isInitialized(CONFIG.STORE.PATH)) {
+async function onSetKey(key) {
+  if (!await isInitialized(CONFIG.STORE.PATH)) {
     KEY = key;
   }
 }
