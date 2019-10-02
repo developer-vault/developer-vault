@@ -4,7 +4,8 @@ import {
   listAllElementIdsInSubtree,
   fetchChildrenRecursively,
   listDescendants,
-  deleteSubTree, getEligibleNewParents,
+  deleteSubTree,
+  getEligibleNewParents,
 } from './index';
 
 describe('Node service', () => {

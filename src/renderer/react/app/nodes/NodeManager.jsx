@@ -52,7 +52,15 @@ const enhancer = compose(
       }),
 
       // Called when a delete button was pressed.
-      onDeleteNode: (_, { onDeleteNode }) => node => onDeleteNode(node),
+      onDeleteNode: ({ currentlySelectedNode }, { onDeleteNode }) => (node) => {
+        onDeleteNode(node);
+        // Make sure that if we deleted the currentlySelectedNode,
+        // we close the form.
+        if (currentlySelectedNode?.id === node.id) {
+          return { currentlySelectedNode: null };
+        }
+        return {};
+      },
 
       // Called when the form is dismissed.
       onCloseForm: () => () => ({ currentlySelectedNode: null }),

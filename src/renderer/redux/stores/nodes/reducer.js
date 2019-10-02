@@ -14,7 +14,7 @@ export default (state = null, action) => {
     case ACTIONS.UPDATE:
       return { ...state, [action.node.id]: action.node };
     case ACTIONS.REMOVE:
-      return deleteSubTree(action.node.id, state);
+      return deleteSubntl/nodes.messagesTree(action.node.id, state);
 
     default:
       return state;

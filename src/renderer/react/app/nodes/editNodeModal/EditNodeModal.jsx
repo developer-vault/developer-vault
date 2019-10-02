@@ -13,20 +13,20 @@ import { selectEligibleNewParents, selectNodesMap } from 'redux/stores/nodes/sel
 import { connect } from 'redux/utils';
 
 const enhancer = compose(
-  connect(state => ({
+  connect((state, props) => ({
     nodesMap: selectNodesMap(state),
-    getEligibleNewParents: selectEligibleNewParents(state),
+    eligibleNewParents: selectEligibleNewParents(state, props.node?.id),
   })),
 
   /**
    * Make a list of available parents and format it for select/options.
    */
   withPropsOnChange(
-    ['node', 'getEligibleNewParents', 'nodesMap'],
-    ({ node, getEligibleNewParents, nodesMap }) => ({
+    ['eligibleNewParents', 'nodesMap'],
+    ({ eligibleNewParents, nodesMap }) => ({
       // Call selector to get eligible new parents,
       // then format it into a select/options format.
-      parentIdOptions: getEligibleNewParents(node?.id)
+      parentIdOptions: eligibleNewParents
         .map(currentNodeId => ({
           key: nodesMap[currentNodeId].id,
           value: nodesMap[currentNodeId].label,

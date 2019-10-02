@@ -6,7 +6,8 @@ import { compose, withPropsOnChange } from 'recompose';
 import { nodeShape } from 'react/shapes/node';
 import Button from 'react/components/general/button/Button';
 
-import messages from './NodeListElement.messages';
+import globalMessages from 'intl/global.messages';
+import messages from 'intl/nodes.messages';
 
 const enhancer = compose(
   // Can't use withHandlers because we can't check if callbacks are falsy or not.
@@ -39,13 +40,28 @@ const NodeListElement = ({
   <div>
     {node.label}
     {onAddChildNode
-    && <Button onClick={onAddChildNode} label={<FormattedMessage {...messages.ADD_CHILD} />} />}
+    && (
+    <Button
+      onClick={onAddChildNode}
+      label={<FormattedMessage {...messages.ADD_CHILD_NODE} />}
+    />
+    )}
 
     {onEditNode
-    && <Button onClick={onEditNode} label={<FormattedMessage {...messages.EDIT_NODE} />} />}
+    && (
+    <Button
+      onClick={onEditNode}
+      label={<FormattedMessage {...globalMessages.EDIT} />}
+    />
+    )}
 
     {onDeleteNode
-    && <Button onClick={onDeleteNode} label={<FormattedMessage {...messages.DELETE_NODE} />} />}
+    && (
+    <Button
+      onClick={onDeleteNode}
+      label={<FormattedMessage {...globalMessages.DELETE} />}
+    />
+    )}
   </div>
 );
 
