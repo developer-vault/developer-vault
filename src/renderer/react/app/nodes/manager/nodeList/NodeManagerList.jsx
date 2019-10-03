@@ -23,17 +23,24 @@ const enhancer = compose(
 class NodeManagerList extends React.PureComponent {
   static propTypes = {
     /** Called when "add child" button is clicked. */
-    onAddNode: PropTypes.func.isRequired,
+    onAddNode: PropTypes.func,
     /** Called when "add root node" button is clicked. */
-    onAddRootNode: PropTypes.func.isRequired,
+    onAddRootNode: PropTypes.func,
     /** Called when "edit" button is clicked. */
-    onEditNode: PropTypes.func.isRequired,
+    onEditNode: PropTypes.func,
     /** Called when "delete" button is clicked. */
-    onDeleteNode: PropTypes.func.isRequired,
+    onDeleteNode: PropTypes.func,
     /** Hashmap of nodes. */
     nodesMap: PropTypes.objectOf(nodeShape).isRequired,
     /** Tree representation of nodes. */
     nodesTree: PropTypes.arrayOf(nodeTreeElement).isRequired,
+  };
+
+  static defaultProps = {
+    onAddNode: null,
+    onAddRootNode: null,
+    onEditNode: null,
+    onDeleteNode: null,
   };
 
   /**
