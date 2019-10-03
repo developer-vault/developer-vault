@@ -1,15 +1,15 @@
-import { pickBy } from 'lodash';
 import { MODULE_TYPES } from './enums';
+
 /**
  * Discover modules from the modules folder.
  * TODO: setup an autoloader.
  *
  * @returns {object} - Discovered modules.
  */
-const discoverModules = () => ({
+const discoverModules = () => ([
   // eslint-disable-next-line import/no-unresolved,global-require
-  links: require('modules/links').default,
-});
+  require('modules/links').default,
+]);
 
 /**
  * Lint the manifest of the module.
@@ -23,8 +23,8 @@ export const manifestIsValid = (manifest) => {
   }
 
   return [
-    // Manifest must expose a title.
-    manifest.title,
+    // Manifest must expose a name.
+    manifest.name,
 
     // Manifest must expose a description.
     manifest.description,
@@ -60,7 +60,7 @@ export const verifyModuleTypeRequirement = (module) => {
  */
 export const isModuleLoadable = (module) => {
   if (!module) {
-    throw new Error("Module couln't be loaded.");
+    throw new Error("Module couldn't be loaded.");
   }
 
   // Lint the manifest.
@@ -70,23 +70,33 @@ export const isModuleLoadable = (module) => {
 
   // Check requirements.
   if (!verifyModuleTypeRequirement(module)) {
-    throw new Error("Module doesn't meets its type requirements.");
+    throw new Error("Module doesn't meet its type requirements.");
   }
 
   return true;
 };
 
+/**
+ * Load all modules on the filesystem with integrity controls.
+ *
+ * @returns {[*]} - An array of modules.
+ */
 export const loadModules = () => {
   const discoveredModules = discoverModules();
 
   // Check requirement for each module.
   // This should throw if one module can't be loaded.
-  Object.values(discoveredModules).forEach(isModuleLoadable);
+  discoveredModules.forEach(isModuleLoadable);
 
   return discoveredModules;
 };
 
-export const filterModulesByType = (modules, type) => pickBy(
-  modules,
-  ({ manifest }) => manifest.type === type,
-);
+/**
+ * Filter modules by type.
+ *
+ * @param {object[]} modules - Modules.
+ * @param {string[]} types - Types.
+ * @returns {*} - Modules.
+ */
+export const filterModulesByType = (modules, types) => modules
+  .filter(({ manifest }) => types.includes(manifest.type));
