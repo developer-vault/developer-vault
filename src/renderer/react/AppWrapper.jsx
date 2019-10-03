@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
-import { IntlProvider } from 'react-intl-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import NotificationsSystem from 'reapop';
+
+import IntlProvider from 'react/components/intl/IntlProvider';
 
 import { reapopThemeShape, storeShape } from './shapes/app.shapes';
 
@@ -12,9 +13,7 @@ const AppWrapper = ({
   reapopTheme,
   children,
 }) => (
-  <ReduxProvider
-    store={store}
-  >
+  <ReduxProvider store={store}>
     <IntlProvider>
       <>
         <Router>

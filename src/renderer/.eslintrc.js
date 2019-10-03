@@ -12,6 +12,9 @@ module.exports = {
     // Allow spreading props.
     'react/jsx-props-no-spreading': 'off',
 
+    // Allow initializing state as class property.
+    'react/state-in-constructor': 'off',
+
     // Renderer dependencies are devDependencies because electron packager bundles dependencies.
     'import/no-extraneous-dependencies': [
       'error',
