@@ -1,7 +1,8 @@
 import React from 'react';
 import { listNodesModules } from 'services/modules';
+import ModuleListElement from 'react/components/modules/ModuleListElement';
 
-export default class ModuleHandler extends React.PureComponent {
+export default class NodeWorkZone extends React.PureComponent {
   /**
    * Test a render of all modules available in the system.
    */
@@ -10,10 +11,7 @@ export default class ModuleHandler extends React.PureComponent {
 
     return (
       <p>
-        {modules.map((module) => {
-          const { renderer: { node } } = module;
-          return React.createElement(node);
-        })}
+        {modules.map(module => <ModuleListElement key={module.name} module={module} />)}
       </p>
     );
   }
