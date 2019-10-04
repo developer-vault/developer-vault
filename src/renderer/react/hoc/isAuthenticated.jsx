@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { wrapDisplayName } from 'recompose';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { emptyMapDispatchToProps } from 'services/redux/empty';
+import { connect } from 'redux/utils';
 
 const mapStateToProps = state => ({
   authenticated: state.app.authenticated,
 });
 
 export default (WrappedComponent) => {
-  const enhancer = connect(mapStateToProps, emptyMapDispatchToProps);
+  const enhancer = connect(mapStateToProps);
 
   const isAuthenticated = ({ authenticated, ...props }) => (
     authenticated

@@ -5,6 +5,7 @@ import {
   fetchChildrenRecursively,
   listDescendants,
   deleteSubTree,
+  getEligibleNewParents,
 } from './index';
 
 describe('Node service', () => {
@@ -107,5 +108,10 @@ describe('Node service', () => {
       },
     });
     expect(Object.values(result)).toHaveLength(3);
+  });
+
+  it('getEligibleNewParents', () => {
+    expect(getEligibleNewParents('', nodes)).toHaveLength(6);
+    expect(getEligibleNewParents('node12', nodes)).toEqual(['node1', 'node2', 'node11']);
   });
 });

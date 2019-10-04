@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 import { Redirect } from 'react-router-dom';
 
 import { intlShape } from 'react/shapes/vendor';
 import { registerAction } from 'redux/stores/app/actions';
+import { connect } from 'redux/utils';
+import globalMessages from 'intl/global.messages';
 
 import RegisterPresentation from './RegisterPresentation';
-import messages from './register.messages';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ register: registerAction, notify }, dispatch),
@@ -64,7 +64,7 @@ export const RegisterContainer = (Presentation) => {
     onSubmit = async () => {
       await this.props.actions.register(this.state.password);
       this.props.actions.notify({
-        message: this.props.intl.formatMessage(messages.SUCCESS_NOTIFICATION_MESSAGE),
+        message: this.props.intl.formatMessage(globalMessages.SUCCESS),
         status: STATUS.success,
         dismissible: true,
       });
@@ -91,7 +91,7 @@ export const RegisterContainer = (Presentation) => {
       const { password, confirm, redirectToHome } = this.state;
 
       if (redirectToHome) {
-        return <Redirect to="/home" />;
+        return <Redirect to="/nodes" />;
       }
 
       return (

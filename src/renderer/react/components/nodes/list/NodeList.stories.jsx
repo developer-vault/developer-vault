@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
+import { boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import NodeManagerList from './NodeManagerList';
 
-const nodes = {
+import { selectNodesTree } from 'redux/stores/nodes/selector';
+import NodeList from './NodeList';
+
+const nodesMap = {
   node1: {
     id: 'node1',
     label: 'node1',
@@ -37,15 +40,18 @@ const nodes = {
   },
 };
 
-storiesOf('App/Nodes', module)
+const nodesTree = selectNodesTree({ nodes: nodesMap });
+
+storiesOf('Components/Nodes', module)
   .add(
-    'Node manager list',
+    'Node list',
     () => (
-      <NodeManagerList
-        nodeList={nodes}
-        onAddNode={action('node added')}
-        onEditNode={action('node edited')}
-        onDeleteNode={action('node deleted')}
+      <NodeList
+        nodesMap={nodesMap}
+        nodesTree={nodesTree}
+        onAddChildNode={boolean('with edition controls', true) && action('node added')}
+        onEditNode={boolean('with edition controls', true) && action('node edited')}
+        onDeleteNode={boolean('with edition controls', true) && action('node deleted')}
       />
     ),
     { notes: 'Render the tree of nodes, with controls.' },

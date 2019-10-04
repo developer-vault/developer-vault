@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { notify, STATUS } from 'reapop';
 
 import { intlShape } from 'react/shapes/vendor';
 import { loginAction } from 'redux/stores/app/actions';
+import { connect } from 'redux/utils';
+import globalMessages from 'intl/global.messages';
 
 import LoginPresentation from './LoginPresentation';
-import messages from './login.messages';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 export const LoginContainer = (Presentation) => {
   const enhancer = compose(
     injectIntl,
-    connect(undefined, mapDispatchToProps),
+    connect(null, mapDispatchToProps),
   );
 
   class Login extends React.Component {
@@ -65,7 +65,7 @@ export const LoginContainer = (Presentation) => {
        * Handle state decryption.
        */
       this.props.actions.notify({
-        message: this.props.intl.formatMessage(messages.SUCCESS_NOTIFICATION_MESSAGE),
+        message: this.props.intl.formatMessage(globalMessages.SUCCESS),
         status: STATUS.success,
         dismissible: true,
       });
@@ -77,7 +77,7 @@ export const LoginContainer = (Presentation) => {
       const { password, redirectToHome } = this.state;
 
       if (redirectToHome) {
-        return <Redirect to="/home" />;
+        return <Redirect to="/nodes" />;
       }
 
       return (
