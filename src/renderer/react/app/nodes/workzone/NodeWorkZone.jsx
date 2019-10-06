@@ -1,5 +1,5 @@
 import React from 'react';
-import { listNodesModules } from 'services/modules';
+import { listNodesModules } from 'domain/modules';
 import ModuleListElement from 'react/components/modules/ModuleListElement';
 
 export default class NodeWorkZone extends React.PureComponent {

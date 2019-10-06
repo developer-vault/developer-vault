@@ -1,5 +1,5 @@
-import { filterModulesByType, loadModules } from 'shared/services/modules';
-import { MODULE_TYPES } from 'shared/services/modules/enums';
+import { filterModulesByType, loadModules } from 'shared/domain/modules';
+import { MODULE_TYPES } from 'shared/domain/modules/enums';
 
 let modules = {};
 

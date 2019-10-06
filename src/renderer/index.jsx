@@ -19,7 +19,7 @@ import AppWrapper from './react/AppWrapper';
 
 import { isInitializedAction } from './redux/stores/app/actions';
 
-import { bootstrapModules } from './services/modules';
+import { bootstrapModules } from './domain/modules';
 
 import './style/main.scss';
 
