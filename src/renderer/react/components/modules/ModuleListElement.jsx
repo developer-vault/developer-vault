@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { moduleShape } from 'react/shapes/module';
 
-// const logoStyle = {width: 3}
+// Will redesign that whole screen later.
+const iconStyle = { width: 30, height: 30 };
 
 const ModuleListElement = ({ module }) => {
-  // This is a proof of concept that we're able to load the renderer.
-  // Obviously it doesn't belong here.
-  const { renderer: { node: Node } } = module;
-
-  const { manifest } = module;
+  const { manifest, icon: Icon } = module;
 
   return (
     <div>
       <h2>{manifest.displayName || manifest.name}</h2>
-      <img src={module.icon} />
+      <Icon style={iconStyle} />
       <p>{manifest.description}</p>
-
-      <Node />
     </div>
   );
 };

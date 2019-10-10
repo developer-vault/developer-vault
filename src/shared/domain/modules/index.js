@@ -9,6 +9,8 @@ import { MODULE_TYPES } from './enums';
 const discoverModules = () => ([
   // eslint-disable-next-line import/no-unresolved,global-require
   require('modules/links').default,
+  // eslint-disable-next-line import/no-unresolved,global-require
+  require('modules/notes').default,
 ]);
 
 /**
