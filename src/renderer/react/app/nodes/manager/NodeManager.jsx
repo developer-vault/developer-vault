@@ -38,32 +38,32 @@ const enhancer = compose(
   // Handle selector and callbacks.
   withStateHandlers(
     {
-      currentlySelectedNode: null,
+      currentlyEditedNode: null,
     },
     {
       // Open the form for creation.
       onAddNode: () => node => ({
-        currentlySelectedNode: { parentId: node?.id || null },
+        currentlyEditedNode: { parentId: node?.id || null },
       }),
 
       // Select the current node for edition.
       onEditNode: () => node => ({
-        currentlySelectedNode: node,
+        currentlyEditedNode: node,
       }),
 
       // Called when a delete button was pressed.
-      onDeleteNode: ({ currentlySelectedNode }, { onDeleteNode }) => (node) => {
+      onDeleteNode: ({ currentlyEditedNode }, { onDeleteNode }) => (node) => {
         onDeleteNode(node);
-        // Make sure that if we deleted the currentlySelectedNode,
+        // Make sure that if we deleted the currentlyEditedNode,
         // we close the form.
-        if (currentlySelectedNode?.id === node.id) {
-          return { currentlySelectedNode: null };
+        if (currentlyEditedNode?.id === node.id) {
+          return { currentlyEditedNode: null };
         }
         return {};
       },
 
       // Called when the form is dismissed.
-      onCloseForm: () => () => ({ currentlySelectedNode: null }),
+      onCloseForm: () => () => ({ currentlyEditedNode: null }),
 
       // Called when the form is submitted.
       onSubmit: (_, { onUpdateNode, onCreateNode }) => (node) => {
@@ -75,15 +75,17 @@ const enhancer = compose(
           onCreateNode(node);
         }
 
-        return { currentlySelectedNode: null };
+        return { currentlyEditedNode: null };
       },
     },
   ),
 );
 
 const NodeManager = ({
-  currentlySelectedNode,
+  currentlyEditedNode,
+  activeNodeId,
   locked,
+  onActiveNode,
   onAddNode,
   onEditNode,
   onDeleteNode,
@@ -93,13 +95,15 @@ const NodeManager = ({
 }) => (
   <>
     <NodeManagerList
+      activeNodeId={activeNodeId}
+      onActiveNode={locked ? onActiveNode : null}
       onAddNode={!locked ? onAddNode : null}
       onEditNode={!locked ? onEditNode : null}
       onDeleteNode={!locked ? onDeleteNode : null}
     />
 
     <EditNodeModal
-      node={currentlySelectedNode}
+      node={currentlyEditedNode}
       onSubmit={onSubmit}
       onCancel={onCloseForm}
     />
@@ -118,8 +122,10 @@ const NodeManager = ({
 );
 
 NodeManager.propTypes = {
-  currentlySelectedNode: PropTypes.shape(nodeShape),
+  activeNodeId: PropTypes.string,
+  currentlyEditedNode: PropTypes.shape(nodeShape),
   locked: PropTypes.bool.isRequired,
+  onActiveNode: PropTypes.func.isRequired,
   onAddNode: PropTypes.func.isRequired,
   onEditNode: PropTypes.func.isRequired,
   onDeleteNode: PropTypes.func.isRequired,
@@ -129,7 +135,8 @@ NodeManager.propTypes = {
 };
 
 NodeManager.defaultProps = {
-  currentlySelectedNode: null,
+  activeNodeId: null,
+  currentlyEditedNode: null,
 };
 
 export default enhancer(NodeManager);

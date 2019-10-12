@@ -6,5 +6,6 @@ export const moduleShape = {
     name: PropTypes.string.isRequired,
     displayName: PropTypes.string,
     description: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   }),
 };
