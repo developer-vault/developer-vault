@@ -11,6 +11,8 @@ const discoverModules = () => ([
   require('modules/links').default,
   // eslint-disable-next-line import/no-unresolved,global-require
   require('modules/notes').default,
+  // eslint-disable-next-line import/no-unresolved,global-require
+  require('modules/dracula').default,
 ]);
 
 /**
@@ -48,6 +50,9 @@ export const verifyModuleTypeRequirement = (module) => {
     case MODULE_TYPES.NODE:
       // A node module should have a renderer/node element.
       return !!module.renderer?.node;
+    case MODULE_TYPES.THEME:
+      // A theme module should have a colors element.
+      return !!module.colors;
     default:
       // Shouldn't happen since we called manifestIsValid first but still...
       return false;

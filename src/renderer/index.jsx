@@ -20,10 +20,12 @@ import AppWrapper from './react/AppWrapper';
 import { isInitializedAction } from './redux/stores/app/actions';
 
 import { bootstrapModules } from './domain/modules';
+import { bootstrapTheme } from './domain/theme';
 
 import './style/main.scss';
 
 bootstrapModules();
+bootstrapTheme();
 
 Promise.all([setLocale(), store.dispatch(isInitializedAction())])
   .then(() => {
