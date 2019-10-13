@@ -21,7 +21,7 @@ import { isInitializedAction } from './redux/stores/app/actions';
 
 import './style/main.scss';
 
-Promise.all([setLocale(), store.dispatch(isInitializedAction())])
+Promise.all([setLocale(store), store.dispatch(isInitializedAction())])
   .then(() => {
     ReactDOM.render(
       <AppWrapper
