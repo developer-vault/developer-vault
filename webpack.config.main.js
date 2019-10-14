@@ -62,9 +62,10 @@ module.exports = (
         './node_modules/',
       ],
 
-      // Add alias for shared folder.
+      // Add alias for shared folders.
       alias: {
         shared: path.resolve(__dirname, 'src/shared'),
+        modules: path.resolve(__dirname, 'src/modules'),
       },
     },
 

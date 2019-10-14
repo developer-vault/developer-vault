@@ -54,10 +54,10 @@ class EditNodeModal extends React.PureComponent {
     /** From createForm / Form. */
     form: formShape.isRequired,
     /** Parent ID available options. */
-    parentIdOptions: PropTypes.shape({
+    parentIdOptions: PropTypes.arrayOf(PropTypes.shape({
       key: PropTypes.string,
       value: PropTypes.string,
-    }),
+    })),
   };
 
   static defaultProps = {

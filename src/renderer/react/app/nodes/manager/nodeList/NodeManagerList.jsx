@@ -22,18 +22,31 @@ const enhancer = compose(
 
 class NodeManagerList extends React.PureComponent {
   static propTypes = {
+    /** Currently active node. */
+    activeNodeId: PropTypes.string,
     /** Called when "add child" button is clicked. */
-    onAddNode: PropTypes.func.isRequired,
+    onAddNode: PropTypes.func,
+    /** Called when a node is selected. */
+    onActiveNode: PropTypes.func,
     /** Called when "add root node" button is clicked. */
-    onAddRootNode: PropTypes.func.isRequired,
+    onAddRootNode: PropTypes.func,
     /** Called when "edit" button is clicked. */
-    onEditNode: PropTypes.func.isRequired,
+    onEditNode: PropTypes.func,
     /** Called when "delete" button is clicked. */
-    onDeleteNode: PropTypes.func.isRequired,
+    onDeleteNode: PropTypes.func,
     /** Hashmap of nodes. */
     nodesMap: PropTypes.objectOf(nodeShape).isRequired,
     /** Tree representation of nodes. */
     nodesTree: PropTypes.arrayOf(nodeTreeElement).isRequired,
+  };
+
+  static defaultProps = {
+    activeNodeId: null,
+    onAddNode: null,
+    onActiveNode: null,
+    onAddRootNode: null,
+    onEditNode: null,
+    onDeleteNode: null,
   };
 
   /**
@@ -53,8 +66,10 @@ class NodeManagerList extends React.PureComponent {
    */
   render() {
     const {
+      activeNodeId,
       nodesMap,
       nodesTree,
+      onActiveNode,
       onAddNode,
       onEditNode,
       onDeleteNode,
@@ -62,8 +77,10 @@ class NodeManagerList extends React.PureComponent {
     return (
       <>
         <NodeList
+          activeNodeId={activeNodeId}
           nodesMap={nodesMap}
           nodesTree={nodesTree}
+          onActiveNode={onActiveNode}
           onAddChildNode={onAddNode}
           onEditNode={onEditNode}
           onDeleteNode={onDeleteNode}

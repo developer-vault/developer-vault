@@ -19,7 +19,11 @@ import AppWrapper from './react/AppWrapper';
 
 import { isInitializedAction } from './redux/stores/app/actions';
 
+import { bootstrapModules } from './domain/modules';
+
 import './style/main.scss';
+
+bootstrapModules();
 
 Promise.all([setLocale(store), store.dispatch(isInitializedAction())])
   .then(() => {

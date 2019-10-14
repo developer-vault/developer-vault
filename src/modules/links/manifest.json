@@ -1,0 +1,6 @@
+{
+  "name": "links",
+  "displayName": "Links",
+  "description": "Provides a table view where you can store all links of your project (vcs, dashboards, shared files...).",
+  "type": "node"
+}

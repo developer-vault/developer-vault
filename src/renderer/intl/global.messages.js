@@ -7,7 +7,9 @@ export default defineMessages({
 
   LOCK: { id: 'global.lock', defaultMessage: 'Lock' },
   UNLOCK: { id: 'global.unlock', defaultMessage: 'Unlock' },
+  INSTALL: { id: 'global.install', defaultMessage: 'Install' },
 
+  SELECT: { id: 'global.select', defaultMessage: 'Select' },
   EDIT: { id: 'global.edit', defaultMessage: 'Edit' },
   DELETE: { id: 'global.delete', defaultMessage: 'Delete' },
 });

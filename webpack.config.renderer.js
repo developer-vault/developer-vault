@@ -143,6 +143,7 @@ module.exports = (
 
       alias: {
         shared: path.resolve(__dirname, 'src/shared'),
+        modules: path.resolve(__dirname, 'src/modules'),
       },
 
       extensions: [
