@@ -3,7 +3,7 @@ import { buildTree, getEligibleNewParents } from 'services/node';
 
 export const selectNodesMap = state => state.nodes;
 
-export const selectNodeById = (state, id) => state.nodes?.[id];
+export const selectNodeById = (state, id) => selectNodesMap(state)?.[id];
 
 export const selectNodesTree = createSelector(
   state => state.nodes,

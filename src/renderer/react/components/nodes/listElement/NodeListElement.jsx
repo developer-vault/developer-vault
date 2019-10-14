@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { compose, withPropsOnChange } from 'recompose';
+import { compose, withProps, withPropsOnChange } from 'recompose';
 import cn from 'classnames';
 
 import { nodeShape } from 'react/shapes/node';
@@ -36,8 +36,7 @@ const enhancer = compose(
     }),
   ),
 
-  withPropsOnChange(
-    ['node', 'activeNodeId'],
+  withProps(
     ({ node, activeNodeId }) => ({ isActive: activeNodeId === node.id }),
   ),
 

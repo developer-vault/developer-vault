@@ -19,20 +19,19 @@ const enhancer = compose(
   React.memo,
 );
 
-const AvailableModulesListElement = ({ module, onInstall }) => {
-  const { manifest, icon: Icon } = module;
-
-  return (
-    <div>
-      <h2>{manifest.displayName || manifest.name}</h2>
-      <Icon style={iconStyle} />
-      <p>{manifest.description}</p>
-      <button type="button" onClick={onInstall}>
-        <FormattedMessage {...globalMessages.INSTALL} />
-      </button>
-    </div>
-  );
-};
+const AvailableModulesListElement = ({
+  module: { manifest, icon: Icon },
+  onInstall,
+}) => (
+  <div>
+    <h2>{manifest.displayName || manifest.name}</h2>
+    <Icon style={iconStyle} />
+    <p>{manifest.description}</p>
+    <button type="button" onClick={onInstall}>
+      <FormattedMessage {...globalMessages.INSTALL} />
+    </button>
+  </div>
+);
 
 AvailableModulesListElement.propTypes = {
   module: PropTypes.shape(moduleShape).isRequired,
