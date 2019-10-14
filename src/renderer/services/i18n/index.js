@@ -1,7 +1,6 @@
 import moment from 'moment';
-import { updateIntl } from 'react-intl-redux';
 
-import store from 'redux/store';
+import { updateLocale } from 'redux/stores/intl/actions';
 
 export const LOCALE_STORAGE_KEY = 'locale';
 
@@ -49,17 +48,14 @@ export const setHtmlLangAttribute = (locale) => {
   document.getElementsByTagName('html')[0].setAttribute('lang', locale);
 };
 
-export const setLocale = async (locale) => {
-  const localeToSet = locale || getStoredLocale() || getBrowserLocale();
-  setHtmlLangAttribute(localeToSet);
-
-  const { default: bundle } = await import(`locales/${localeToSet}`);
+export const setLocale = async (store, locale = getStoredLocale() || getBrowserLocale()) => {
+  const { default: bundle } = await import(`locales/${locale}`);
 
   moment.locale(locale);
   setHtmlLangAttribute(locale);
 
-  return store.dispatch(updateIntl({
+  return store.dispatch(updateLocale({
     ...bundle,
-    locale: localeToSet,
+    locale,
   }));
 };

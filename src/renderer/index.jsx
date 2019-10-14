@@ -25,7 +25,7 @@ import './style/main.scss';
 
 bootstrapModules();
 
-Promise.all([setLocale(), store.dispatch(isInitializedAction())])
+Promise.all([setLocale(store), store.dispatch(isInitializedAction())])
   .then(() => {
     ReactDOM.render(
       <AppWrapper

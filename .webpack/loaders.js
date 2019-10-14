@@ -70,10 +70,12 @@ const makeSassLoader = ({
     loader: 'sass-loader',
     options: {
       sourceMap: true,
-      includePaths: [
-        path.resolve(__dirname, '../src/renderer/'),
-        path.resolve(__dirname, '../node_modules/'),
-      ],
+      sassOptions: {
+        includePaths: [
+          path.resolve(__dirname, '../src/renderer/'),
+          path.resolve(__dirname, '../node_modules/'),
+        ],
+      },
     },
   },
 ]);
