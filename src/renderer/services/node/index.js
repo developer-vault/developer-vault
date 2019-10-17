@@ -42,9 +42,10 @@ export const buildTree = nodes => fetchChildrenRecursively(null, nodes);
  */
 export const listAllElementIdsInSubtree = (subtree) => {
   // Recursively get children and add them in an array.
-  const allChildrenNested = (subtree || []).map(node => ((node.children || []).length > 0
-    ? [node.id, ...listAllElementIdsInSubtree(node.children)]
-    : [node.id]));
+  const allChildrenNested = (subtree || [])
+    .map(node => ((node.children || []).length > 0
+      ? [node.id, ...listAllElementIdsInSubtree(node.children)]
+      : [node.id]));
 
   // And flatten everything in order to get a list.
   return flattenDeep(allChildrenNested);

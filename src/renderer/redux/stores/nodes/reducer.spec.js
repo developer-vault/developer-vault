@@ -7,11 +7,30 @@ import {
   editModule,
   deleteModule,
 } from './actions';
+import { REGISTER, LOGIN } from '../app/actions';
 
 describe('Reducer: nodes', () => {
+  it('default', () => {
+    // A reducer should return state if no action matched.
+    const state = { yolo: 'swag' };
+    expect(reducer(state, {})).toBe(state);
+  });
+
+  it('init', () => {
+    expect(reducer(undefined, REGISTER())).toEqual({});
+  });
+
+  it('login', () => {
+    const state = { yolo: 'swag' };
+    expect(reducer(undefined, LOGIN(state))).toEqual(state);
+
+    // Cold start should create an empty state.
+    expect(reducer(undefined, LOGIN(null))).toEqual({});
+  });
+
   it('create', () => {
     const action = create({ label: 'node1' });
-    expect(reducer({}, action)).toMatchObject({
+    expect(reducer({}, action)).toEqual({
       generatedTestValue: {
         label: 'node1',
         id: 'generatedTestValue',
@@ -23,7 +42,7 @@ describe('Reducer: nodes', () => {
     const initialState = { node1: { label: 'label1' } };
     const action = update({ id: 'node1', label: 'label2' });
 
-    expect(reducer(initialState, action)).toMatchObject({ node1: { label: 'label2' } });
+    expect(reducer(initialState, action)).toEqual({ node1: { id: 'node1', label: 'label2' } });
   });
 
   it('remove', () => {
@@ -31,7 +50,7 @@ describe('Reducer: nodes', () => {
     const action = remove({ id: 'node1' });
     const result = reducer(initialState, action);
 
-    expect(result).toMatchObject({ node2: { id: 'node2', label: 'label2' } });
+    expect(result).toEqual({ node2: { id: 'node2', label: 'label2' } });
     expect(Object.values(result)).toHaveLength(1);
   });
 
