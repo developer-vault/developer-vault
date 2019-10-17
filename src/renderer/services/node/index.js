@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import { flattenDeep, omitBy } from 'lodash';
+import { flattenDeep, omitBy, omit } from 'lodash';
 
 /**
  * Given a node, wrap it in an object with uuid as key.
@@ -42,9 +42,10 @@ export const buildTree = nodes => fetchChildrenRecursively(null, nodes);
  */
 export const listAllElementIdsInSubtree = (subtree) => {
   // Recursively get children and add them in an array.
-  const allChildrenNested = (subtree || []).map(node => ((node.children || []).length > 0
-    ? [node.id, ...listAllElementIdsInSubtree(node.children)]
-    : [node.id]));
+  const allChildrenNested = (subtree || [])
+    .map(node => ((node.children || []).length > 0
+      ? [node.id, ...listAllElementIdsInSubtree(node.children)]
+      : [node.id]));
 
   // And flatten everything in order to get a list.
   return flattenDeep(allChildrenNested);
@@ -101,3 +102,81 @@ export const getEligibleNewParents = (nodeId, nodes) => {
   return allNodeIds
     .filter(currentNodeId => !nonAvailableParents.includes(currentNodeId));
 };
+
+/**
+ * Add a module on a node.
+ *
+ * @param {object} node - Node.
+ * @param {object} module - Module.
+ * @param {string} module.type - Module type.
+ * @param {string} module.name - Module name.
+ * @param {object} [module.options] - Module options.
+ * @returns {object} - Edited node.
+ */
+export const addModuleOnNode = (
+  node,
+  {
+    type,
+    name,
+    options,
+  },
+) => {
+  const moduleId = uuid();
+  return ({
+    ...node,
+    modules: {
+      ...node.modules || {},
+      [moduleId]: {
+        id: moduleId,
+        type,
+        name,
+        options: options || {},
+        data: {},
+      },
+    },
+  });
+};
+
+/**
+ * Edit module on a node.
+ *
+ * @param {object} node - Node.
+ * @param {object} module - Module.
+ * @param {string} module.id - Module id.
+ * @param {string} module.name - Module name.
+ * @param {object} [module.options] - Module options.
+ * @returns {object} - Edited node.
+ */
+export const editModuleOnNode = (
+  node,
+  {
+    id,
+    name,
+    options,
+  },
+) => ({
+  ...node,
+  modules: {
+    ...node.modules,
+    [id]: {
+      ...node.modules[id],
+      name,
+      options,
+    },
+  },
+});
+
+/**
+ * Delete module on a node.
+ *
+ * @param {object} node - Node.
+ * @param {string} moduleId - Module id.
+ * @returns {object} - Edited node.
+ */
+export const deleteModuleOnNode = (
+  node,
+  moduleId,
+) => ({
+  ...node,
+  modules: omit(node.modules, moduleId),
+});
