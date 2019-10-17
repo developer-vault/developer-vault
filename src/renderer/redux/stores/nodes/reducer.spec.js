@@ -1,8 +1,12 @@
 import reducer from './reducer';
 import {
-  create, update, remove, addModule, editModule, deleteModule,
+  create,
+  update,
+  remove,
+  addModule,
+  editModule,
+  deleteModule,
 } from './actions';
-import {init} from "@sentry/browser";
 
 describe('Reducer: nodes', () => {
   it('create', () => {

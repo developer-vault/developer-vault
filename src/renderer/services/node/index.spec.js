@@ -49,6 +49,7 @@ describe('Node service', () => {
       });
     });
   });
+
   describe('tree management', () => {
     it('buildTree', () => {
       expect(buildTree(nodes)).toMatchObject([

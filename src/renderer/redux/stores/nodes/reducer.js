@@ -1,4 +1,9 @@
-import { addModuleOnNode, deleteSubTree, editModuleOnNode, deleteModuleOnNode } from 'services/node';
+import {
+  addModuleOnNode,
+  deleteSubTree,
+  editModuleOnNode,
+  deleteModuleOnNode,
+} from 'services/node';
 
 import { ACTIONS as APP_ACTIONS } from 'redux/stores/app/actions';
 import { ACTIONS } from './actions';
