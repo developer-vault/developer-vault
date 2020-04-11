@@ -13,5 +13,6 @@ module.exports = {
     app: '.dist',
   },
 
-  publish: 'onTagOrDraft',
+  // FIXME: This makes the packaging crash.
+  // publish: 'onTagOrDraft',
 };
