@@ -1,5 +1,5 @@
 import Links from './renderer/node/Links';
-import manifest from './manifest';
+import manifest from './manifest.json';
 import icon from './icon.svg';
 
 export default {

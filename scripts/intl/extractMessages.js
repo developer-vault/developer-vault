@@ -1,7 +1,7 @@
 const path = require('path');
 
 const fs = require('fs-extra');
-const extractReactIntl = require('extract-react-intl');
+const { extractReactIntl } = require('extract-react-intl-messages');
 
 // Default args values.
 const PATTERN = 'src/renderer/**/*.messages.{js,jsx}';
@@ -14,13 +14,15 @@ const extract = async (pattern, defaultLocale) => {
     pattern,
     {
       defaultLocale,
+      withDescriptions: true,
     },
   );
 
   return Object.keys(result[defaultLocale]).map(
     id => ({
       id,
-      defaultMessage: result[defaultLocale][id],
+      defaultMessage: result[defaultLocale][id].message,
+      description: result[defaultLocale][id].description,
     }),
   );
 };
@@ -55,7 +57,7 @@ const extractMessagesToFile = async (
 ) => {
   const patternWithRootDir = `${process.cwd()}/${pattern.replace(/('|")/g, '')}`;
   const messages = JSON.stringify(await extract(patternWithRootDir, defaultLocale));
-  return writeToFile(outputFile, messages);
+  await writeToFile(outputFile, messages);
 };
 
 module.exports = extractMessagesToFile;

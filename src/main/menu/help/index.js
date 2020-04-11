@@ -1,6 +1,6 @@
 import { app, dialog, shell } from 'electron';
 
-const name = app.getName();
+const { name } = app;
 const version = app.getVersion();
 
 export default {

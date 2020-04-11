@@ -8,9 +8,7 @@
       "type": "node",
       "request": "attach",
       "name": "Attach debugger to main process",
-      "outFiles": [
-        "${workspaceFolder}/.dev/main/**/*.js"
-      ]
+      "processId": "${command:extension.pickNodeProcess}",
     },
     {
       "type": "node",

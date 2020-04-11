@@ -47,14 +47,14 @@ export const RegisterContainer = (Presentation) => {
      *
      * @param {{target: {value: string}}} event - The DOM Event.
      */
-    onChangePassword = event => this.setState({ password: event.target.value });
+    onChangePassword = (event) => { this.setState({ password: event.target.value }); }
 
     /**
      * Binds confirm state to input.
      *
      * @param {{target: {value: string}}} event - The DOM Event.
      */
-    onChangeConfirm = event => this.setState({ confirm: event.target.value });
+    onChangeConfirm = (event) => { this.setState({ confirm: event.target.value }); }
 
     /**
      * On form submit, sends the key to the main process.

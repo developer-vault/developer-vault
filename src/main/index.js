@@ -7,12 +7,17 @@ import { makeMenu } from './menu';
 import { register as registerStateIpc, saveStateHandler } from './state';
 
 /**
+ * FIXME this will be set to true by default in Electron 9 and removed in Electron 11.
+ */
+app.allowRendererProcessReuse = true;
+
+/**
  * Add developer tools to renderer window.
  *
  * @async
  */
-function init() {
-  return Promise.all([
+async function init() {
+  await Promise.all([
     !app.isPackaged && installExtension(REACT_DEVELOPER_TOOLS),
     !app.isPackaged && installExtension(REDUX_DEVTOOLS),
   ].filter(Boolean));

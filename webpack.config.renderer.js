@@ -18,7 +18,6 @@ const webpack = require('webpack');
 const {
   babelRule,
   eslintRule,
-  moduleRule,
   makeCssRule,
   makeCssModulesRule,
   makeSassRule,
@@ -115,7 +114,6 @@ module.exports = (
         // JavaScript.
         babelRule,
         eslintRule,
-        moduleRule,
 
         // Sass, less and css.
         makeCssRule({ mode }),
@@ -163,6 +161,7 @@ module.exports = (
       // Extract CSS to an external stylesheet in packaged mode.
       mode === 'production' && new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash].min.css',
+        ignoreOrder: true,
       }),
 
       // Generate index.html linking to the generated bundles (js and css).
@@ -212,8 +211,6 @@ module.exports = (
       minimizer: [
         // JS uglifier.
         new TerserWebpackPlugin({
-          cache: true,
-          parallel: true,
           sourceMap: true,
         }),
         // CSS uglifier.
@@ -254,6 +251,10 @@ module.exports = (
 
         // Enable HMR.
         hot: true,
+        // Since react-dev-utils now uses native WebSockets, we need to specify explicitly to use
+        // WebSockets instead of sock-js.
+        transportMode: 'ws',
+        injectClient: false,
 
         // Serve index.html on 404.
         historyApiFallback: {
@@ -277,7 +278,7 @@ module.exports = (
           // We do this in development to avoid hitting the production cache if
           // it used the same host and port.
           // https://github.com/facebookincubator/create-react-app/issues/2272#issuecomment-302832432
-          app.use(noopServiceWorkerMiddleware());
+          app.use(noopServiceWorkerMiddleware(''));
         },
       }
       : undefined,
