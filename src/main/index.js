@@ -7,6 +7,11 @@ import { makeMenu } from './menu';
 import { register as registerStateIpc, saveStateHandler } from './state';
 
 /**
+ * FIXME this will be set to true by default in Electron 9 and removed in Electron 11.
+ */
+app.allowRendererProcessReuse = true;
+
+/**
  * Add developer tools to renderer window.
  *
  * @async
