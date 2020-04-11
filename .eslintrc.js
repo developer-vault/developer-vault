@@ -59,6 +59,12 @@ module.exports = {
       },
     ],
 
+    // Enforce one empty line at the end of the file.
+    'eol-last': [
+      'error',
+      'always',
+    ],
+
     // Omit parenthesis for arrow functions parameters with one parameter and no body.
     'arrow-parens': [
       'error',
@@ -85,6 +91,7 @@ module.exports = {
     'jsdoc/require-param-description': 'warn',
     'jsdoc/require-param-name': 'warn',
     'jsdoc/require-param-type': 'warn',
+    'jsdoc/require-returns': 'warn',
     'jsdoc/require-returns-description': 'warn',
     'jsdoc/require-returns-check': 'warn',
     'jsdoc/require-returns-type': 'warn',
@@ -93,6 +100,7 @@ module.exports = {
     // Disable these rules.
     'jsdoc/require-description': 'off',
     'jsdoc/require-example': 'off',
+    'import/no-cycle': 'off',
 
     'jsdoc/require-jsdoc': [
       'warn',
@@ -113,6 +121,7 @@ module.exports = {
       files: [
         'webpack.config.*.js',
         'scripts/**/*.{js,jsx}',
+        'src/**/*.stories.{js,jsx}',
         '.{jest,storybook,webpack}/**/*.{js,jsx}',
       ],
       rules: {
@@ -122,6 +131,21 @@ module.exports = {
         ],
 
         'react/jsx-filename-extension': 'off',
+      },
+    },
+
+    /**
+     * FIXME.
+     * This is due to an issue in babel with template strings in dynamic imports:
+     * https://github.com/babel/babel/issues/10904.
+     */
+    {
+      files: [
+        'src/renderer/services/i18n/index.js',
+      ],
+      rules: {
+        'template-curly-spacing': 'off',
+        indent: 'off',
       },
     },
   ],

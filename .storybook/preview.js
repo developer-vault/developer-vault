@@ -1,6 +1,6 @@
 import React from 'react';
 import { transform } from 'lodash';
-import { configure, addDecorator, addParameters } from '@storybook/react';
+import { addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
@@ -12,6 +12,13 @@ import store from '../src/renderer/__mocks__/redux/store';
 
 import '../src/renderer/style/main.scss';
 import './storybook.scss';
+
+addParameters({
+  options: {
+    // First hierarchy in story name becomes the root in the UI.
+    showRoots: true,
+  },
+});
 
 // Set the configuration of react-intl for storybook.
 const loadLocales = () => {
@@ -71,19 +78,9 @@ addParameters({
             name: `${bpName} (${bpMaxWidth}px) -- custom breakpoint`,
             styles: {
               width: `${bpMaxWidth}px`,
-
               // Otherwise addon-viewport does not fill the device height.
               height: '100%',
-              position: 'absolute',
-
-              // Reset margins (only useful for actual devices).
               margin: 0,
-
-              // Reset borders (except the right border) and border radius.
-              borderLeft: 0,
-              borderTop: 0,
-              borderBottom: 0,
-              borderRadius: 0,
             },
           };
         },
@@ -99,15 +96,3 @@ addDecorator(withKnobs);
 addDecorator(getStory => <StoreProvider store={store}>{getStory()}</StoreProvider>);
 // Add a router context for each stories (navigation will be ignored).
 addDecorator(getStory => <MemoryRouter store={store}>{getStory()}</MemoryRouter>);
-
-/**
- * Load stories in renderer.
- */
-function loadStories() {
-  const req = require.context('../src/renderer/react', true, /\.stories\.jsx?$/);
-  req.keys().forEach((filename) => {
-    req(filename);
-  });
-}
-
-configure(loadStories, module);

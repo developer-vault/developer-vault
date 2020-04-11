@@ -23,6 +23,7 @@ export const getStoreFilePath = () => send(EVENTS.GET_STORE_FILE_PATH);
  *
  * @async
  * @param {string} key - The user password.
+ * @returns {Promise} Empty promise.
  */
 export const setKey = key => send(EVENTS.SET_KEY, key);
 
@@ -31,6 +32,7 @@ export const setKey = key => send(EVENTS.SET_KEY, key);
  *
  * @async
  * @param {object} state - The state to persist.
+ * @returns {Promise} Resolves when all pending saves are flushed.
  */
 export const saveState = state => send(EVENTS.SAVE_STATE, state);
 

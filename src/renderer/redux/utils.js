@@ -6,15 +6,20 @@ const emptyObject = {};
 const defaultMapDispatchToProps = () => emptyObject;
 
 /**
- * Wrap connect so it doesn't propagate dispatch
- * if we don't specify a second argument.
+ * A proxy for react-redux's `connect` that does not expose `dispatch`
+ * if `mapDispatchToProps` is not specified.
  *
- * @param {object|Function} mapStateToProps - MapStateToProps.
- * @param {object|Function} [mapDispatchToProps] - MapDispatchToProps.
- * @param {object|Function} [mergeProps] - MergeProps.
+ * @param {Function} [mapStateToProps] - Map state to props.
+ * @param {Function} [mapDispatchToProps] - Map dispatch to props.
+ * @param {Function} [mergeProps] - Merge props.
+ * @returns {Function} HOC.
  */
 export const connect = (
   mapStateToProps,
   mapDispatchToProps = defaultMapDispatchToProps,
-  mergeProps = null,
-) => rawConnect(mapStateToProps, mapDispatchToProps, mergeProps);
+  mergeProps,
+) => rawConnect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+);

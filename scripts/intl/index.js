@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const { argv } = require('yargs');
 
-const extractMessages = require('./intl/extractMessages');
-const updatePoFiles = require('./intl/updatePoFiles');
-const cleanPoFiles = require('./intl/cleanPoFiles');
+const extractMessages = require('./extractMessages');
+const updatePoFiles = require('./updatePoFiles');
+const cleanPoFiles = require('./cleanPoFiles');
 
 const cli = async () => {
   switch (argv.a) {
@@ -17,5 +17,11 @@ const cli = async () => {
   }
 };
 
-// eslint-disable-next-line no-console
-cli().catch(error => console.error(error));
+cli()
+  .catch((error) => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+
+    // Exit on error to prevent commiting an invalid state.
+    process.exit(1);
+  });

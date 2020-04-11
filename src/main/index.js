@@ -11,8 +11,8 @@ import { register as registerStateIpc, saveStateHandler } from './state';
  *
  * @async
  */
-function init() {
-  return Promise.all([
+async function init() {
+  await Promise.all([
     !app.isPackaged && installExtension(REACT_DEVELOPER_TOOLS),
     !app.isPackaged && installExtension(REDUX_DEVTOOLS),
   ].filter(Boolean));

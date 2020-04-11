@@ -1,7 +1,6 @@
 const path = require('path');
 
 const {
-  moduleRule,
   makeCssRule,
   makeCssModulesRule,
   makeSassRule,
@@ -16,6 +15,14 @@ module.exports = ({ config }) => {
   // Default config does not implicitly resolve .jsx files.
   config.resolve.extensions.push('.jsx');
 
+  config.resolve.modules.push(path.resolve(__dirname, '../src/renderer'));
+  config.resolve.alias.shared = path.resolve(__dirname, '../src/shared');
+
+  // This makes the alias only work when importing from 'react' exactly.
+  // This will work as long as storybook does not import from react like 'react/lib/x'.
+  config.resolve.alias.react$ = config.resolve.alias.react;
+  delete config.resolve.alias.react;
+
   config.devServer = { stats: 'minimal' };
 
   // Default config only transforms .js files.
@@ -24,13 +31,20 @@ module.exports = ({ config }) => {
   config.module.rules = [
     // JS/JSX.
     config.module.rules[0],
-    // Raw loader.
-    config.module.rules[1],
-    // Files (mp3 etc.).
+    config.module.rules[2],
+
+    // MDX.
+    config.module.rules[3],
     config.module.rules[4],
 
-    // .mjs files.
-    moduleRule,
+    // Source loader.
+    config.module.rules[5],
+
+    // Raw loader.
+    config.module.rules[1],
+
+    // Files (mp3 etc.).
+    config.module.rules[8],
 
     makeCssRule(),
     makeCssModulesRule(),
@@ -44,10 +58,6 @@ module.exports = ({ config }) => {
     // Gettext PO files for i18n.
     poRule,
   ];
-
-  config.resolve.modules.push(path.resolve(__dirname, '../src/renderer'));
-  config.resolve.alias.shared = path.resolve(__dirname, '../src/shared');
-  delete config.resolve.alias.react;
 
   return config;
 };

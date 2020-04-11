@@ -75,7 +75,7 @@ export async function persistEncryptedState(
     state: encryptedState,
   });
 
-  return fse.writeFile(
+  await fse.writeFile(
     storeFilePath,
     fileContent,
     {

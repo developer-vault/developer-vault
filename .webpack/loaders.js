@@ -29,10 +29,15 @@ const makeCssLoader = ({
       ? MiniCssExtractPlugin.loader
       // In development, use the style-loader (faster and allows MHR).
       : 'style-loader',
+
+    options: {
+      esModule: true,
+    },
   },
   {
     loader: 'css-loader',
     options: {
+      esModule: true,
       sourceMap: true,
       importLoaders,
       modules: enableModules
@@ -97,7 +102,7 @@ const assetsLoader = [
   {
     loader: 'file-loader',
     options: {
-      name: 'static/media/[name].[hash:8].[ext]',
+      name: 'static/[name].[hash:8].[ext]',
     },
   },
 ];

@@ -11,6 +11,7 @@ const PATTERN = 'src/renderer/locales/**/messages.po';
  *
  * @async
  * @param {string} poFile - Path to po file.
+ * @returns {Promise} Resolve with stdout, reject with stderr.
  */
 const clearObsoleteMessages = poFile => new Promise((resolve, reject) => {
   shell.exec(
@@ -37,7 +38,7 @@ const removeCreationDateHeader = async (poFile) => {
   const cleanedFileContent = fileContent
     .replace(headerRegex('POT-Creation-Date'), '');
 
-  return fse.writeFile(poFile, cleanedFileContent, { encoding: 'utf8' });
+  await fse.writeFile(poFile, cleanedFileContent, { encoding: 'utf8' });
 };
 
 /**
@@ -57,7 +58,7 @@ const cleanPoFile = async (poFile) => {
  * @async
  * @param {string} pattern - Glob pattern of files to filter.
  */
-const cleanPoFiles = (pattern = PATTERN) => {
+const cleanPoFiles = async (pattern = PATTERN) => {
   if (!shell.which('msgattrib')) {
     shell.echo('Sorry, this script requires msgattrib. Skipping...');
     shell.exit(0);
@@ -66,7 +67,7 @@ const cleanPoFiles = (pattern = PATTERN) => {
   // get all absolute file paths matching the PATTERN
   const patternWithRootDir = `${process.cwd()}/${pattern.replace(/('|")/g, '')}`;
   const srcPaths = glob.sync(patternWithRootDir, { absolute: true });
-  return Promise.all(srcPaths.map(cleanPoFile));
+  await Promise.all(srcPaths.map(cleanPoFile));
 };
 
 module.exports = cleanPoFiles;

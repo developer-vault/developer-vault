@@ -9,6 +9,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. [nodes.addChildNode]
+#. defaultMessage is:
+#. Add child
+#: .tmp/i18n/messages.json
+msgctxt "nodes.addChildNode"
+msgid "Add child"
+msgstr ""
+
+#. [nodes.addNode]
+#. defaultMessage is:
+#. Add node
+#: .tmp/i18n/messages.json
+msgctxt "nodes.addNode"
+msgid "Add node"
+msgstr ""
+
+#. [global.cancel]
+#. defaultMessage is:
+#. Cancel
+#: .tmp/i18n/messages.json
+msgctxt "global.cancel"
+msgid "Cancel"
+msgstr ""
+
 #. [story.button.label]
 #. defaultMessage is:
 #. Click me!
@@ -25,6 +49,38 @@ msgctxt "app.register.submit.button.label"
 msgid "Create my encrypted database"
 msgstr "Create my encrypted database"
 
+#. [global.delete]
+#. defaultMessage is:
+#. Delete
+#: .tmp/i18n/messages.json
+msgctxt "global.delete"
+msgid "Delete"
+msgstr ""
+
+#. [global.edit]
+#. defaultMessage is:
+#. Edit
+#: .tmp/i18n/messages.json
+msgctxt "global.edit"
+msgid "Edit"
+msgstr ""
+
+#. [global.install]
+#. defaultMessage is:
+#. Install
+#: .tmp/i18n/messages.json
+msgctxt "global.install"
+msgid "Install"
+msgstr ""
+
+#. [global.lock]
+#. defaultMessage is:
+#. Lock
+#: .tmp/i18n/messages.json
+msgctxt "global.lock"
+msgid "Lock"
+msgstr ""
+
 #. [app.login.submit.button.label]
 #. defaultMessage is:
 #. Log in
@@ -33,7 +89,15 @@ msgctxt "app.login.submit.button.label"
 msgid "Log in"
 msgstr "Log in"
 
-#. [app.register.password.strength.safely_unguessable]
+#. [global.ok]
+#. defaultMessage is:
+#. OK
+#: .tmp/i18n/messages.json
+msgctxt "global.ok"
+msgid "OK"
+msgstr ""
+
+#. [app.register.password.strength.safely_unguessable] - Description of a safely unguessable password
 #. defaultMessage is:
 #. Safely unguessable
 #: .tmp/i18n/messages.json
@@ -41,7 +105,15 @@ msgctxt "app.register.password.strength.safely_unguessable"
 msgid "Safely unguessable"
 msgstr "Safely unguessable"
 
-#. [app.register.password.strength.somewhat_guessable]
+#. [global.select]
+#. defaultMessage is:
+#. Select
+#: .tmp/i18n/messages.json
+msgctxt "global.select"
+msgid "Select"
+msgstr ""
+
+#. [app.register.password.strength.somewhat_guessable] - Description of a somewhat guessable password
 #. defaultMessage is:
 #. Somewhat guessable
 #: .tmp/i18n/messages.json
@@ -49,23 +121,15 @@ msgctxt "app.register.password.strength.somewhat_guessable"
 msgid "Somewhat guessable"
 msgstr "Somewhat guessable"
 
-#. [app.login.success.notification.message]
+#. [global.success]
 #. defaultMessage is:
-#. Success!
+#. Success
 #: .tmp/i18n/messages.json
-msgctxt "app.login.success.notification.message"
-msgid "Success!"
-msgstr "Success!"
+msgctxt "global.success"
+msgid "Success"
+msgstr ""
 
-#. [app.register.success.notification.message]
-#. defaultMessage is:
-#. Success!
-#: .tmp/i18n/messages.json
-msgctxt "app.register.success.notification.message"
-msgid "Success!"
-msgstr "Success!"
-
-#. [app.register.password.strength.too_guessable]
+#. [app.register.password.strength.too_guessable] - Description of a too guessable password
 #. defaultMessage is:
 #. Too guessable
 #: .tmp/i18n/messages.json
@@ -73,7 +137,15 @@ msgctxt "app.register.password.strength.too_guessable"
 msgid "Too guessable"
 msgstr "Too guessable"
 
-#. [app.register.password.strength.very_guessable]
+#. [global.unlock]
+#. defaultMessage is:
+#. Unlock
+#: .tmp/i18n/messages.json
+msgctxt "global.unlock"
+msgid "Unlock"
+msgstr ""
+
+#. [app.register.password.strength.very_guessable] - Description of a very guessable password
 #. defaultMessage is:
 #. Very guessable
 #: .tmp/i18n/messages.json
@@ -81,7 +153,7 @@ msgctxt "app.register.password.strength.very_guessable"
 msgid "Very guessable"
 msgstr "Very guessable"
 
-#. [app.register.password.strength.very_unguessable]
+#. [app.register.password.strength.very_unguessable] - Description of a very unguessable password
 #. defaultMessage is:
 #. Very unguessable
 #: .tmp/i18n/messages.json
