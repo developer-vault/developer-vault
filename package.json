@@ -152,7 +152,7 @@
     "core-js": "^3.2.1",
     "electron-devtools-installer": "^2.2.4",
     "fs-extra": "^8.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "regenerator-runtime": "^0.13.3"
   }
 }
