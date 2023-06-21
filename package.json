@@ -150,7 +150,7 @@
   },
   "dependencies": {
     "core-js": "^3.2.1",
-    "electron-devtools-installer": "^2.2.4",
+    "electron-devtools-installer": "^3.0.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "regenerator-runtime": "^0.13.3"
